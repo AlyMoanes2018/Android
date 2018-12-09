@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.android.agzakhanty">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature
+        android:name="android.hardware.sensor.accelerometer"
+        android:required="true" />
+
+    <application
+        android:name=".general.application.Agzakhanty"
+        android:allowBackup="true"
+        android:hardwareAccelerated="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.onesignal.NotificationOpened.DEFAULT"
+            android:value="DISABLE" />
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="8cd1dd33058c23f166b455686b433eedc3ecf64f" />
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyB2NVtEpKRQZ92S8J6dUwC9c38B04MESV0" />
+
+        <activity
+            android:name=".sprints.one.views.Splash"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Launcher">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".sprints.one.views.Login"
+            android:configChanges="orientation|keyboardHidden"
+            android:parentActivityName=".sprints.one.views.Splash"
+            android:screenOrientation="portrait"
+            android:theme="@style/UserScreensThemes">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".sprints.one.views.Splash" />
+        </activity>
+        <activity
+            android:name=".general.views.NoInternetConnection"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".sprints.one.views.ForgetPassword"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".sprints.two.views.Dashboard"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".sprints.one.views.Register"
+            android:configChanges="orientation|keyboardHidden"
+            android:parentActivityName=".sprints.one.views.Login"
+            android:screenOrientation="portrait"
+            android:theme="@style/UserScreensThemes"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".sprints.one.views.ProfilePhotoSetter"
+            android:configChanges="orientation|keyboardHidden"
+            android:parentActivityName=".sprints.one.views.Register"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".sprints.one.views.PostRegister"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".sprints.one.views.TermsAndConditions"
+            android:configChanges="orientation|keyboardHidden"
+            android:parentActivityName=".sprints.one.views.Register"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".sprints.one.views.FavouritePharmacy"
+            android:configChanges="orientation|keyboardHidden"
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".sprints.one.views.CustomerLocationSelector" />
+        </activity>
+        <activity
+            android:name=".sprints.one.views.AddPharmacy"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".sprints.one.views.FavouritePharmacy" />
+        </activity>
+        <activity
+            android:name=".sprints.two.views.SearchPharmacyByName"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".sprints.one.views.FavouritePharmacy" />
+        </activity>
+        <activity
+            android:name=".sprints.one.views.CustomerLocationSelector"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".sprints.one.views.ProfilePhotoSetter" />
+        </activity>
+        <activity
+            android:name=".sprints.one.views.InterestsActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".sprints.one.views.FinalRegistrationStep"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".sprints.two.views.MyOrders"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".sprints.three.views.MyConsultations"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".sprints.three.views.MyMeasurements"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".sprints.two.views.Circles"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".sprints.three.views.Reminders"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".sprints.three.views.ReportViolation"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".sprints.three.views.Instructions"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".sprints.two.views.Ads"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".sprints.three.views.Settings"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".sprints.two.views.NewOrder"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".sprints.two.views.SearchCirclePharmacyByName"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".sprints.two.views.NearbyCircleSearch"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".sprints.two.views.CirclesFull"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".sprints.two.views.AdDetails"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".sprints.two.views.AddAdvertismentRate"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".sprints.three.views.NewReminder"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".sprints.three.views.NewMeasurement"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".sprints.three.views.NewMeasurementDetails"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".sprints.three.views.NewConsultation"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".sprints.two.views.AddOrderByItemsSelection"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".sprints.two.views.AddOrderByPrescriptionPhoto"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".sprints.two.views.ViewOrderDetails"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+
+        <service
+            android:name=".general.push_notification.MyNotificationExtenderService"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE">
+            <intent-filter>
+                <action android:name="com.onesignal.NotificationExtender" />
+            </intent-filter>
+        </service>
+
+        <receiver android:name=".sprints.two.broadcast_recievers.AlarmReceiver" />
+
+        <activity
+            android:name=".sprints.two.views.DummyActivityToStartAlarm"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity android:name=".sprints.three.views.MeasurementChart"></activity>
+    </application>
+
+</manifest>

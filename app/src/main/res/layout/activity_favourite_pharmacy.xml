@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context="com.android.agzakhanty.views.FavouritePharmacy">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0dp"
+            android:background="#459283"
+            app:elevation="0dp"
+            app:theme="@style/CustomActionBar">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="9dp"
+                android:paddingBottom="9dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+
+                <TextView
+                    android:id="@+id/skip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/skip"
+                    android:textColor="@android:color/white"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/regTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fav"
+                    android:textColor="@android:color/white"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:textSize="20sp" />
+                </RelativeLayout>
+            </android.support.v7.widget.Toolbar>
+        </android.support.design.widget.AppBarLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:id="@+id/layout">
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/cryingFace"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/cry"
+            />
+
+        <TextView
+            android:id="@+id/noPharmacies"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/noFav"
+            android:layout_below="@+id/cryingFace"
+            android:layout_marginTop="27dp"
+            android:layout_marginBottom="27dp"
+            android:layout_marginStart="66dp"
+            android:layout_marginEnd="66dp"
+            android:textColor="#000000"
+            android:alpha=".5"
+            android:gravity="center_horizontal"
+            android:textSize="16sp" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/selectPharamacy"
+            android:background="@drawable/layout_rounded_button_white_green"
+            android:textColor="#459283"
+            android:layout_below="@id/noPharmacies"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/searchPharmacy"
+            android:textSize="16sp"/>
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/pcyCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pcyCode"
+            android:layout_below="@+id/layout"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginStart="66dp"
+            android:layout_marginEnd="66dp"
+            android:textColor="#000000"
+            android:alpha=".8"
+            android:textStyle="bold"
+            android:gravity="center_horizontal"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/value"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="center"
+            android:text=""
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/pcyCode"
+            android:textColor="#32B59C"
+            android:textSize="42sp" />
+
+        <TextView
+            android:id="@+id/sendCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sendInvitation"
+            android:layout_below="@+id/value"
+            android:layout_marginTop="0dp"
+            android:textStyle="bold"
+            android:layout_marginStart="66dp"
+            android:layout_marginEnd="66dp"
+            android:textColor="#000000"
+            android:alpha=".8"
+            android:gravity="center_horizontal"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+</ScrollView>

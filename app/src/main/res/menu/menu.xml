@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="@string/newOrder"
+        android:id="@+id/orderMenuItem"
+        android:icon="@drawable/ic_add_shopping_cart"/>
+    <item android:title="@string/newReminder"
+        android:id="@+id/reminderMenuItem"
+        android:icon="@drawable/ic_alarm_add"/>
+    <item android:title="@string/addToCircle"
+        android:id="@+id/circleMenuItem"
+        android:icon="@drawable/ic_alarm_add"/>
+    <item android:title="@string/nav_consultations"
+        android:id="@+id/consultationMenuItem"
+        android:icon="@drawable/ic_alarm_add"/>
+
+</menu>

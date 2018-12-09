@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/layout_rounded2">
+
+    <TextView
+        android:id="@+id/pharmacyNameTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="نوال حسين"
+        android:textColor="#140000"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="21dp"
+        android:textSize="14sp" />
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        android:stepSize="1.0"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="17dp"
+        android:layout_marginTop="21dp"
+        android:theme="@style/RatingBar"
+        style="?android:attr/ratingBarStyleSmall"
+        android:rating="5.0" />
+
+    <TextView
+        android:id="@+id/commentTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pharmacyNameTV"
+        android:text="منتج جيد، مفيد للبشره الجافه يحمي من التشققات والام البشره الجافه"
+        android:textColor="#140000"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="31dp"
+        android:layout_marginBottom="13dp"
+
+        android:textSize="14sp" />
+
+</RelativeLayout>

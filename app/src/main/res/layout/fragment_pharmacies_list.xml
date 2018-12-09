@@ -1,0 +1,31 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.android.agzakhanty.sprints.one.views.fragments.PharmaciesListFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/pharmaciesList"
+        android:visibility="gone">
+
+    </ListView>
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:id="@+id/noNearby"
+        android:layout_centerInParent="true"
+        android:textSize="14sp"
+        android:text="@string/noNearby"
+        android:gravity="center_horizontal"
+        android:visibility="gone"
+        />
+
+</RelativeLayout>

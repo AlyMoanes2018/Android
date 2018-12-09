@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:layout_marginTop="5dp"
+    android:id="@+id/mainLayout"
+    android:orientation="horizontal"
+    android:layout_marginBottom="7dp">
+
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="14dp"
+        android:background="@drawable/ic_invert_colors_green"/>
+
+
+    <TextView
+        android:id="@+id/doseName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="25dp"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:text="الجرعة الأولى"
+        android:textColor="#459283"
+        android:textSize="14sp" />
+
+
+    <LinearLayout
+        android:layout_width="0px"
+        android:layout_height="0px"
+        android:focusable="true"
+        android:focusableInTouchMode="true" />
+
+    <EditText
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/time"
+        android:layout_gravity="center"
+        android:textColor="#50000000"
+        android:text="00:00"
+        android:focusable="false"
+        android:layout_marginEnd="5dp"
+        android:gravity="center"
+        />
+
+    <Spinner
+        android:id="@+id/daySpinner"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:entries="@array/week_days"
+        android:layout_marginEnd="15dp"
+        android:gravity="start"
+        android:paddingEnd="13dp"
+        android:layout_gravity="center_vertical|end"/>
+
+
+    <EditText
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/monthDay"
+        android:layout_gravity="center"
+        android:textColor="#50000000"
+        android:text="1"
+        android:focusable="false"
+        android:layout_marginEnd="5dp"
+        android:gravity="center"
+        android:visibility="gone"
+        />
+
+
+</LinearLayout>
+

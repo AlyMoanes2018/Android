@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:layout_marginTop="5dp"
+    android:id="@+id/mainLayout"
+    android:layout_marginBottom="7dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/logo"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="15dp"
+        android:layout_marginEnd="11dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/cry" />
+
+    <LinearLayout
+        android:id="@+id/textLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="50dp"
+        android:layout_marginTop="16dp"
+        android:layout_toEndOf="@id/logo"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/nameTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="صيدلية العزبي"
+            android:textColor="#000000"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/dateTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="التاريخ: 20/05/2018"
+            android:textColor="#50000000"
+            android:textSize="10sp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/statusTV"
+        fontPath="fonts/bold.ttf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/layout_rounded"
+        android:gravity="center"
+        android:paddingBottom="3dp"
+        android:paddingTop="5dp"
+        android:paddingEnd="18dp"
+        android:paddingStart="18dp"
+        android:text="@string/preparing"
+        android:textColor="@android:color/white"
+        android:textSize="10sp" />
+
+
+    <TextView
+        android:id="@+id/totalTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/logo"
+        android:layout_marginStart="10dp"
+        android:text="إجمالي المنتجات 3:"
+        android:textColor="#000000"
+        android:textSize="12sp" />
+
+
+    <TextView
+        android:id="@+id/orderNumTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignStart="@id/statusTV"
+        android:layout_below="@id/logo"
+        android:text="طلب رقم : 21"
+        android:textColor="#000000"
+        android:textSize="12sp" />
+
+
+    <TextView
+        android:id="@+id/productsTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/totalTV"
+        android:text="ABIMOL 500 MG 20 TAB - ADOLOR 30 MG / 2 ML 3 AMP, BI - ALCOFAN 150 MG 20 TAB"
+        android:layout_marginTop="8dp"
+        android:layout_alignStart="@id/totalTV"
+        android:layout_alignEnd="@id/statusTV"
+        android:layout_marginStart="10dp"
+        android:textColor="#50000000"
+        android:gravity="start"
+        android:layout_marginBottom="10dp"
+        android:textSize="12sp" />
+
+
+</RelativeLayout>
+
