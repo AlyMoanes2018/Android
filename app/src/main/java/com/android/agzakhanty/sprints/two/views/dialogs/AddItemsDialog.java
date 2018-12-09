@@ -90,6 +90,7 @@ public class AddItemsDialog extends AlertDialog {
                     InputMethodManager imm = (InputMethodManager) textView.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(textView.getWindowToken(), 0);
                     validateInputDataAndSend();
+                    // This is a test comment
                 }
                 return false;
             }
