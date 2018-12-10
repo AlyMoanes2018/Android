@@ -91,6 +91,8 @@ public class AddItemsDialog extends AlertDialog {
                     imm.hideSoftInputFromWindow(textView.getWindowToken(), 0);
                     validateInputDataAndSend();
                     // This is a test comment
+
+                    // This is another test comment
                 }
                 return false;
             }
