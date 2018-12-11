@@ -153,10 +153,7 @@ public class AddAdvertismentRate extends AppCompatActivity {
                 if (response.body() != null) {
                     if (response.body()) {
                         Toast.makeText(AddAdvertismentRate.this, getResources().getString(R.string.updateOrderSuccess), Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(AddAdvertismentRate.this, Dashboard.class);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.activity_enter, R.anim.activity_leave);
-                        finish();
+
                     }
                     else
                         Toast.makeText(AddAdvertismentRate.this, getResources().getString(R.string.updateOrderFailure), Toast.LENGTH_LONG).show();

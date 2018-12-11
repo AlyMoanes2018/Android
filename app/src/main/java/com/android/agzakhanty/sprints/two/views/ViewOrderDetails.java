@@ -113,7 +113,7 @@ public class ViewOrderDetails extends AppCompatActivity {
             Intent intent = new Intent(Intent.ACTION_CALL);
             intent.setData(Uri.parse("tel:" + model.getPharmacy().getMobile()));
             startActivity(intent);
-        }else {
+        } else {
             getPhoneCallPermission();
         }
     }
@@ -195,13 +195,15 @@ public class ViewOrderDetails extends AppCompatActivity {
     private void goToGetOrderDetailsWS() {
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
         Call<DetailedOrderResponseModel> call = apiService.getSingleOrderDetails(customer.getId(), orderID);
-        Log.d("TEST_414", customer.getId() + " " + orderID);
+
         call.enqueue(new Callback<DetailedOrderResponseModel>() {
             @Override
             public void onResponse(Call<DetailedOrderResponseModel> call, Response<DetailedOrderResponseModel> response) {
                 dialog.dismiss();
                 if (response.body() != null) {
                     order = response.body();
+                    Log.d("TEST_414", new Gson().toJson(order));
+                    Log.d("TEST_414", customer.getId());
                     // Add a header to the ListView
                     LayoutInflater inflater = getLayoutInflater();
                     ViewGroup header = (ViewGroup) inflater.inflate(R.layout.selected_items_header, null);
@@ -251,7 +253,7 @@ public class ViewOrderDetails extends AppCompatActivity {
             @Override
             public void onResponse(Call<PharmacyDistance> call, Response<PharmacyDistance> response) {
                 if (response.body() != null) {
-                     model = response.body();
+                    model = response.body();
                     Log.d("TEST_DIST", model.getDistanceResult() + "  E");
                     if (response.body().getStatus().equalsIgnoreCase("true")) {
                         model.getPharmacy().setRate(model.getRate());
@@ -317,18 +319,21 @@ public class ViewOrderDetails extends AppCompatActivity {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
-    private void goToUpdateOrderWS() {
+    private void goToUpdateOrderWS(final String statusId) {
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<Boolean> call = apiService.updateCustomerOrder(orderID, customer.getId(), "4");
+        Call<Boolean> call = apiService.updateCustomerOrder(orderID, customer.getId(), statusId);
         call.enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                 dialog.dismiss();
-                if (response.body() != null) {
-                    if (response.body())
+                if (response.body() != null && response.body()) {
+                    if (statusId.equalsIgnoreCase("4"))
                         Toast.makeText(ViewOrderDetails.this, getResources().getString(R.string.updateOrderSuccess), Toast.LENGTH_LONG).show();
-                    else
-                        Toast.makeText(ViewOrderDetails.this, getResources().getString(R.string.updateOrderFailure), Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(ViewOrderDetails.this, Dashboard.class);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.activity_enter, R.anim.activity_leave);
+                    finish();
+
                 } else {
                     Log.d("TEST_NULL", response.code() + "");
                     Toast.makeText(ViewOrderDetails.this, getResources().getString(R.string.updateOrderFailure), Toast.LENGTH_LONG).show();
@@ -348,7 +353,7 @@ public class ViewOrderDetails extends AppCompatActivity {
         //update customer order
         dialog.setMessage(getResources().getString(R.string.updatingOrder));
         dialog.show();
-        goToUpdateOrderWS();
+        goToUpdateOrderWS("4");
     }
 
     @OnClick(R.id.cancel)
@@ -403,14 +408,7 @@ public class ViewOrderDetails extends AppCompatActivity {
                 if (response.body() != null) {
                     if (response.body()) {
                         Toast.makeText(ViewOrderDetails.this, getResources().getString(R.string.cancelOrderSuccess), Toast.LENGTH_LONG).show();
-                        //back to my orders after cancelling order
-                        prefManager.write(Constants.SELECTED_CANCEL_REASON, "");
-                        Intent intent = new Intent(ViewOrderDetails.this, MyOrders.class);
-                        intent.putExtra(Constants.ACTIVITY_STARTED_FROM, "dash");
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.activity_enter, R.anim.activity_leave);
-                        finish();
+                        goToUpdateOrderWS("7");
                     } else
                         Toast.makeText(ViewOrderDetails.this, getResources().getString(R.string.cancelOrderFailure), Toast.LENGTH_LONG).show();
                 } else {

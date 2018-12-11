@@ -21,7 +21,7 @@
 
             <TextView
                 android:id="@+id/itemNameTV"
-                android:layout_width="180dp"
+                android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:text="صيدلية العزبي"
                 android:layout_marginStart="12dp"

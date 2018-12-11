@@ -190,7 +190,7 @@ public class Dashboard extends AppCompatActivity {
             Intent intent = new Intent(Intent.ACTION_CALL);
             intent.setData(Uri.parse("tel:" + model.getPharmacy().getMobile()));
             startActivity(intent);
-        }else {
+        } else {
             getPhoneCallPermission();
         }
     }
@@ -388,59 +388,61 @@ public class Dashboard extends AppCompatActivity {
                                  timeRemaining.setVisibility(View.VISIBLE);
                                  setTimelineStep(Integer.parseInt(activeOrder.getStatusId()));
                                  // set remaining time
-                                 if (activeOrder.getStatusId().equals("1")) {
+                                 if (activeOrder.getStatusId().equalsIgnoreCase("1") ||
+                                         activeOrder.getStatusId().equalsIgnoreCase("2") ||
+                                         activeOrder.getStatusId().equalsIgnoreCase("3") ||
+                                         activeOrder.getStatusId().equalsIgnoreCase("4")) {
                                      timeRemainingTV2.setTextSize(12f);
                                      timeRemainingTV2.setText(R.string.NA);
-                                 } else if ((activeOrder.getStatusId().equals("4") ||
-                                         activeOrder.getStatusId().equals("5")) &&
-                                         activeOrder.getRemainingTime().equalsIgnoreCase("0")) {
-                                     timelineLayout.setVisibility(View.GONE);
-                                     deliverdLayout.setVisibility(View.VISIBLE);
-                                 } else {
-                                     int minutes = Integer.parseInt(activeOrder.getRemainingTime());
-                                     try {
-                                         seconds = Integer.parseInt(activeOrder.getRemainingTimeSecond());
-                                     } catch (Exception e) {
-                                         seconds = 0;
-                                     }
-                                     Log.d("TEST_SECONDS", seconds + "");
-                                     int timerLimitInMilliS = minutes * 60 * 1000;
-                                     Log.d("TEST_TIMER", timerLimitInMilliS + "");
-                                     timeRemainingTV2.setTextSize(20f);
-                                     timeRemainingTV2.setText(String.format("%02d", minutes) + ":" + String.format("%02d", seconds));
-                                     alarmIntent.putExtra("orderNum", activeOrder.getOrderId());
-                                     Log.d("TEST_NUM", activeOrder.getOrderId());
-                                    /* pendingIntent = PendingIntent.getBroadcast(Dashboard.this, 0, alarmIntent, 0);
-                                     Calendar calendar = Calendar.getInstance();
-                                     calendar.setTimeInMillis(System.currentTimeMillis());
-                                     calendar.add(Calendar.MINUTE, minutes); //Minutes
-                                     PrefManager.getInstance(Dashboard.this).write(Constants.SCHEDULED_ALARM_ORDER_ID,
-                                             activeOrder.getOrderId());
-                                     manager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + timerLimitInMilliS, pendingIntent);*/
-                                     if (PrefManager.getInstance(Dashboard.this).read(Constants.TIMER_IS_STARTED).isEmpty()) {
-                                         timer = new CountDownTimer(timerLimitInMilliS, 1000) {
-                                             @Override
-                                             public void onTick(long l) {
-                                                 int updatedSeconds = (int) (l / 1000) % 60;
-                                                 int updatedMinutes = (int) ((l / (1000 * 60)) % 60);
-                                                 timeRemainingTV2.setText(String.format("%02d", updatedMinutes) + ":" + String.format("%02d", updatedSeconds));
+                                 } else if ((activeOrder.getStatusId().equals("5"))) {
 
-                                             }
+                                     if (activeOrder.getRemainingTime().equalsIgnoreCase("0")) {
+                                         timelineLayout.setVisibility(View.GONE);
+                                         deliverdLayout.setVisibility(View.VISIBLE);
+                                     } else {
+                                         int minutes = Integer.parseInt(activeOrder.getRemainingTime());
+                                         try {
+                                             seconds = Integer.parseInt(activeOrder.getRemainingTimeSecond());
+                                         } catch (Exception e) {
+                                             seconds = 0;
+                                         }
+                                         Log.d("TEST_SECONDS", seconds + "");
+                                         int timerLimitInMilliS = minutes * 60 * 1000;
+                                         Log.d("TEST_TIMER", timerLimitInMilliS + "");
+                                         timeRemainingTV2.setTextSize(20f);
+                                         timeRemainingTV2.setText(String.format("%02d", minutes) + ":" + String.format("%02d", seconds));
+                                         alarmIntent.putExtra("orderNum", activeOrder.getOrderId());
+                                         Log.d("TEST_NUM", activeOrder.getOrderId());
 
-                                             @Override
-                                             public void onFinish() {
-                                                 timeRemainingTV2.setText("00:00");
-                                                 timelineLayout.setVisibility(View.GONE);
-                                                 deliverdLayout.setVisibility(View.VISIBLE);
-                                                 PrefManager.getInstance(Dashboard.this).write(Constants.TIMER_IS_STARTED, "");
-                                             }
-                                         }.start();
-                                         PrefManager.getInstance(Dashboard.this).write(Constants.TIMER_IS_STARTED, "t");
+                                         if (PrefManager.getInstance(Dashboard.this).read(Constants.TIMER_IS_STARTED).isEmpty()) {
+                                             timer = new CountDownTimer(timerLimitInMilliS, 1000) {
+                                                 @Override
+                                                 public void onTick(long l) {
+                                                     int updatedSeconds = (int) (l / 1000) % 60;
+                                                     int updatedMinutes = (int) ((l / (1000 * 60)) % 60);
+                                                     timeRemainingTV2.setText(String.format("%02d", updatedMinutes) + ":" + String.format("%02d", updatedSeconds));
+
+                                                 }
+
+                                                 @Override
+                                                 public void onFinish() {
+                                                     timeRemainingTV2.setText("00:00");
+                                                     timelineLayout.setVisibility(View.GONE);
+                                                     deliverdLayout.setVisibility(View.VISIBLE);
+                                                     PrefManager.getInstance(Dashboard.this).write(Constants.TIMER_IS_STARTED, "");
+                                                 }
+                                             }.start();
+                                             PrefManager.getInstance(Dashboard.this).write(Constants.TIMER_IS_STARTED, "t");
+                                         }
                                      }
                                  }
+
+
                                  if (isAdsNeeded)
                                      goToGetAdsWS();
-                             } else {
+                             } else
+
+                             {
 
                                  progressBar2.setVisibility(View.GONE);
                                  noActiveOrder.setVisibility(View.VISIBLE);
@@ -478,7 +480,7 @@ public class Dashboard extends AppCompatActivity {
     }
 
     public void setTimelineStep(int step) {
-        if (step == 1 || step == 2 || step == 3) {
+        if (step == 1 || step == 2 || step == 3 || step == 4) {
             firstCircle.setBackgroundResource(R.drawable.layout_circle3);
             firstLine.setBackgroundColor(Color.parseColor("#F5F5F5"));
             secondCircle.setBackgroundResource(R.drawable.layout_circle4);
@@ -488,7 +490,7 @@ public class Dashboard extends AppCompatActivity {
             statusTwoNameTV.setTextColor(Color.parseColor("#F5F5F5"));
             statusThreeNameTV.setTextColor(Color.parseColor("#F5F5F5"));
 
-        } else if (step == 4 || step == 5) {
+        } else if (step == 5) {
             firstCircle.setBackgroundResource(R.drawable.layout_circle3);
             firstLine.setBackgroundColor(Color.parseColor("#449D44"));
             secondCircle.setBackgroundResource(R.drawable.layout_circle3);

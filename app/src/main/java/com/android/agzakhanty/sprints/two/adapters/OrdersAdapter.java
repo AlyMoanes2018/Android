@@ -75,9 +75,9 @@ public class OrdersAdapter extends ArrayAdapter<Order> {
             Log.d("TEST_NULL", "NOT NULL");
         else Log.d("TEST_NULL", "NULL");
         String orderFinalStatus = "";
-        if (order.getStatusId().equals("1") || order.getStatusId().equals("2") || order.getStatusId().equals("3"))
+        if (order.getStatusId().equals("1") || order.getStatusId().equals("2") || order.getStatusId().equals("3") || order.getStatusId().equals("4"))
             orderFinalStatus = context.getResources().getString(R.string.preparingOrder);
-        else if (order.getStatusId().equals("4") || order.getStatusId().equals("5"))
+        else if (order.getStatusId().equals("5"))
             orderFinalStatus = context.getResources().getString(R.string.deliveringOrder);
         else if (order.getStatusId().equals("6"))
             orderFinalStatus = context.getResources().getString(R.string.deliveredOrder);
@@ -113,7 +113,8 @@ public class OrdersAdapter extends ArrayAdapter<Order> {
                 if (((Activity) context).getCallingActivity() != null) {
                     // select an order
                     Intent intent = new Intent();
-                    intent.putExtra("order", new Gson().toJson(orders.get(i)));
+                    intent.putExtra("order", orders.get(i).getOrderId());
+                    intent.putExtra("orderPCYID", orders.get(i).getPcyId());
                     ((Activity) context).setResult(RESULT_OK, intent);
                     //close this Activity...
                     ((Activity) context).finish();

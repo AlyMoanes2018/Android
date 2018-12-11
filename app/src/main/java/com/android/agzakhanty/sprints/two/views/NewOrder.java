@@ -15,7 +15,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -42,7 +44,10 @@ import com.android.agzakhanty.sprints.one.views.FavouritePharmacy;
 import com.android.agzakhanty.sprints.one.views.ProfilePhotoSetter;
 import com.android.agzakhanty.sprints.three.models.api_responses.SaveOrderDetails;
 import com.android.agzakhanty.sprints.three.models.api_responses.SaveOrderResponseModel;
+import com.android.agzakhanty.sprints.two.adapters.SelectedItemsAdapter;
 import com.android.agzakhanty.sprints.two.models.Order;
+import com.android.agzakhanty.sprints.two.models.OrderDetails;
+import com.android.agzakhanty.sprints.two.models.api_responses.DetailedOrderResponseModel;
 import com.android.agzakhanty.sprints.two.models.api_responses.PharmacyResponseModel;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -72,9 +77,8 @@ public class NewOrder extends AppCompatActivity {
     ProgressDialog dialog;
     Customer customer;
     String favouritePharmacyID;
-    Order toBeRepeated;
+    DetailedOrderResponseModel toBeRepeated;
     PharmacyDistance model;
-
 
 
     @OnClick(R.id.callButton)
@@ -85,7 +89,7 @@ public class NewOrder extends AppCompatActivity {
             Intent intent = new Intent(Intent.ACTION_CALL);
             intent.setData(Uri.parse("tel:" + model.getPharmacy().getMobile()));
             startActivity(intent);
-        }else {
+        } else {
             getPhoneCallPermission();
         }
     }
@@ -267,34 +271,16 @@ public class NewOrder extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 124 && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
+            String orderId = "";
             if (extras != null) {
                 Log.d("TEST_RESULT", extras.getString("order") + "  E");
                 //submit the selected order here
-                toBeRepeated = new Gson().fromJson(extras.getString("order"), new TypeToken<Order>() {
-                }.getType());
-                //create the order object
-                SaveOrderResponseModel order = new SaveOrderResponseModel();
-                SaveOrderDetails orderDetails = new SaveOrderDetails();
-                orderDetails.setCstId(customer.getId());
-                // we nee pcy id field
-                orderDetails.setPcyId(toBeRepeated.getPcyId());
-                // we need delivery type field
-                orderDetails.setDeliveryType("H");
-                orderDetails.setLattitude(customer.getLatitude());
-                orderDetails.setLongitude(customer.getLongitude());
-                orderDetails.setTotal(toBeRepeated.getTotalPrice() + "");
-                orderDetails.setComment(toBeRepeated.getOrderComment());
-                orderDetails.setItemsList(toBeRepeated.getListItem());
-                order.setRxImage(null);
-                ArrayList<SaveOrderDetails> arr = new ArrayList<>();
-                arr.add(orderDetails);
-                order.setOrderDetails(arr);
-                order.setFileName();
-                Log.d("TEST_ORDER_SENT", new Gson().toJson(order));
-                //send customer order
-                dialog.setMessage(getResources().getString(R.string.savingOrder));
+                orderId = extras.getString("order");
+
+                //getting order details then sending order
+                dialog.setMessage(getResources().getString(R.string.loadingOrder));
                 dialog.show();
-                goToSaveOrderWS(order);
+                goToGetOrderDetailsWS(orderId, extras.getString("orderPCYID"));
             } else Log.d("TEST_RESULT", "NULL");
         } else {
             Toast.makeText(NewOrder.this, getResources().getString(R.string.noOrdersForResult), Toast.LENGTH_LONG).show();
@@ -349,5 +335,53 @@ public class NewOrder extends AppCompatActivity {
         overridePendingTransition(R.anim.activity_leave, R.anim.activity_enter);
         finish();
 
+    }
+
+    private void goToGetOrderDetailsWS(String orderID, final String pcyId) {
+        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+        Call<DetailedOrderResponseModel> call = apiService.getSingleOrderDetails(customer.getId(), orderID);
+        Log.d("TEST_414", customer.getId() + " " + orderID);
+        call.enqueue(new Callback<DetailedOrderResponseModel>() {
+            @Override
+            public void onResponse(Call<DetailedOrderResponseModel> call, Response<DetailedOrderResponseModel> response) {
+
+                if (response.body() != null) {
+                    toBeRepeated = response.body();
+                    dialog.setMessage(getResources().getString(R.string.loadingOrder));
+                    //create the order object
+                    SaveOrderResponseModel order = new SaveOrderResponseModel();
+                    SaveOrderDetails orderDetails = new SaveOrderDetails();
+                    orderDetails.setCstId(customer.getId());
+                    // we nee pcy id field
+                    Log.d("TEST_ORDER_SENT_PCY", getIntent().getStringExtra("orderPCYID") + "   E");
+                    orderDetails.setPcyId(pcyId);
+                    // we need delivery type field
+                    orderDetails.setDeliveryType(toBeRepeated.getDeliveryType());
+                    orderDetails.setLattitude(customer.getLatitude());
+                    orderDetails.setLongitude(customer.getLongitude());
+                    orderDetails.setTotal(toBeRepeated.getTotal() + "");
+                    orderDetails.setComment(toBeRepeated.getComment());
+                    orderDetails.setItemsList(toBeRepeated.getListItem());
+                    order.setRxImage(null);
+                    ArrayList<SaveOrderDetails> arr = new ArrayList<>();
+                    arr.add(orderDetails);
+                    order.setOrderDetails(arr);
+                    order.setFileName();
+                    Log.d("TEST_ORDER_SENT", new Gson().toJson(order));
+                    //send customer order
+
+                    goToSaveOrderWS(order);
+                } else {
+                    dialog.dismiss();
+                    Toast.makeText(NewOrder.this, getResources().getString(R.string.serverFailureMsg), Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DetailedOrderResponseModel> call, Throwable t) {
+                dialog.dismiss();
+                Toast.makeText(NewOrder.this, getResources().getString(R.string.serverFailureMsg), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }
