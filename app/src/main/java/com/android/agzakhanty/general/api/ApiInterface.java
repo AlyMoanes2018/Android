@@ -25,6 +25,7 @@ import com.android.agzakhanty.sprints.three.models.api_responses.SaveOrderRespon
 import com.android.agzakhanty.sprints.three.models.api_responses.UpdateMeasureResponseModel;
 import com.android.agzakhanty.sprints.three.models.api_responses.ViolationTypesResponesModel;
 import com.android.agzakhanty.sprints.two.models.CancelReason;
+import com.android.agzakhanty.sprints.two.models.CategoriesResponseModel;
 import com.android.agzakhanty.sprints.two.models.Order;
 import com.android.agzakhanty.sprints.two.models.UserRatings;
 import com.android.agzakhanty.sprints.two.models.api_responses.AdResponseModel;
@@ -116,7 +117,7 @@ public interface ApiInterface {
     Call<ArrayList<ItemsResponseModel>> searchItemsByName(@Query("SearchType") String type, @Query("ItemName") String query);
 
     @GET("CirclePcyAdv/GetPcyAdvTags")
-    Call<ArrayList<String>> getAdvTags(@Query("AdvId") String advID);
+    Call<ArrayList<CategoriesResponseModel>> getAdvTags(@Query("AdvId") String advID);
 
     @GET("Order/GetCstmrOrders")
     Call<ArrayList<Reminder>> getAllCustomerReminders(@Query("CstmrId") String custID);

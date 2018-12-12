@@ -21,6 +21,7 @@ import com.android.agzakhanty.general.application.Constants;
 import com.android.agzakhanty.general.models.PrefManager;
 import com.android.agzakhanty.sprints.two.models.api_responses.AdResponseModel;
 import com.android.agzakhanty.sprints.two.models.api_responses.ItemsResponseModel;
+import com.android.agzakhanty.sprints.two.views.AddOrderByItemsSelection;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -115,7 +116,7 @@ public class SelectedItemsAdapter extends ArrayAdapter<ItemsResponseModel> {
             result = view;
         }
 
-        viewHolder.price.addTextChangedListener(new TextWatcher() {
+        /*viewHolder.price.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -130,7 +131,7 @@ public class SelectedItemsAdapter extends ArrayAdapter<ItemsResponseModel> {
             public void afterTextChanged(Editable editable) {
                 models.get(i).setPrice(viewHolder.price.getText().toString());
             }
-        });
+        });*/
 
         viewHolder.quantity.addTextChangedListener(new TextWatcher() {
             @Override
@@ -145,7 +146,25 @@ public class SelectedItemsAdapter extends ArrayAdapter<ItemsResponseModel> {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                models.get(i).setQty(viewHolder.quantity.getText().toString());
+                String newPrice = "";
+
+                if (!viewHolder.quantity.getText().toString().isEmpty()) {
+                    if (Float.parseFloat(viewHolder.quantity.getText().toString()) != 0) {
+                        models.get(i).setQty(viewHolder.quantity.getText().toString());
+                        newPrice = (Float.parseFloat(models.get(i).getQty()))
+                                * (Float.parseFloat(models.get(i).getPrice())) + "";
+                        Log.d("TEST_FLOAT", Float.parseFloat(models.get(i).getQty()) +
+                                " *" + Float.parseFloat(models.get(i).getPrice()) + " = " + newPrice);
+                        viewHolder.price.setText(newPrice);
+                        ((AddOrderByItemsSelection) context).updateTotalPrice();
+                    } else {
+                        models.get(i).setQty("1");
+                        newPrice = models.get(i).getPrice();
+                        viewHolder.price.setText(newPrice);
+                        viewHolder.quantity.setText("1");
+                        ((AddOrderByItemsSelection) context).updateTotalPrice();
+                    }
+                }
             }
         });
 

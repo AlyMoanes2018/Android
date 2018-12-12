@@ -113,7 +113,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginStart="7dp"
                     android:layout_marginEnd="9dp"
-                    android:background="@drawable/img" />
+                     />
 
                 <TextView
                     android:id="@+id/adPrice"

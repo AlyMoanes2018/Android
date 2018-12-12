@@ -128,7 +128,7 @@ public class AdsAdapter extends ArrayAdapter<AdResponseModel> {
         }
 
         viewHolder.name.setText(models.get(i).getPcyName());
-        viewHolder.item.setText(models.get(i).getDetails());
+        viewHolder.item.setText(models.get(i).getAdvSubject());
         viewHolder.expiryDate.setText(context.getResources().getString(R.string.adExpiry) +
                 " " + models.get(i).getAdvExpireDate().split("T")[0]);
         viewHolder.startDateHeader.setText(models.get(i).getDay());

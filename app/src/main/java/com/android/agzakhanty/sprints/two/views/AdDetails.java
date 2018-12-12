@@ -33,6 +33,7 @@ import com.android.agzakhanty.sprints.one.models.Customer;
 import com.android.agzakhanty.sprints.three.models.api_responses.SaveOrderDetails;
 import com.android.agzakhanty.sprints.three.models.api_responses.SaveOrderResponseModel;
 import com.android.agzakhanty.sprints.two.adapters.UserRatingsAdapter;
+import com.android.agzakhanty.sprints.two.models.CategoriesResponseModel;
 import com.android.agzakhanty.sprints.two.models.Order;
 import com.android.agzakhanty.sprints.two.models.UserRatings;
 import com.android.agzakhanty.sprints.two.models.api_responses.AdResponseModel;
@@ -208,7 +209,6 @@ public class AdDetails extends AppCompatActivity implements SwipeRefreshLayout.O
         goToGetAdDetailsWS();
 
 
-
     }
 
     private void getUserRates() {
@@ -235,6 +235,7 @@ public class AdDetails extends AppCompatActivity implements SwipeRefreshLayout.O
 
                          @Override
                          public void onFailure(Call<ArrayList<UserRatings>> call, Throwable t) {
+                             Log.d("TEST_FAIL", "IT's The Rates");
                              Toast.makeText(AdDetails.this, getResources().getString(R.string.serverFailureMsg), Toast.LENGTH_LONG).show();
                              noUserRatesTV.setVisibility(View.VISIBLE);
                              dialog.dismiss();
@@ -250,18 +251,30 @@ public class AdDetails extends AppCompatActivity implements SwipeRefreshLayout.O
     }
 
     private void goToAdTagsWS() {
+        Log.d("TEST_FAIL", ad.getAdvId());
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<ArrayList<String>> call = apiService.getAdvTags(ad.getAdvId());
-        call.enqueue(new Callback<ArrayList<String>>() {
+        Call<ArrayList<CategoriesResponseModel>> call = apiService.getAdvTags(ad.getAdvId());
+        call.enqueue(new Callback<ArrayList<CategoriesResponseModel>>() {
                          @Override
-                         public void onResponse(Call<ArrayList<String>> call, Response<ArrayList<String>> response) {
+                         public void onResponse(Call<ArrayList<CategoriesResponseModel>> call, Response<ArrayList<CategoriesResponseModel>> response) {
                              if (response.body() != null && response.isSuccessful()) {
                                  String tagsConcatenated = "";
-                                 for (int i = 0; i < response.body().size(); i++) {
-                                     if (response.body().get(i) != null)
-                                         tagsConcatenated += response.body().get(i) + " ";
-                                 }
-                                 categoriesValTV.setText(tagsConcatenated);
+                                 if (response.body().size() > 0) {
+                                     for (int i = 0; i < response.body().size(); i++) {
+                                         if (prefManager.readInt(Constants.SP_LANGUAGE_KEY) == 0) {
+                                             if (i < response.body().size() - 1)
+                                                 tagsConcatenated += response.body().get(i).getTagAr() + " - ";
+                                             else
+                                                 tagsConcatenated += response.body().get(i).getTagAr();
+                                         } else if (prefManager.readInt(Constants.SP_LANGUAGE_KEY) == 1) {
+                                             if (i < response.body().size() - 1)
+                                                 tagsConcatenated += response.body().get(i).getTagEn() + " - ";
+                                             else
+                                                 tagsConcatenated += response.body().get(i).getTagEn();
+                                         }
+                                     }
+                                     categoriesValTV.setText(tagsConcatenated);
+                                 } else categoriesValTV.setText(getResources().getString(R.string.noCats));
                              } else {
                                  categoriesValTV.setText(getResources().getString(R.string.noCats));
 
@@ -270,7 +283,9 @@ public class AdDetails extends AppCompatActivity implements SwipeRefreshLayout.O
                          }
 
                          @Override
-                         public void onFailure(Call<ArrayList<String>> call, Throwable t) {
+                         public void onFailure(Call<ArrayList<CategoriesResponseModel>> call, Throwable t) {
+                             Log.d("TEST_FAIL", t.getMessage());
+                             categoriesValTV.setText(getResources().getString(R.string.noCats));
                              Toast.makeText(AdDetails.this, getResources().getString(R.string.serverFailureMsg), Toast.LENGTH_LONG).show();
                              dialog.dismiss();
                          }
@@ -291,6 +306,7 @@ public class AdDetails extends AppCompatActivity implements SwipeRefreshLayout.O
                     swiperefresh.setRefreshing(false);
                     getUserRates();
                 } else {
+                    Log.d("TEST_FAIL", "IT's The AD Details NULL");
                     Toast.makeText(AdDetails.this, getResources().getString(R.string.adItemFailure), Toast.LENGTH_LONG).show();
                     swiperefresh.setRefreshing(false);
                     getUserRates();

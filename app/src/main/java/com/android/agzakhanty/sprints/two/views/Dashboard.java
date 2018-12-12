@@ -166,6 +166,7 @@ public class Dashboard extends AppCompatActivity {
     private AlarmManager manager;
     PharmacyDistance model;
     Boolean doubleBackToExitPressedOnce;
+    ArrayList<AdResponseModel> activeAds;
 
     // The following are used for the shake detection
     private SensorManager mSensorManager;
@@ -347,13 +348,15 @@ public class Dashboard extends AppCompatActivity {
         recycler.addOnItemTouchListener(new RecyclerTouchListener(Dashboard.this, recycler, new ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                Log.d("TEST_AD", "IN");
-                Intent intent = new Intent(Dashboard.this, com.android.agzakhanty.sprints.two.views.AdDetails.class);
-                intent.putExtra(Constants.ACTIVITY_STARTED_FROM, "dash");
-                PrefManager.getInstance(Dashboard.this).write(Constants.AD_DETAILS_JSON_OBJECT, new Gson().toJson(models.get(position)));
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-                overridePendingTransition(R.anim.activity_enter, R.anim.activity_leave);
+                if (activeAds.get(position) != null) {
+                    Log.d("TEST_AD", "IN");
+                    Intent intent = new Intent(Dashboard.this, com.android.agzakhanty.sprints.two.views.AdDetails.class);
+                    intent.putExtra(Constants.ACTIVITY_STARTED_FROM, "dash");
+                    PrefManager.getInstance(Dashboard.this).write(Constants.AD_DETAILS_JSON_OBJECT, new Gson().toJson(activeAds.get(position)));
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.activity_enter, R.anim.activity_leave);
+                }
             }
 
             @Override
@@ -618,11 +621,12 @@ public class Dashboard extends AppCompatActivity {
                 ads_progress_bar.setVisibility(View.GONE);
                 if (response.body() != null && response.isSuccessful()) {
                     models = response.body();
-                    ArrayList<AdResponseModel> activeAds = new ArrayList<>();
+                    activeAds = new ArrayList<>();
                     for (int i = 0; i < models.size(); i++) {
                         if (models.get(i).getIsActive() != null && models.get(i).getIsActive().equalsIgnoreCase("y"))
                             activeAds.add(models.get(i));
                     }
+                    Log.d("TEST_ADS_SERVICE", new Gson().toJson(activeAds));
                     Log.d("TEST_BUG_BUG", response.body().size() + " models");
                     recycler.setLayoutManager
                             (new LinearLayoutManager(Dashboard.this, LinearLayoutManager.HORIZONTAL, true));

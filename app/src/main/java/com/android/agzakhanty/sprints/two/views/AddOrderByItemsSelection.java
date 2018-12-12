@@ -235,7 +235,7 @@ public class AddOrderByItemsSelection extends AppCompatActivity {
     public void onDialogDoneButtonClicked(ArrayList<ItemsResponseModel> selectedItemsFromDialog) {
         selectedItems = selectedItemsFromDialog;
         totalOrderPrice = calculateTotalOrderPrice();
-        priceValTV.setText(totalOrderPrice + " " + getResources().getString(R.string.egp));
+        priceValTV.setText(String.format("%.2f",totalOrderPrice) + " " + getResources().getString(R.string.egp));
         if (selectedItems.size() > 0) {
             SelectedItemsAdapter adapter = new SelectedItemsAdapter(selectedItems, this, false, "");
             itemsList.setAdapter(adapter);
@@ -247,6 +247,11 @@ public class AddOrderByItemsSelection extends AppCompatActivity {
         }
 
         Log.d("TEST_ITEMS_ACTIVITY", selectedItems.get(0).getNameAr());
+    }
+
+    public void updateTotalPrice(){
+        totalOrderPrice = calculateTotalOrderPrice();
+        priceValTV.setText(String.format("%.2f",totalOrderPrice) + " " + getResources().getString(R.string.egp));
     }
 
     @OnClick(R.id.order)
@@ -318,6 +323,10 @@ public class AddOrderByItemsSelection extends AppCompatActivity {
     @OnClick(R.id.cancel)
     public void cancelOrder() {
         //confirm customer order
+        Intent intent = new Intent(AddOrderByItemsSelection.this, NewOrder.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        overridePendingTransition(R.anim.activity_leave, R.anim.activity_enter);
         finish();
     }
 
