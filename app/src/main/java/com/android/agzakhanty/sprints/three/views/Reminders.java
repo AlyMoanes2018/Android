@@ -104,11 +104,16 @@ public class Reminders extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 Log.d("TEST_REM", "I'M CALLED");
-                page = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.viewpager + ":" + viewPager.getCurrentItem());
-                if (viewPager.getCurrentItem() == 0 && page != null) {
-                    ((RemindersFragment) page).loadActiveReminders(searchRemindersET.getText().toString());
-                } else if (viewPager.getCurrentItem() == 1 && page != null) {
-                    ((RemindersFragment) page).loadCompletedReminders(searchRemindersET.getText().toString());
+                if (reminders.size() > 0) {
+                    page = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.viewpager + ":" + viewPager.getCurrentItem());
+                    if (viewPager.getCurrentItem() == 0 && page != null) {
+                        ((RemindersFragment) page).loadActiveReminders(searchRemindersET.getText().toString());
+                    } else if (viewPager.getCurrentItem() == 1 && page != null) {
+                        ((RemindersFragment) page).loadCompletedReminders(searchRemindersET.getText().toString());
+                    }
+                } else {
+                    if (page != null)
+                        ((RemindersFragment) page).updateUIForNoRemindersFound();
                 }
             }
 
@@ -128,18 +133,17 @@ public class Reminders extends AppCompatActivity {
     private void goToGetRemindersWS() {
 
 
-        if (reminders.size() > 0) {
+
 
             PrefManager.getInstance(Reminders.this).write(Constants.REMINDER_ALL_CUSTOMER_REMINDER, new Gson().toJson(reminders));
-
-            if (viewPager.getCurrentItem() == 0 && page != null) {
-                ((RemindersFragment) page).loadActiveReminders(searchRemindersET.getText().toString());
-            }
-
-        } else {
-            if (page != null)
-                ((RemindersFragment) page).updateUIForNoRemindersFound();
-        }
+            viewPager.post(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    onPageChangeListener .onPageSelected(viewPager.getCurrentItem());
+                }
+            });
 
     }
 

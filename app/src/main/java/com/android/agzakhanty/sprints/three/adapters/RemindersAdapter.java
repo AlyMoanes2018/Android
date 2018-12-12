@@ -93,9 +93,9 @@ public class RemindersAdapter extends ArrayAdapter<Reminder> {
                 reminder.getDate().split("T")[0]);
 
 
-        if (reminder.getStatus().equalsIgnoreCase("y"))
+        if (reminder.getStatus().equalsIgnoreCase("n"))
             viewHolder.statusTV.setVisibility(View.VISIBLE);
-        else if (reminder.getStatus().equalsIgnoreCase("n"))
+        else if (reminder.getStatus().equalsIgnoreCase("y"))
             viewHolder.statusTV.setVisibility(View.GONE);
 
 

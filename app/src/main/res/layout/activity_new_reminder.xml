@@ -49,7 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/appBar"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="15dp"
             android:text="@string/reminderName"
             android:textColor="#459283"
             android:textSize="14sp" />
@@ -61,10 +61,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/reminderNameTV"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="10dp"
             android:layout_marginEnd="15dp"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="10dp"
             app:errorTextAppearance="@style/error_appearance">
 
             <LinearLayout
@@ -98,7 +97,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/typeTV"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="15dp"
             android:layout_marginEnd="15dp"
             android:layout_marginStart="13dp"
             android:layout_marginTop="10dp"
@@ -147,10 +146,12 @@
             <TextView
                 android:layout_width="280dp"
                 android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
                 android:id="@+id/addedItemNameTV"
-                android:text=""
+                android:text="ون تو ثري"
                 android:layout_centerVertical="true"
-                android:maxLines="1"
+                android:singleLine="true"
                 android:ellipsize="marquee"
                 android:marqueeRepeatLimit ="marquee_forever"
                 android:focusable="true"
@@ -177,7 +178,7 @@
             android:layout_below="@id/itemNameAndDeleteAction"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="22dp"
+            android:layout_marginBottom="15dp"
             >
 
             <ImageView
@@ -247,7 +248,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:entries="@array/repeats_array"
-                android:layout_marginEnd="15dp"
+                android:layout_marginEnd="5dp"
                 android:gravity="start" />
 
 
@@ -255,7 +256,7 @@
                 android:id="@+id/everyTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
+                android:layout_marginStart="5dp"
                 android:text="@string/every"
                 android:textColor="#459283"
                 android:gravity="center_vertical"
@@ -274,7 +275,7 @@
 
         <ListView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="700dp"
             android:nestedScrollingEnabled="true"
             android:layout_marginTop="23dp"
             android:divider="@android:color/transparent"

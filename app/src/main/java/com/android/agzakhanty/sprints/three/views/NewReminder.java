@@ -116,16 +116,23 @@ public class NewReminder extends AppCompatActivity implements DatePickerDialog.O
 
     @OnClick(R.id.submit)
     public void submit() {
-        if (DataValidator.isStringEmpty(nameET.getText().toString()))
+        if (DataValidator.isStringEmpty(nameET.getText().toString())) {
             nameWrapper.setError(getResources().getString(R.string.chooseConsultTTopic));
+            isReminderValid = false;
+        }
 
-        if (reminderItem.size() != 1)
-            Toast.makeText(NewReminder.this, getResources().getString(R.string.noItems), Toast.LENGTH_LONG).show();
+        if (isMedicineReminder)
+            if (reminderItem.size() != 1) {
+                Toast.makeText(NewReminder.this, getResources().getString(R.string.noItems), Toast.LENGTH_LONG).show();
+                isReminderValid = false;
+            }
 
-        /*if (spinnerSelectedIndex > 0 && !DataValidator.isStringEmpty(topicET.getText().toString())) {
-            goToSendRequestWS();
-        }*/
-        else {
+        if (!DataValidator.isStringEmpty(nameET.getText().toString()) && isMedicineReminder && reminderItem.size() >= 1) {
+            isReminderValid = true;
+        } else if (!DataValidator.isStringEmpty(nameET.getText().toString()) && isTaskReminder) {
+            isReminderValid = true;
+        } else isReminderValid = false;
+        if (isReminderValid) {
 
             for (int i = 0; i < doses.size(); i++) {
                 if (doses.get(i).getDayName() == null)
@@ -219,12 +226,17 @@ public class NewReminder extends AppCompatActivity implements DatePickerDialog.O
         customer = new Gson().fromJson(custJSON, new TypeToken<Customer>() {
         }.getType());
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<Boolean> call = apiService.sendMeasureNotifications(dates.toString(), customer.getId(), reminderItem.get(0).getNameAr());
+        String medicineNameIfAny = null;
+        if (reminderItem.size() >= 1) {
+            Log.d("TEST_REMINDER_FAIL", new Gson().toJson(dates) + " " + customer.getId() + " " + reminderItem.get(0).getNameAr());
+           medicineNameIfAny = reminderItem.get(0).getNameAr();
+        }
+        Call<Boolean> call = apiService.sendMeasureNotifications(dates.toString(), customer.getId(), medicineNameIfAny);
 
         call.enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                if (response.body()) {
+                if (response.body() != null && response.isSuccessful() && response.body()) {
                     Toast.makeText(NewReminder.this, getResources().getString(R.string.reminderSaved), Toast.LENGTH_LONG).show();
                     //go to dashboard
                     Intent intent = new Intent(NewReminder.this, Dashboard.class);
@@ -233,12 +245,14 @@ public class NewReminder extends AppCompatActivity implements DatePickerDialog.O
                     overridePendingTransition(R.anim.activity_enter, R.anim.activity_leave);
                     finish();
                 } else {
+                    Log.d("TEST_REMINDER_FAIL", response.code() + "");
                     Toast.makeText(NewReminder.this, getResources().getString(R.string.reminderNotSaved), Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Boolean> call, Throwable t) {
+                Log.d("TEST_REMINDER_FAIL", t.getMessage());
                 Toast.makeText(NewReminder.this, getResources().getString(R.string.reminderNotSaved), Toast.LENGTH_LONG).show();
             }
         });
@@ -279,7 +293,7 @@ public class NewReminder extends AppCompatActivity implements DatePickerDialog.O
         endDateStr = yearNow + "/" + (monthNow + 1) + "/" + (dayNow + 1);
         endDateET.setText(endDateStr);
 
-        isMedicineReminder = false;
+        isMedicineReminder = true;
         isTaskReminder = false;
         doses.add(new Dose(String.valueOf(0)));
         typeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -371,7 +385,7 @@ public class NewReminder extends AppCompatActivity implements DatePickerDialog.O
             public void onClick(View view) {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(
                         NewReminder.this, NewReminder.this, yearNow, monthNow, dayNow);
-                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() -1000);
+                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
                 datePickerDialog.show();
             }
         });

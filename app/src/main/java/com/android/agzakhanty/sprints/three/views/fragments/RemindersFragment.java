@@ -165,7 +165,7 @@ public class RemindersFragment extends Fragment {
             } else {
                 RemindersAdapter adapter = new RemindersAdapter(completedReminders, getContext());
                 Log.d("TEST_PAGE4", copy.size() + "");
-                if (copy.size() > 0) {
+                if (completedReminders.size() > 0) {
                     remindersList.setAdapter(adapter);
                     noReminders.setVisibility(View.GONE);
                     remindersList.setVisibility(View.VISIBLE);
