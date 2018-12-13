@@ -316,7 +316,7 @@ public class CirclesFull extends AppCompatActivity {
                 if (response.body() != null) {
                     PharmacyDistance model = response.body();
                     if (response.body().getStatus().equalsIgnoreCase("true")) {
-                        favPharmDataTV.setText(model.getPharmacy().getName() + ":\n\n" +
+                        favPharmDataTV.setText(getResources().getString(R.string.yourFavPcy) + "\n" + model.getPharmacy().getName() + "\n" +
                                 model.getPharmacy().getAddress());
                         editFavPharmacyButton.setText(getResources().getString(R.string.edit));
                         callFavPharmacy.setVisibility(View.VISIBLE);
@@ -368,6 +368,7 @@ public class CirclesFull extends AppCompatActivity {
                     dialog.dismiss();
                     Intent intent = new Intent(CirclesFull.this, AddPharmacy.class);
                     intent.putExtra("next", Constants.FAVOURITE_PHARMACY_NEXT_CIRCLES_FULL);
+                    intent.putExtra(Constants.ACTIVITY_STARTED_FROM, "cf");
                     startActivity(intent);
                     finish();
                 }

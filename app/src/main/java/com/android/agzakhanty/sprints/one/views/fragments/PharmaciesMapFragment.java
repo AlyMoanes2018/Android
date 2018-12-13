@@ -50,7 +50,7 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PharmaciesMapFragment extends Fragment implements OnMapReadyCallback, LocationListener {
+public class PharmaciesMapFragment extends Fragment implements OnMapReadyCallback, LocationListener, GoogleMap.OnMyLocationButtonClickListener {
 
     private GoogleMap map;
     private LocationManager locationManager;
@@ -100,6 +100,11 @@ public class PharmaciesMapFragment extends Fragment implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
+        map.setPadding(0, 1000, 0, 0);
+        if (mLocationPermissionGranted) {
+            map.setMyLocationEnabled(true);
+            map.setOnMyLocationButtonClickListener(this);
+        } else getLocationPermission();
         // put markers here
     }
 
@@ -194,6 +199,7 @@ public class PharmaciesMapFragment extends Fragment implements OnMapReadyCallbac
                         marker = map.addMarker(new MarkerOptions()
                                 .position(latLng)
                                 .title(nearby.get(i).getPharmacy().getName()));
+                        marker.showInfoWindow();
                         marker.setTag(i);
                     }
 
@@ -213,4 +219,11 @@ public class PharmaciesMapFragment extends Fragment implements OnMapReadyCallbac
         });
     }
 
+    @Override
+    public boolean onMyLocationButtonClick() {
+        LatLng latLng = new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude());
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 15);
+        map.animateCamera(cameraUpdate);
+        return false;
+    }
 }

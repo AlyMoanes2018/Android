@@ -153,7 +153,7 @@ public class CirclePharmaciesAdapter extends ArrayAdapter<PharmacyDistance> {
                         notifyDataSetChanged();
 
                     } else {
-                        Toast.makeText(context, context.getResources().getString(R.string.apiStatusFalseMsg), Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, context.getResources().getString(R.string.wrongCode), Toast.LENGTH_LONG).show();
                     }
                 } else Log.d("TEST_NULL", response.code() + "");
 

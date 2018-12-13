@@ -46,6 +46,7 @@ import com.android.agzakhanty.general.application.DialogCreator;
 import com.android.agzakhanty.general.models.PrefManager;
 import com.android.agzakhanty.sprints.one.models.Customer;
 import com.android.agzakhanty.sprints.one.models.api_responses.PharmacyDistance;
+import com.android.agzakhanty.sprints.one.views.AddPharmacy;
 import com.android.agzakhanty.sprints.three.models.api_requests.SaveConsultationRequestModel;
 import com.android.agzakhanty.sprints.three.models.api_responses.ConsultationTypesResponesModel;
 import com.android.agzakhanty.sprints.two.views.Dashboard;
@@ -280,7 +281,7 @@ public class NewConsultation extends AppCompatActivity {
                     model = response.body();
                     favoritePcyId = model.getPharmacy().getId();
                     if (response.body().getStatus().equalsIgnoreCase("true")) {
-                        favPharmDataTV.setText(model.getPharmacy().getName() + ":\n\n" +
+                        favPharmDataTV.setText(getResources().getString(R.string.yourFavPcy) + "\n" + model.getPharmacy().getName() + "\n" +
                                 model.getPharmacy().getAddress());
                         editFavPharmacyButton.setText(getResources().getString(R.string.edit));
                         callFavPharmacy.setVisibility(View.VISIBLE);
@@ -331,10 +332,16 @@ public class NewConsultation extends AppCompatActivity {
                     dialog.dismiss();
                     Intent intent = new Intent(NewConsultation.this, SearchPharmacyByName.class);
                     intent.putExtra("next", Constants.FAVOURITE_PHARMACY_NEXT_NEW_ORDER);
+                    intent.putExtra(Constants.ACTIVITY_STARTED_FROM, "cons");
                     startActivity(intent);
                     finish();
                 } else if (surrounding.isChecked()) {
                     dialog.dismiss();
+                    Intent intent = new Intent(NewConsultation.this, AddPharmacy.class);
+                    intent.putExtra("next", Constants.FAVOURITE_PHARMACY_NEXT_NEW_ORDER);
+                    intent.putExtra(Constants.ACTIVITY_STARTED_FROM, "cons");
+                    startActivity(intent);
+                    finish();
 
                 }
             }

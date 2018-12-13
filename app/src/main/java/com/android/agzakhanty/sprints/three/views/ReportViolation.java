@@ -230,6 +230,7 @@ public class ReportViolation extends AppCompatActivity {
     @OnClick(R.id.addItemTV)
     public void addItem() {
         Intent intent = new Intent(ReportViolation.this, SearchPharmacyByName.class);
+        intent.putExtra(Constants.ACTIVITY_STARTED_FROM, "vio");
         startActivityForResult(intent, 127);
         overridePendingTransition(R.anim.activity_enter, R.anim.activity_leave);
     }

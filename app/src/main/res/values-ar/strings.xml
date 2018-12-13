@@ -71,6 +71,8 @@
     <string name="searchError">ٍيجب إدخال اسم الصيدلية</string>
     <string name="termsText">شروط وأحكام استخدام تطبيق آجزخانتي: تتغير شروط الاستخدام من حين لآخر، وفي حالة إجراء مثل هذه التغييرات، سيعرض تطبيق آجزخانتي إخطارات لكي يكون المُستخدِم على علم بها. استمرار المُستخدِم في استعمال الموقع/ تطبيق آجزخانتي قائم على قبول شروط وأحكام الاستخدام هذه، حسب ما يجري تعديلها من وقت لآخر من أجل خدمة أفضل و جودة أعلى. أي مخالفة لهذه الاتفاقية من قبل العميل / المشترك قد تعرض حسابه للإيقاف بدون إشعار مسبق .</string>
     <string name="apiStatusFalseMsg">لم يتم تنفيذ طلبك..حاول مرة أخرى</string>
+    <string name="emailExists">هذا البريد الإلكتروني تم تسجيله من قبل</string>
+    <string name="wrongCode">حدث خطأ ما..ربما تكون قد هذه الصيدلية موجودة في دائرتك بالفعل أو ربما قد تكون أدخلت كود صيدلية خاطئ</string>
     <string name="loginMsg">جاري تسجيل الدخول..</string>
     <string name="invalidLogin">بريد إلكتروني أو كلمة مرور غير صحيحة</string>
     <string name="externalLoginNotFound">من فضلك قم بملئ البيانات التالية ثم اضغط تسجيل حتى يتم ربط حساب الفيسبوك الخاص بك بحساب أجزاخانتي</string>
@@ -143,7 +145,7 @@
     <string name="remaining">متبقي</string>
     <string name="remaining2">دقيقة</string>
     <string name="preparingOrder">قيد التحضير</string>
-    <string name="deliveringOrder">جاري التوصيل</string>
+    <string name="deliveringOrder">جاهز / في الطريق</string>
     <string name="deliveredOrder">تم التسليم</string>
     <string name="deletedOrder">تم الإلغاء</string>
     <string name="offers">عروض وتخفيضات</string>

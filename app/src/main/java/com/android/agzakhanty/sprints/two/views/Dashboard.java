@@ -356,6 +356,7 @@ public class Dashboard extends AppCompatActivity {
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                     overridePendingTransition(R.anim.activity_enter, R.anim.activity_leave);
+                    finish();
                 }
             }
 
@@ -677,6 +678,7 @@ public class Dashboard extends AppCompatActivity {
                     dialog.dismiss();
                     Intent intent = new Intent(Dashboard.this, AddPharmacy.class);
                     intent.putExtra("next", Constants.FAVOURITE_PHARMACY_NEXT_CIRCLES_FULL);
+                    intent.putExtra(Constants.ACTIVITY_STARTED_FROM, "dash");
                     startActivity(intent);
                     finish();
                 }

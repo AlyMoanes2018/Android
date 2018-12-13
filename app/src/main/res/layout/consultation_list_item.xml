@@ -29,7 +29,7 @@
 
         <TextView
             android:id="@+id/nameTV"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:text="صيدلية العزبي"
             android:textColor="#000000"
@@ -37,7 +37,7 @@
 
         <TextView
             android:id="@+id/dateTV"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:text="التاريخ: 20/05/2018"
             android:textColor="#50000000"
@@ -52,6 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/layout_rounded"
         android:gravity="center"
         android:paddingBottom="3dp"
@@ -106,7 +107,7 @@
 
     <TextView
         android:id="@+id/addressTV"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/consultationTypeTV"
         android:text="العنوان:\n ٤٧ عباس العقاد, مدينة نصر, القاهرة"

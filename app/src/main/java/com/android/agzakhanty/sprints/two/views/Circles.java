@@ -91,7 +91,7 @@ public class Circles extends AppCompatActivity {
                 if (response.body() != null) {
                     PharmacyDistance model = response.body();
                     if (response.body().getStatus().equalsIgnoreCase("true")) {
-                        favPharmDataTV.setText(model.getPharmacy().getName() + ":\n\n" +
+                        favPharmDataTV.setText(getResources().getString(R.string.yourFavPcy) + "\n" + model.getPharmacy().getName() + "\n" +
                                 model.getPharmacy().getAddress());
                         editFavPharmacyButton.setText(getResources().getString(R.string.edit));
                         callFavPharmacy.setVisibility(View.VISIBLE);

@@ -32,9 +32,12 @@ import com.android.agzakhanty.general.models.PrefManager;
 import com.android.agzakhanty.sprints.one.adapters.FavouritePharmaciesAdapter;
 import com.android.agzakhanty.sprints.one.models.Customer;
 import com.android.agzakhanty.sprints.one.models.api_responses.PharmacyDistance;
+import com.android.agzakhanty.sprints.one.views.AddPharmacy;
 import com.android.agzakhanty.sprints.one.views.CustomerLocationSelector;
 import com.android.agzakhanty.sprints.one.views.FavouritePharmacy;
 import com.android.agzakhanty.sprints.one.views.InterestsActivity;
+import com.android.agzakhanty.sprints.three.views.NewConsultation;
+import com.android.agzakhanty.sprints.three.views.ReportViolation;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -218,7 +221,23 @@ public class SearchPharmacyByName extends AppCompatActivity implements LocationL
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(SearchPharmacyByName.this, FavouritePharmacy.class);
+        Intent intent = null;
+        if (getIntent().getStringExtra(Constants.ACTIVITY_STARTED_FROM) != null) {
+            if (getIntent().getStringExtra(Constants.ACTIVITY_STARTED_FROM).equals("dash"))
+                intent = new Intent(SearchPharmacyByName.this, Dashboard.class);
+            else if (getIntent().getStringExtra(Constants.ACTIVITY_STARTED_FROM).equals("fav"))
+                intent = new Intent(SearchPharmacyByName.this, FavouritePharmacy.class);
+            else if (getIntent().getStringExtra(Constants.ACTIVITY_STARTED_FROM).equals("cf"))
+                intent = new Intent(SearchPharmacyByName.this, CirclesFull.class);
+            else if (getIntent().getStringExtra(Constants.ACTIVITY_STARTED_FROM).equals("cons"))
+                intent = new Intent(SearchPharmacyByName.this, NewConsultation.class);
+            else if (getIntent().getStringExtra(Constants.ACTIVITY_STARTED_FROM).equals("vio"))
+                intent = new Intent(SearchPharmacyByName.this, ReportViolation.class);
+            else if (getIntent().getStringExtra(Constants.ACTIVITY_STARTED_FROM).equals("NO"))
+                intent = new Intent(SearchPharmacyByName.this, NewOrder.class);
+            else
+                intent = new Intent(SearchPharmacyByName.this, Dashboard.class);
+        } else intent = new Intent(SearchPharmacyByName.this, Dashboard.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         overridePendingTransition(R.anim.activity_leave, R.anim.activity_enter);

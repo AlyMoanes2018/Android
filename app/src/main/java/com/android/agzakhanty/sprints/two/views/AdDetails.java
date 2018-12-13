@@ -204,7 +204,7 @@ public class AdDetails extends AppCompatActivity implements SwipeRefreshLayout.O
         CommonTasks.setUpTranslucentStatusBar(this);
 
         setSupportActionBar(appBar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ratesRecycler.setHasFixedSize(true);
         goToGetAdDetailsWS();
 

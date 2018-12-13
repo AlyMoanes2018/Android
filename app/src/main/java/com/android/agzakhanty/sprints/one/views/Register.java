@@ -364,7 +364,7 @@ public class Register extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                     } else {
-                        Toast.makeText(Register.this, getResources().getString(R.string.apiStatusFalseMsg), Toast.LENGTH_LONG).show();
+                        Toast.makeText(Register.this, getResources().getString(R.string.emailExists), Toast.LENGTH_LONG).show();
                     }
                 } else Log.d("TEST_NULL", response.code() + "");
                 dialog.dismiss();

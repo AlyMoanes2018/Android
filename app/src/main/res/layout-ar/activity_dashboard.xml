@@ -1,624 +1,628 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:fab="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    tools:context="com.android.agzakhanty.sprints.two.views.Dashboard">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <RelativeLayout
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#F5F5F5">
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        tools:context="com.android.agzakhanty.sprints.two.views.Dashboard">
 
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/appBar"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/gradient_background"
-            android:theme="@style/UserScreensThemes">
+            android:background="#F5F5F5">
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_scrollFlags="scroll|enterAlways"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-
-                <RelativeLayout
-                    android:id="@+id/titleAndActions"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-
-
-
-                </RelativeLayout>
-            </android.support.v7.widget.Toolbar>
-
-            <RelativeLayout
+            <android.support.design.widget.AppBarLayout
+                android:id="@+id/appBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/toolbar"
-                android:layout_marginEnd="16dp">
+                android:background="@drawable/gradient_background"
+                android:theme="@style/UserScreensThemes">
 
-                <ProgressBar
-                    android:id="@+id/progress_bar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:visibility="gone" />
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_scrollFlags="scroll|enterAlways"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-                <TextView
-                    android:id="@+id/favPharmData"
-                    android:layout_width="250dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginBottom="25dp"
-                    android:text="@string/tempFacPharm"
-                    android:textColor="@android:color/white"
-                    android:textSize="14sp" />
+                    <RelativeLayout
+                        android:id="@+id/titleAndActions"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                   >
 
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/pharmacyLogo"
-                        android:layout_width="85dp"
-                        android:layout_height="85dp"
-                        android:layout_alignParentEnd="true"
-                        android:src="@drawable/com_facebook_profile_picture_blank_square"
-                        android:visibility="gone" />
-                </RelativeLayout>
-
-                <Button
-                    android:id="@+id/editButton"
-                    android:layout_width="58dp"
-                    android:layout_height="24dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerInParent="true"
-                    android:background="#38786B"
-                    android:gravity="center"
-                    android:text="@string/edit"
-                    android:textSize="12sp" />
-
-                <ImageView
-                    android:id="@+id/callButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignEnd="@id/favPharmData"
-                    android:layout_alignBaseline="@id/favPharmData"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="110dp"
-                    android:background="@drawable/ic_phone" />
+                    </RelativeLayout>
+                </android.support.v7.widget.Toolbar>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/favPharmData"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginBottom="3dp">
+                    android:layout_below="@id/toolbar"
+                    android:layout_marginEnd="16dp">
 
-                    <RatingBar
-                        android:id="@+id/ratingBar"
-                        style="?android:attr/ratingBarStyleSmall"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:numStars="5"
-                        android:rating="5.0"
-                        android:stepSize="1.0"
-                        android:theme="@style/RatingBar"
-                        android:visibility="gone" />
-
-                    <TextView
-                        android:id="@+id/twentyFourTV"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:drawableStart="@drawable/ic_access_time"
-                        android:drawablePadding="5dp"
-                        android:gravity="center"
-                        android:text="@string/twentyfourseven"
-                        android:textColor="@android:color/white"
-                        android:textSize="11sp"
-                        android:visibility="gone" />
-
-                    <TextView
-                        android:id="@+id/distanceTV"
+                    <ProgressBar
+                        android:id="@+id/progress_bar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:layout_marginStart="10dp"
-                        android:layout_toEndOf="@id/twentyFourTV"
-                        android:drawableStart="@drawable/ic_place_white"
-                        android:drawablePadding="5dp"
-                        android:gravity="center"
-                        android:text="2.5 Km"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/favPharmData"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginBottom="25dp"
+                        android:text="@string/tempFacPharm"
                         android:textColor="@android:color/white"
-                        android:textSize="11sp"
-                        android:visibility="gone" />
+                        android:textSize="14sp" />
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/pharmacyLogo"
+                            android:layout_width="85dp"
+                            android:layout_height="85dp"
+                            android:layout_alignParentEnd="true"
+                            android:src="@drawable/com_facebook_profile_picture_blank_square"
+                            android:visibility="gone" />
+                    </RelativeLayout>
+
+                    <Button
+                        android:id="@+id/editButton"
+                        android:layout_width="58dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerInParent="true"
+                        android:background="#38786B"
+                        android:gravity="center"
+                        android:text="@string/edit"
+                        android:textSize="12sp" />
 
                     <ImageView
-                        android:id="@+id/deliveryButton"
+                        android:id="@+id/callButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_toEndOf="@id/distanceTV"
-                        android:background="@drawable/ic_perm_phone_msg"
-                        android:visibility="gone" />
+                        android:layout_alignBaseline="@id/favPharmData"
+                        android:layout_alignEnd="@id/favPharmData"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="110dp"
+                        android:background="@drawable/ic_phone" />
 
-                    <ImageView
-                        android:id="@+id/phoneButton"
-                        android:layout_width="wrap_content"
+                    <RelativeLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:layout_toEndOf="@id/deliveryButton"
-                        android:background="@drawable/ic_perm_phone_msg"
-                        android:visibility="gone" />
+                        android:layout_below="@id/favPharmData"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginBottom="3dp">
+
+                        <RatingBar
+                            android:id="@+id/ratingBar"
+                            style="?android:attr/ratingBarStyleSmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:numStars="5"
+                            android:rating="5.0"
+                            android:stepSize="1.0"
+                            android:theme="@style/RatingBar"
+                            android:visibility="gone" />
+
+                        <TextView
+                            android:id="@+id/twentyFourTV"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:drawableStart="@drawable/ic_access_time"
+                            android:drawablePadding="5dp"
+                            android:gravity="center"
+                            android:text="@string/twentyfourseven"
+                            android:textColor="@android:color/white"
+                            android:textSize="11sp"
+                            android:visibility="gone" />
+
+                        <TextView
+                            android:id="@+id/distanceTV"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginStart="10dp"
+                            android:layout_toEndOf="@id/twentyFourTV"
+                            android:drawableStart="@drawable/ic_place_white"
+                            android:drawablePadding="5dp"
+                            android:gravity="center"
+                            android:text="2.5 Km"
+                            android:textColor="@android:color/white"
+                            android:textSize="11sp"
+                            android:visibility="gone" />
+
+                        <ImageView
+                            android:id="@+id/deliveryButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_toEndOf="@id/distanceTV"
+                            android:background="@drawable/ic_perm_phone_msg"
+                            android:visibility="gone" />
+
+                        <ImageView
+                            android:id="@+id/phoneButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_toEndOf="@id/deliveryButton"
+                            android:background="@drawable/ic_perm_phone_msg"
+                            android:visibility="gone" />
+                    </RelativeLayout>
                 </RelativeLayout>
-            </RelativeLayout>
-        </android.support.design.widget.AppBarLayout>
+            </android.support.design.widget.AppBarLayout>
 
-        <HorizontalScrollView
-            android:id="@+id/scroll"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/appBar"
-            android:background="@android:color/white">
-
-
-            <LinearLayout
-                android:id="@+id/statisticsLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                >
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="19dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="14dp"
-                    android:background="@drawable/layout_circle" />
-
-                <TextView
-                    android:id="@+id/ordersTotalTV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="14dp"
-                    android:text="@string/totalOrders"
-                    android:textColor="@android:color/black"
-                    android:textSize="13sp" />
-
-                <TextView
-                    android:id="@+id/ordersTotalValueTV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="9dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="14dp"
-                    android:gravity="center"
-                    android:text="@string/totalOrdersValue"
-                    android:textColor="#797A79"
-                    android:textSize="13sp" />
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginStart="18dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="14dp"
-                    android:background="@drawable/weight" />
-
-                <TextView
-                    android:id="@+id/lastMeasureTV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="14dp"
-                    android:text="@string/lastMeasure"
-                    android:textColor="@android:color/black"
-                    android:textSize="13sp" />
-
-                <TextView
-                    android:id="@+id/lastMeasureValueTV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="7dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="14dp"
-                    android:gravity="center"
-                    android:text="@string/lastMeasureValue"
-                    android:textColor="#797A79"
-                    android:textSize="13sp" />
-            </LinearLayout>
-
-        </HorizontalScrollView>
-
-        <RelativeLayout
-            android:id="@+id/lastOrderInfoLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/scroll"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="9dp"
-            android:layout_marginEnd="5dp"
-            android:background="@drawable/layout_rounded2">
-
-            <ProgressBar
-                android:id="@+id/progress_bar2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:visibility="visible" />
-
-            <TextView
-                android:id="@+id/noActiveOrder"
+            <HorizontalScrollView
+                android:id="@+id/scroll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:alpha=".5"
-                android:gravity="center_horizontal"
-                android:text="@string/noActiveOrder"
-                android:textColor="#000000"
-                android:textSize="16sp"
-                android:visibility="gone" />
+                android:layout_below="@id/appBar"
+                android:background="@android:color/white">
 
-            <TextView
-                android:id="@+id/orderStatusTV"
-                fontPath="fonts/bold.ttf"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginBottom="10dp"
-                android:text="@string/orderStatus"
-                android:textColor="#449D44"
-                android:textSize="14sp" />
-
-            <ImageView
-                android:id="@+id/deliveryImg"
-                android:layout_width="125dp"
-                android:layout_height="100dp"
-                android:layout_below="@id/orderStatusTV"
-                android:layout_marginStart="22dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/del1"
-                android:visibility="gone" />
-
-
-            <RelativeLayout
-                android:id="@+id/timelineText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/deliveryImg"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="3dp"
-                android:visibility="gone">
-
-                <RelativeLayout
-                    android:id="@+id/timline"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp">
-
-
-                    <ImageView
-                        android:id="@+id/firstTimelineCircle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/layout_circle3" />
-
-                    <View
-                        android:id="@+id/firstTimeLineLine"
-                        android:layout_width="100dp"
-                        android:layout_height="3dp"
-                        android:layout_centerVertical="true"
-                        android:layout_toEndOf="@id/firstTimelineCircle"
-                        android:background="#F5F5F5" />
-
-                    <ImageView
-                        android:id="@+id/secondTimelineCircle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toEndOf="@id/firstTimeLineLine"
-                        android:background="@drawable/layout_circle4" />
-
-                    <View
-                        android:id="@+id/secondTimeLineLine"
-                        android:layout_width="100dp"
-                        android:layout_height="3dp"
-                        android:layout_centerVertical="true"
-                        android:layout_toEndOf="@id/secondTimelineCircle"
-                        android:background="#F5F5F5" />
-
-                    <ImageView
-                        android:id="@+id/thirdTimelineCircle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toEndOf="@id/secondTimeLineLine"
-                        android:background="@drawable/layout_circle4" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/timlineText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/timline"
-                    android:layout_alignStart="@id/timline"
-                    android:layout_alignEnd="@id/timline"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp">
-
-                    <TextView
-                        android:id="@+id/statusOneNameTV"
-                        fontPath="fonts/bold.ttf"
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_gravity="center_horizontal"
-                        android:text="@string/preparing"
-                        android:textColor="#459283"
-                        android:textSize="11sp" />
-
-
-                    <TextView
-                        android:id="@+id/statusTwoNameTV"
-                        fontPath="fonts/bold.ttf"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_gravity="center_horizontal"
-                        android:text="@string/deliveringOrder"
-                        android:textColor="#797A79"
-                        android:textSize="11sp" />
-
-                    <TextView
-                        android:id="@+id/statusThreeNameTV"
-                        fontPath="fonts/bold.ttf"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_gravity="center_horizontal"
-                        android:text="@string/deliveredOrder"
-                        android:textColor="#797A79"
-                        android:textSize="11sp" />
-
-
-                </RelativeLayout>
-
-            </RelativeLayout>
-
-
-            <LinearLayout
-                android:id="@+id/deliverdLayout"
-                android:layout_width="102dp"
-                android:layout_height="102dp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginTop="23dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginBottom="13dp"
-                android:orientation="vertical"
-                android:visibility="gone"
-
-                >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/delivered"
-                    android:textSize="14sp" />
-
-                <Button
-                    android:id="@+id/deliveredButton"
-                    android:layout_width="80dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="20dp"
-                    android:background="@color/colorPrimary"
-                    android:gravity="center"
-                    android:text="@string/yes"
-                    android:textColor="@android:color/white"
-                    android:textSize="14sp" />
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:id="@+id/timelineLayout"
-                android:layout_width="102dp"
-                android:layout_height="102dp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginTop="23dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginBottom="13dp"
-                android:background="@drawable/layout_circle2"
-                android:orientation="vertical"
-                android:visibility="gone"
-
-                >
 
                 <LinearLayout
-                    android:id="@+id/timeRemaining"
+                    android:id="@+id/statisticsLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="19dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="14dp"
+                        android:background="@drawable/layout_circle" />
+
+                    <TextView
+                        android:id="@+id/ordersTotalTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="14dp"
+                        android:text="@string/totalOrders"
+                        android:textColor="@android:color/black"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/ordersTotalValueTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="9dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="14dp"
+                        android:gravity="center"
+                        android:text="@string/totalOrdersValue"
+                        android:textColor="#797A79"
+                        android:textSize="13sp" />
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="18dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="14dp"
+                        android:background="@drawable/weight" />
+
+                    <TextView
+                        android:id="@+id/lastMeasureTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="14dp"
+                        android:text="@string/lastMeasure"
+                        android:textColor="@android:color/black"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/lastMeasureValueTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="7dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="14dp"
+                        android:gravity="center"
+                        android:text="@string/lastMeasureValue"
+                        android:textColor="#797A79"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+            <RelativeLayout
+                android:id="@+id/lastOrderInfoLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/scroll"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="9dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/layout_rounded2">
+
+                <ProgressBar
+                    android:id="@+id/progress_bar2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/noActiveOrder"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginBottom="15dp"
-                    android:gravity="center|center_vertical"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:alpha=".5"
+                    android:gravity="center_horizontal"
+                    android:text="@string/noActiveOrder"
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/orderStatusTV"
+                    fontPath="fonts/bold.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/orderStatus"
+                    android:textColor="#449D44"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/deliveryImg"
+                    android:layout_width="125dp"
+                    android:layout_height="100dp"
+                    android:layout_below="@id/orderStatusTV"
+                    android:layout_marginStart="22dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/del1"
+                    android:visibility="gone" />
+
+
+                <RelativeLayout
+                    android:id="@+id/timelineText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/deliveryImg"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="3dp"
+                    android:visibility="gone">
+
+                    <RelativeLayout
+                        android:id="@+id/timline"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp">
+
+
+                        <ImageView
+                            android:id="@+id/firstTimelineCircle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/layout_circle3" />
+
+                        <View
+                            android:id="@+id/firstTimeLineLine"
+                            android:layout_width="100dp"
+                            android:layout_height="3dp"
+                            android:layout_centerVertical="true"
+                            android:layout_toEndOf="@id/firstTimelineCircle"
+                            android:background="#F5F5F5" />
+
+                        <ImageView
+                            android:id="@+id/secondTimelineCircle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toEndOf="@id/firstTimeLineLine"
+                            android:background="@drawable/layout_circle4" />
+
+                        <View
+                            android:id="@+id/secondTimeLineLine"
+                            android:layout_width="100dp"
+                            android:layout_height="3dp"
+                            android:layout_centerVertical="true"
+                            android:layout_toEndOf="@id/secondTimelineCircle"
+                            android:background="#F5F5F5" />
+
+                        <ImageView
+                            android:id="@+id/thirdTimelineCircle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toEndOf="@id/secondTimeLineLine"
+                            android:background="@drawable/layout_circle4" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/timlineText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/timline"
+                        android:layout_alignStart="@id/timline"
+                        android:layout_alignEnd="@id/timline"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp">
+
+                        <TextView
+                            android:id="@+id/statusOneNameTV"
+                            fontPath="fonts/bold.ttf"
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_gravity="center_horizontal"
+                            android:text="@string/preparing"
+                            android:textColor="#459283"
+                            android:textSize="11sp" />
+
+
+                        <TextView
+                            android:id="@+id/statusTwoNameTV"
+                            fontPath="fonts/bold.ttf"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_gravity="center_horizontal"
+                            android:text="@string/deliveringOrder"
+                            android:textColor="#797A79"
+                            android:textSize="11sp" />
+
+                        <TextView
+                            android:id="@+id/statusThreeNameTV"
+                            fontPath="fonts/bold.ttf"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_gravity="center_horizontal"
+                            android:text="@string/deliveredOrder"
+                            android:textColor="#797A79"
+                            android:textSize="11sp" />
+
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/deliverdLayout"
+                    android:layout_width="102dp"
+                    android:layout_height="102dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="23dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="13dp"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+
+                    >
 
                     <TextView
-                        android:id="@+id/timeRemainingTV"
-                        fontPath="fonts/bold.ttf"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:text="@string/remaining"
-                        android:textColor="#449D44"
-                        android:textSize="11sp" />
+                        android:layout_marginTop="15dp"
+                        android:text="@string/delivered"
+                        android:textSize="14sp" />
 
-                    <TextView
-                        android:id="@+id/timeRemainingTV2"
-                        fontPath="fonts/bold.ttf"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                    <Button
+                        android:id="@+id/deliveredButton"
+                        android:layout_width="80dp"
+                        android:layout_height="30dp"
                         android:layout_gravity="center_horizontal"
-                        android:text=""
-                        android:textColor="#797A79"
-                        android:textSize="20sp" />
-
-
-                    <TextView
-                        android:id="@+id/timeRemainingTV3"
-                        fontPath="fonts/bold.ttf"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginBottom="6dp"
-                        android:text="@string/remaining2"
-                        android:textColor="#797A79"
-                        android:textSize="11sp" />
+                        android:layout_marginTop="20dp"
+                        android:background="@color/colorPrimary"
+                        android:gravity="center"
+                        android:text="@string/yes"
+                        android:textColor="@android:color/white"
+                        android:textSize="14sp" />
 
                 </LinearLayout>
 
-            </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/timelineLayout"
+                    android:layout_width="102dp"
+                    android:layout_height="102dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="23dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="13dp"
+                    android:background="@drawable/layout_circle2"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+
+                    >
+
+                    <LinearLayout
+                        android:id="@+id/timeRemaining"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginBottom="15dp"
+                        android:gravity="center|center_vertical"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/timeRemainingTV"
+                            fontPath="fonts/bold.ttf"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="@string/remaining"
+                            android:textColor="#449D44"
+                            android:textSize="11sp" />
+
+                        <TextView
+                            android:id="@+id/timeRemainingTV2"
+                            fontPath="fonts/bold.ttf"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text=""
+                            android:textColor="#797A79"
+                            android:textSize="20sp" />
+
+
+                        <TextView
+                            android:id="@+id/timeRemainingTV3"
+                            fontPath="fonts/bold.ttf"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginBottom="6dp"
+                            android:text="@string/remaining2"
+                            android:textColor="#797A79"
+                            android:textSize="11sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/offersTV"
+                fontPath="fonts/bold.ttf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/lastOrderInfoLayout"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="11dp"
+                android:text="@string/offers"
+                android:textColor="#449D44"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/numberOfActiveOffersTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/lastOrderInfoLayout"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="7dp"
+                android:text="@string/activeOffersNumber"
+                android:textColor="#7E8181"
+                android:textSize="12sp" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_below="@id/offersTV"
+                android:layout_marginStart="7dp"
+                android:layout_marginEnd="7dp"
+                android:layout_marginBottom="40dp">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <ProgressBar
+                android:id="@+id/ads_progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/offersTV"
+                android:layout_centerHorizontal="true"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/allOffersTV"
+                fontPath="fonts/bold.ttf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="20dp"
+                android:text="@string/allOffers"
+                android:textColor="#32B59C"
+                android:textSize="14sp" />
+
+
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/offersTV"
-            fontPath="fonts/bold.ttf"
+    </ScrollView>
+
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/menu_yellow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        fab:menu_animationDelayPerItem="0"
+        fab:menu_colorNormal="#449D44"
+        fab:menu_colorPressed="#449D44"
+        fab:menu_colorRipple="#449D44"
+        fab:menu_icon="@drawable/ic_pharmacy"
+        fab:menu_labels_hideAnimation="@anim/jump_to_down"
+        fab:menu_labels_position="right"
+        fab:menu_labels_showAnimation="@anim/jump_from_down"
+        fab:menu_labels_style="@style/MenuLabelsStyle"
+        fab:menu_shadowColor="#449D44">
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab1"
+            style="@style/MenuButtonsStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/lastOrderInfoLayout"
-            android:layout_marginStart="7dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="11dp"
-            android:text="@string/offers"
-            android:textColor="#449D44"
-            android:textSize="14sp" />
+            android:src="@drawable/ic_add_shopping_cart_white"
+            fab:fab_label="@string/newOrder" />
 
-        <TextView
-            android:id="@+id/numberOfActiveOffersTV"
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab2"
+            style="@style/MenuButtonsStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/lastOrderInfoLayout"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="18dp"
-            android:layout_marginEnd="7dp"
-            android:text="@string/activeOffersNumber"
-            android:textColor="#7E8181"
-            android:textSize="12sp" />
+            android:src="@drawable/ic_local_offer_white"
+            fab:fab_label="@string/newOffer" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_below="@id/offersTV"
-            android:layout_marginStart="7dp"
-            android:layout_marginEnd="7dp"
-            android:layout_marginBottom="40dp">
-
-        </android.support.v7.widget.RecyclerView>
-
-        <ProgressBar
-            android:id="@+id/ads_progress_bar"
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab3"
+            style="@style/MenuButtonsStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/offersTV"
-            android:layout_centerHorizontal="true"
-            android:visibility="visible" />
+            android:src="@drawable/ic_alarm_on_white"
+            fab:fab_label="@string/newReminder" />
 
-        <TextView
-            android:id="@+id/allOffersTV"
-            fontPath="fonts/bold.ttf"
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab4"
+            style="@style/MenuButtonsStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="7dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="20dp"
-            android:text="@string/allOffers"
-            android:textColor="#32B59C"
-            android:textSize="14sp" />
+            android:src="@drawable/ic_alarm_on_white"
+            fab:fab_label="@string/newMeasurement" />
 
-        <com.github.clans.fab.FloatingActionMenu
-            android:id="@+id/menu_yellow"
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab5"
+            style="@style/MenuButtonsStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"
-            fab:menu_animationDelayPerItem="0"
-            fab:menu_colorNormal="#449D44"
-            fab:menu_colorPressed="#449D44"
-            fab:menu_colorRipple="#449D44"
-            fab:menu_icon="@drawable/ic_pharmacy"
-            fab:menu_labels_hideAnimation="@anim/jump_to_down"
-            fab:menu_labels_position="right"
-            fab:menu_labels_showAnimation="@anim/jump_from_down"
-            fab:menu_labels_style="@style/MenuLabelsStyle"
-            fab:menu_shadowColor="#449D44">
-
-            <com.github.clans.fab.FloatingActionButton
-                android:id="@+id/fab1"
-                style="@style/MenuButtonsStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_add_shopping_cart_white"
-                fab:fab_label="@string/newOrder" />
-
-            <com.github.clans.fab.FloatingActionButton
-                android:id="@+id/fab2"
-                style="@style/MenuButtonsStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_local_offer_white"
-                fab:fab_label="@string/newOffer" />
-
-            <com.github.clans.fab.FloatingActionButton
-                android:id="@+id/fab3"
-                style="@style/MenuButtonsStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_alarm_on_white"
-                fab:fab_label="@string/newReminder" />
-
-            <com.github.clans.fab.FloatingActionButton
-                android:id="@+id/fab4"
-                style="@style/MenuButtonsStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_alarm_on_white"
-                fab:fab_label="@string/newMeasurement" />
-
-            <com.github.clans.fab.FloatingActionButton
-                android:id="@+id/fab5"
-                style="@style/MenuButtonsStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_perm_phone_msg"
-                fab:fab_label="@string/newConsultation" />
+            android:src="@drawable/ic_perm_phone_msg"
+            fab:fab_label="@string/newConsultation" />
 
 
-        </com.github.clans.fab.FloatingActionMenu>
-
-    </RelativeLayout>
-
-</ScrollView>
+    </com.github.clans.fab.FloatingActionMenu>
+</RelativeLayout>

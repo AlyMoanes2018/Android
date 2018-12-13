@@ -124,4 +124,14 @@ public class MeasurementChart extends AppCompatActivity {
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(MeasurementChart.this, NewMeasurementDetails.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        overridePendingTransition(R.anim.activity_leave, R.anim.activity_enter);
+        finish();
+        super.onBackPressed();
+    }
 }

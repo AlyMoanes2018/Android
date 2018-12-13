@@ -82,10 +82,11 @@ public class InterestsAdapter extends ArrayAdapter<TagsAndStatus> {
 
         // load language from sp
         PrefManager prefManager = PrefManager.getInstance(context);
-        if (prefManager.read(Constants.SP_LANGUAGE_KEY).equalsIgnoreCase("en") || prefManager.read(Constants.SP_LANGUAGE_KEY).isEmpty())
-            viewHolder.name.setText(interest.getTag().getTagEn());
-        else
+        Log.d("TEST_INTER", PrefManager.getInstance(context).readInt(Constants.SP_LANGUAGE_KEY) + "  E");
+        if (PrefManager.getInstance(context).readInt(Constants.SP_LANGUAGE_KEY) == 0)
             viewHolder.name.setText(interest.getTag().getTagAr());
+        else if (PrefManager.getInstance(context).readInt(Constants.SP_LANGUAGE_KEY) == 1)
+            viewHolder.name.setText(interest.getTag().getTagEn());
         viewHolder.check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {

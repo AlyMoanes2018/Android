@@ -76,6 +76,8 @@
     <string name="selectPic">ٍSelect your profile picture</string>
     <string name="searchError">ٍPharmacy name can\'t be empty</string>
     <string name="apiStatusFalseMsg">Invalid request</string>
+    <string name="emailExists">This email address already exists</string>
+    <string name="wrongCode">Wrong pharmacy code..Please try again later</string>
     <string name="loginMsg">Logging in..</string>
     <string name="invalidLogin">wrong email or password</string>
     <string name="externalLoginNotFound">Please provide any missing data then press register to bind you Facebook account with Agzakhanty</string>
@@ -139,7 +141,7 @@
     <string name="remaining">Still</string>
     <string name="remaining2">Mins</string>
     <string name="preparingOrder">Preparing</string>
-    <string name="deliveringOrder">Delivering</string>
+    <string name="deliveringOrder">Ready / Delivering</string>
     <string name="deliveredOrder">Delivered</string>
     <string name="deletedOrder">Deleted</string>
     <string name="offers">Offers</string>

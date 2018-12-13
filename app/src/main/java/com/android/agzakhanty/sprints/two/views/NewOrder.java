@@ -203,7 +203,7 @@ public class NewOrder extends AppCompatActivity {
                 if (response.body() != null) {
                     model = response.body();
                     if (response.body().getStatus().equalsIgnoreCase("true")) {
-                        favPharmDataTV.setText(model.getPharmacy().getName() + ":\n\n" +
+                        favPharmDataTV.setText(getResources().getString(R.string.yourFavPcy) + "\n" + model.getPharmacy().getName() + "\n" +
                                 model.getPharmacy().getAddress());
                         favouritePharmacyID = response.body().getPharmacy().getId();
                         editFavPharmacyButton.setText(getResources().getString(R.string.edit));
@@ -255,11 +255,16 @@ public class NewOrder extends AppCompatActivity {
                     dialog.dismiss();
                     Intent intent = new Intent(NewOrder.this, SearchPharmacyByName.class);
                     intent.putExtra("next", Constants.FAVOURITE_PHARMACY_NEXT_NEW_ORDER);
+                    intent.putExtra(Constants.ACTIVITY_STARTED_FROM, "NO");
                     startActivity(intent);
                     finish();
                 } else if (surrounding.isChecked()) {
                     dialog.dismiss();
-
+                    Intent intent = new Intent(NewOrder.this, AddPharmacy.class);
+                    intent.putExtra("next", Constants.FAVOURITE_PHARMACY_NEXT_NEW_ORDER);
+                    intent.putExtra(Constants.ACTIVITY_STARTED_FROM, "NO");
+                    startActivity(intent);
+                    finish();
                 }
             }
         });

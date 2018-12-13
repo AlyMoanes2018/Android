@@ -194,6 +194,7 @@
         <activity
             android:name=".sprints.two.views.AdDetails"
             android:configChanges="orientation|keyboardHidden"
+            android:parentActivityName=".sprints.two.views.Dashboard"
             android:screenOrientation="portrait" />
         <activity
             android:name=".sprints.two.views.AddAdvertismentRate"

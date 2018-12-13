@@ -125,6 +125,7 @@
             android:gravity="center"
             android:text=""
             android:layout_centerHorizontal="true"
+            android:inputType="number"
             android:layout_below="@id/pcyCode"
             android:textColor="#32B59C"
             android:textSize="42sp" />

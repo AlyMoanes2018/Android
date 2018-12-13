@@ -91,10 +91,11 @@ public class Splash extends AppCompatActivity implements GoogleApiClient.OnConne
         setContentView(R.layout.activity_splash);
         //MyNotificationOpenedHandler : This will be called when a notification is tapped on.
         //MyNotificationReceivedHandler : This will be called when a notification is received while your app is running.
-
+        PrefManager.getInstance(this).write(0, Constants.SP_LANGUAGE_KEY);
         OneSignal.addSubscriptionObserver(this);
         callbackManager = CallbackManager.Factory.create();
         ButterKnife.bind(this);
+        Log.d("TEST_INTER_SPLASH", PrefManager.getInstance(this).readInt(Constants.SP_LANGUAGE_KEY) + "  E");
         dialog = DialogCreator.getInstance(this);
 
         try {

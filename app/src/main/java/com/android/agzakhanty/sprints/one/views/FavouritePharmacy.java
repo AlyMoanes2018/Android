@@ -90,6 +90,7 @@ public class FavouritePharmacy extends AppCompatActivity {
                     dialog.dismiss();
                     Intent intent = new Intent(FavouritePharmacy.this, SearchPharmacyByName.class);
                     intent.putExtra("next", Constants.FAVOURITE_PHARMACY_NEXT_REGISTER);
+                    intent.putExtra(Constants.ACTIVITY_STARTED_FROM, "fav");
                     startActivity(intent);
                     overridePendingTransition(R.anim.activity_enter, R.anim.activity_leave);
                     finish();
@@ -97,6 +98,7 @@ public class FavouritePharmacy extends AppCompatActivity {
                 else if (surrounding.isChecked()){
                     dialog.dismiss();
                     Intent intent = new Intent(FavouritePharmacy.this, AddPharmacy.class);
+                    intent.putExtra(Constants.ACTIVITY_STARTED_FROM, "fav");
                     intent.putExtra("next", Constants.FAVOURITE_PHARMACY_NEXT_REGISTER);
                     startActivity(intent);
                     finish();
@@ -125,7 +127,7 @@ public class FavouritePharmacy extends AppCompatActivity {
                         Toast.makeText(FavouritePharmacy.this, getResources().getString(R.string.addToCirclesDone), Toast.LENGTH_LONG).show();
 
                     } else {
-                        Toast.makeText(FavouritePharmacy.this, getResources().getString(R.string.apiStatusFalseMsg), Toast.LENGTH_LONG).show();
+                        Toast.makeText(FavouritePharmacy.this, getResources().getString(R.string.wrongCode), Toast.LENGTH_LONG).show();
                     }
                 } else Log.d("TEST_NULL", response.code() + "");
 
@@ -140,4 +142,8 @@ public class FavouritePharmacy extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+    }
 }

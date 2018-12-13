@@ -258,7 +258,7 @@ public class ViewOrderDetails extends AppCompatActivity {
                     if (response.body().getStatus().equalsIgnoreCase("true")) {
                         model.getPharmacy().setRate(model.getRate());
                         model.getPharmacy().setDistance(model.getDistanceResult());
-                        favPharmDataTV.setText(model.getPharmacy().getName() + ":\n\n" +
+                        favPharmDataTV.setText(getResources().getString(R.string.yourFavPcy) + "\n" + model.getPharmacy().getName() + "\n" +
                                 model.getPharmacy().getAddress());
                         callFavPharmacy.setVisibility(View.VISIBLE);
                         progressBar.setVisibility(View.GONE);
