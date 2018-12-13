@@ -147,22 +147,23 @@ public class SelectedItemsAdapter extends ArrayAdapter<ItemsResponseModel> {
             @Override
             public void afterTextChanged(Editable editable) {
                 String newPrice = "";
-
-                if (!viewHolder.quantity.getText().toString().isEmpty()) {
-                    if (Float.parseFloat(viewHolder.quantity.getText().toString()) != 0) {
-                        models.get(i).setQty(viewHolder.quantity.getText().toString());
-                        newPrice = (Float.parseFloat(models.get(i).getQty()))
-                                * (Float.parseFloat(models.get(i).getPrice())) + "";
-                        Log.d("TEST_FLOAT", Float.parseFloat(models.get(i).getQty()) +
-                                " *" + Float.parseFloat(models.get(i).getPrice()) + " = " + newPrice);
-                        viewHolder.price.setText(newPrice);
-                        ((AddOrderByItemsSelection) context).updateTotalPrice();
-                    } else {
-                        models.get(i).setQty("1");
-                        newPrice = models.get(i).getPrice();
-                        viewHolder.price.setText(newPrice);
-                        viewHolder.quantity.setText("1");
-                        ((AddOrderByItemsSelection) context).updateTotalPrice();
+                if (!isView) {
+                    if (!viewHolder.quantity.getText().toString().isEmpty()) {
+                        if (Float.parseFloat(viewHolder.quantity.getText().toString()) != 0) {
+                            models.get(i).setQty(viewHolder.quantity.getText().toString());
+                            newPrice = (Float.parseFloat(models.get(i).getQty()))
+                                    * (Float.parseFloat(models.get(i).getPrice())) + "";
+                            Log.d("TEST_FLOAT", Float.parseFloat(models.get(i).getQty()) +
+                                    " *" + Float.parseFloat(models.get(i).getPrice()) + " = " + newPrice);
+                            viewHolder.price.setText(newPrice);
+                            ((AddOrderByItemsSelection) context).updateTotalPrice();
+                        } else {
+                            models.get(i).setQty("1");
+                            newPrice = models.get(i).getPrice();
+                            viewHolder.price.setText(newPrice);
+                            viewHolder.quantity.setText("1");
+                            ((AddOrderByItemsSelection) context).updateTotalPrice();
+                        }
                     }
                 }
             }
