@@ -52,6 +52,9 @@
     <string name="orderDate">Date:</string>
     <string name="searchPharmacy">Search for a pharmacy</string>
     <string name="searchBy">Search By</string>
+    <string name="imageFrom">Choose an image from:</string>
+    <string name="gallery">Gallery</string>
+    <string name="cameraC">Camera</string>
     <string name="pharmData">Pharmacy Data</string>
     <string name="surrounding">Nearby Pharmacies</string>
     <string name="list">List</string>
@@ -73,7 +76,7 @@
     <string name="passLenghtError">Password must be more than 6 digits</string>
     <string name="validEmailError">Invalid email address</string>
     <string name="validPhoneError">Invalid mobile number</string>
-    <string name="selectPic">ٍSelect your profile picture</string>
+    <string name="selectPic2">Select your image</string>
     <string name="searchError">ٍPharmacy name can\'t be empty</string>
     <string name="apiStatusFalseMsg">Invalid request</string>
     <string name="emailExists">This email address already exists</string>

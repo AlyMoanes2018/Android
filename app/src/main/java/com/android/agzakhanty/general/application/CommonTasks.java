@@ -1,13 +1,17 @@
 package com.android.agzakhanty.general.application;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.IdRes;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -18,10 +22,14 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.android.agzakhanty.R;
 import com.android.agzakhanty.general.models.PrefManager;
 import com.android.agzakhanty.sprints.one.models.Customer;
+import com.android.agzakhanty.sprints.one.views.AddPharmacy;
+import com.android.agzakhanty.sprints.one.views.FavouritePharmacy;
 import com.android.agzakhanty.sprints.two.views.Ads;
 import com.android.agzakhanty.sprints.two.views.Circles;
 import com.android.agzakhanty.sprints.two.views.CirclesFull;
@@ -33,6 +41,7 @@ import com.android.agzakhanty.sprints.two.views.MyOrders;
 import com.android.agzakhanty.sprints.three.views.Reminders;
 import com.android.agzakhanty.sprints.three.views.ReportViolation;
 import com.android.agzakhanty.sprints.three.views.Settings;
+import com.android.agzakhanty.sprints.two.views.SearchPharmacyByName;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.mikepenz.materialdrawer.AccountHeader;
@@ -218,5 +227,40 @@ public class CommonTasks {
                 })
                 .build();
         result.setSelection(0);
+    }
+
+    public static void showImagesSelectionDialog(final Context ctx){
+        View view = ((Activity)ctx).getLayoutInflater().inflate(R.layout.fragment_bottom_sheet_dialog_pics, null);
+        final BottomSheetDialog dialog = new BottomSheetDialog(ctx);
+        dialog.setContentView(view);
+        RadioGroup rg = (RadioGroup) view.findViewById(R.id.radioSelect);
+        final RadioButton gallery = (RadioButton) view.findViewById(R.id.radioGallery);
+        final RadioButton cam = (RadioButton) view.findViewById(R.id.radioCam);
+
+        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
+                if (cam.isChecked()){
+                    dialog.dismiss();
+                    if (ctx.checkSelfPermission(Manifest.permission.CAMERA)
+                            != PackageManager.PERMISSION_GRANTED) {
+                        ((Activity)ctx).requestPermissions(new String[]{Manifest.permission.CAMERA},
+                                124);
+                    } else {
+                        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                        ((Activity) ctx).startActivityForResult(cameraIntent, 510);
+                    }
+                }
+                else if (gallery.isChecked()){
+                    dialog.dismiss();
+                    Intent intent = new Intent();
+                    intent.setType("image/*");
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                    ((Activity)ctx).startActivityForResult(Intent.createChooser(intent,
+                            ctx.getResources().getString(R.string.selectPic2)), 511);
+                }
+            }
+        });
+        dialog.show();
     }
 }

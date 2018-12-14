@@ -3,10 +3,13 @@ package com.android.agzakhanty.sprints.one.views;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -82,12 +85,8 @@ public class ProfilePhotoSetter extends AppCompatActivity {
 
     @OnClick(R.id.selectImgButton)
     public void selectImage() {
-        Intent intent = new Intent();
-        // Show only images, no videos or anything else
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        // Always show the chooser (if there are multiple options available)
-        startActivityForResult(Intent.createChooser(intent, getResources().getString(R.string.selectPic)), 0);
+
+        CommonTasks.showImagesSelectionDialog(this);
 
     }
 
@@ -95,8 +94,16 @@ public class ProfilePhotoSetter extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 0 && resultCode == RESULT_OK && data != null && data.getData() != null) {
+        if (requestCode == 510 && resultCode == RESULT_OK) {
 
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            imageView.setImageBitmap(photo);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            photo.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byte[] byteArray = stream.toByteArray();
+            imgByteArrStr = Base64.encodeToString(byteArray, Base64.DEFAULT);
+            Log.d("TEST_BYTE_CAM", imgByteArrStr + "");
+        } else if (requestCode == 511 && resultCode == RESULT_OK && data != null && data.getData() != null) {
             Uri uri = data.getData();
 
             try {
@@ -114,6 +121,22 @@ public class ProfilePhotoSetter extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 510) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Intent cameraIntent = new
+                        Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(cameraIntent, 510);
+            } else {
+                Toast.makeText(this, getResources().getString(R.string.camera), Toast.LENGTH_LONG).show();
+
+            }
+
         }
     }
 

@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -44,6 +45,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -94,14 +96,7 @@ public class AddOrderByPrescriptionPhoto extends AppCompatActivity {
 
     @OnClick(R.id.imgLayout)
     public void onImgLayoutClicked() {
-        if (checkSelfPermission(Manifest.permission.CAMERA)
-                != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{Manifest.permission.CAMERA},
-                    122);
-        } else {
-            Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-            startActivityForResult(cameraIntent, 123);
-        }
+       CommonTasks.showImagesSelectionDialog(this);
     }
 
     @OnClick(R.id.callButton)
@@ -238,7 +233,7 @@ public class AddOrderByPrescriptionPhoto extends AppCompatActivity {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Intent cameraIntent = new
                         Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(cameraIntent, 123);
+                startActivityForResult(cameraIntent, 510);
             } else {
                 Toast.makeText(this, getResources().getString(R.string.camera), Toast.LENGTH_LONG).show();
 
@@ -260,13 +255,33 @@ public class AddOrderByPrescriptionPhoto extends AppCompatActivity {
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 123 && resultCode == Activity.RESULT_OK) {
+        if (requestCode == 510 && resultCode == RESULT_OK) {
+
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             imgLayout.setBackground(new BitmapDrawable(photo));
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             photo.compress(Bitmap.CompressFormat.PNG, 100, stream);
             byte[] byteArray = stream.toByteArray();
             imgByteArrStr = Base64.encodeToString(byteArray, Base64.DEFAULT);
+            Log.d("TEST_BYTE_CAM", imgByteArrStr + "");
+        } else if (requestCode == 511 && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            Uri uri = data.getData();
+
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                byte[] byteArray = stream.toByteArray();
+                imgByteArrStr = Base64.encodeToString(byteArray, Base64.DEFAULT);
+                Log.d("TEST_BYTE", imgByteArrStr + "");
+                /*byte[] bytes = Base64.decode(imgByteArrStr, Base64.DEFAULT);
+                Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);*/
+
+                // Log.d(TAG, String.valueOf(bitmap));
+                imgLayout.setBackground(new BitmapDrawable(bitmap));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
