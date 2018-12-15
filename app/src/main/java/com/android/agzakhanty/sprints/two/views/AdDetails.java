@@ -101,7 +101,13 @@ public class AdDetails extends AppCompatActivity implements SwipeRefreshLayout.O
     public void confirmOrder() {
         //create the order object
         Log.d("TEST_AD_ITEM", adItems.getListItem().get(0).getNameAr());
-        SaveOrderResponseModel order = new SaveOrderResponseModel();
+        Intent intent = new Intent(AdDetails.this, AddOrderByItemsSelection.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.putExtra("adItems", new Gson().toJson(adItems.getListItem()));
+        startActivity(intent);
+        overridePendingTransition(R.anim.activity_enter, R.anim.activity_leave);
+        finish();
+        /*SaveOrderResponseModel order = new SaveOrderResponseModel();
         SaveOrderDetails orderDetails = new SaveOrderDetails();
         orderDetails.setCstId(customer.getId());
         orderDetails.setPcyId(ad.getPcyId());
@@ -124,7 +130,7 @@ public class AdDetails extends AppCompatActivity implements SwipeRefreshLayout.O
             dialog.show();
             goToSaveOrderWS(order);
         } else
-            Toast.makeText(AdDetails.this, getResources().getString(R.string.noItemsSelected), Toast.LENGTH_LONG).show();
+            Toast.makeText(AdDetails.this, getResources().getString(R.string.noItemsSelected), Toast.LENGTH_LONG).show();*/
     }
 
     @Override

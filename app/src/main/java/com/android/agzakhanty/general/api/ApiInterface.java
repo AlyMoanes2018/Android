@@ -16,6 +16,7 @@ import com.android.agzakhanty.sprints.three.models.Reminder;
 import com.android.agzakhanty.sprints.three.models.api_requests.SaveConsultationRequestModel;
 import com.android.agzakhanty.sprints.three.models.api_requests.SaveMeasurementRequestModel;
 import com.android.agzakhanty.sprints.three.models.api_requests.SaveViolationtRequestModel;
+import com.android.agzakhanty.sprints.three.models.api_requests.SendReminderNotificationRequestModel;
 import com.android.agzakhanty.sprints.three.models.api_requests.UpdateMeasurementRequestModel;
 import com.android.agzakhanty.sprints.three.models.api_responses.ConsultationTypesResponesModel;
 import com.android.agzakhanty.sprints.three.models.api_responses.LastMeasureResponseModel;
@@ -205,12 +206,11 @@ public interface ApiInterface {
                                                    @Query("Date") String date,
                                                    @Body UpdateMeasurementRequestModel request);
 
-    @GET("Reminder/CstmrReminder")
+    @POST("Reminder/CstmrReminder")
     Call<Boolean> sendMeasureNotifications(
-            @Query("RemiderTime") String times,
             @Query("CstmrId") String CstmrId,
-            @Query("MedicineName") String medicine
-    );
+            @Body SendReminderNotificationRequestModel srnrm
+            );
 
 }
 

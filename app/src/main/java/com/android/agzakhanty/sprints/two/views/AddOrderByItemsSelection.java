@@ -156,6 +156,13 @@ public class AddOrderByItemsSelection extends AppCompatActivity {
             favPharmDataTV.setVisibility(View.GONE);
             goToFavPCYWS(customer.getFavPcy());
         }
+
+        if (getIntent().getStringExtra("adItems") != null && !getIntent().getStringExtra("adItems").isEmpty()){
+           ArrayList<ItemsResponseModel> adItems  = new Gson().fromJson(getIntent().getStringExtra("adItems"),
+                   new TypeToken<ArrayList<ItemsResponseModel>>() {
+           }.getType());
+           onDialogDoneButtonClicked(adItems);
+        }
     }
 
     private void goToFavPCYWS(String id) {

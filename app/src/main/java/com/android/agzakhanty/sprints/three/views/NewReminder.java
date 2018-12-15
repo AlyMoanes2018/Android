@@ -35,6 +35,7 @@ import com.android.agzakhanty.sprints.one.models.api_responses.CustomerInfoRespo
 import com.android.agzakhanty.sprints.three.adapters.DosesAdapter;
 import com.android.agzakhanty.sprints.three.models.Dose;
 import com.android.agzakhanty.sprints.three.models.Reminder;
+import com.android.agzakhanty.sprints.three.models.api_requests.SendReminderNotificationRequestModel;
 import com.android.agzakhanty.sprints.two.models.api_responses.ItemsResponseModel;
 import com.android.agzakhanty.sprints.two.views.Dashboard;
 import com.android.agzakhanty.sprints.two.views.dialogs.AddItemsDialog;
@@ -191,7 +192,7 @@ public class NewReminder extends AppCompatActivity implements DatePickerDialog.O
 
                 }
             }
-            DateTimeFormatter writeFormatter = DateTimeFormat.forPattern("yyyy/MM/dd HH:mm:ss").withLocale(new Locale("ar"));
+            DateTimeFormatter writeFormatter = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm:ss").withLocale(new Locale("ar"));
             for (int i = 0; i < dates.size(); i++) {
                 formattedFinalDates.add(writeFormatter.print(dates.get(i)));
             }
@@ -229,9 +230,13 @@ public class NewReminder extends AppCompatActivity implements DatePickerDialog.O
         String medicineNameIfAny = null;
         if (reminderItem.size() >= 1) {
             Log.d("TEST_REMINDER_FAIL", new Gson().toJson(dates) + " " + customer.getId() + " " + reminderItem.get(0).getNameAr());
-           medicineNameIfAny = reminderItem.get(0).getNameAr();
+            medicineNameIfAny = reminderItem.get(0).getNameAr();
         }
-        Call<Boolean> call = apiService.sendMeasureNotifications(dates.toString(), customer.getId(), medicineNameIfAny);
+        SendReminderNotificationRequestModel sendReminderNotificationRequestModel = new SendReminderNotificationRequestModel();
+        sendReminderNotificationRequestModel.setMedicineName(medicineNameIfAny);
+        sendReminderNotificationRequestModel.setReminderTimes(dates);
+        Log.d("TEST_REM_NOTI", new Gson().toJson(sendReminderNotificationRequestModel));
+        Call<Boolean> call = apiService.sendMeasureNotifications(customer.getId(), sendReminderNotificationRequestModel);
 
         call.enqueue(new Callback<Boolean>() {
             @Override
