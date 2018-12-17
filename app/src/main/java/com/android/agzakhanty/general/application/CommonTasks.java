@@ -30,6 +30,8 @@ import com.android.agzakhanty.general.models.PrefManager;
 import com.android.agzakhanty.sprints.one.models.Customer;
 import com.android.agzakhanty.sprints.one.views.AddPharmacy;
 import com.android.agzakhanty.sprints.one.views.FavouritePharmacy;
+import com.android.agzakhanty.sprints.one.views.ProfilePhotoSetter;
+import com.android.agzakhanty.sprints.one.views.Splash;
 import com.android.agzakhanty.sprints.two.views.Ads;
 import com.android.agzakhanty.sprints.two.views.Circles;
 import com.android.agzakhanty.sprints.two.views.CirclesFull;
@@ -120,6 +122,8 @@ public class CommonTasks {
         SecondaryDrawerItem item7 = new SecondaryDrawerItem().withIdentifier(7).withName(context.getResources().getString(R.string.nav_violation)).withIcon(R.drawable.ic_warning);
         SecondaryDrawerItem item8 = new SecondaryDrawerItem().withIdentifier(8).withName(context.getResources().getString(R.string.nav_instructions)).withIcon(R.drawable.ic_instructions);
         SecondaryDrawerItem item9 = new SecondaryDrawerItem().withIdentifier(9).withName(context.getResources().getString(R.string.nav_settings)).withIcon(R.drawable.ic_settings);
+        SecondaryDrawerItem item10 = new SecondaryDrawerItem().withIdentifier(10).withName(context.getResources().getString(R.string.editData_settings)).withIcon(R.drawable.ic_settings);
+        SecondaryDrawerItem item11 = new SecondaryDrawerItem().withIdentifier(11).withName(context.getResources().getString(R.string.signOut_settings)).withIcon(R.drawable.ic_settings);
         AccountHeader headerResult = new AccountHeaderBuilder()
                 .withActivity((Activity) context)
                 .withHeaderBackground(R.drawable.gradient_background)
@@ -141,13 +145,14 @@ public class CommonTasks {
                 .withActivity((Activity) context)
                 .withToolbar(toolbar)
                 .addDrawerItems(
-                        item1, item2, item3, item4, item5, item6, item7, item8, item9
+                        item1, item2, item3, item4, item5, item6, item7, /*item8, item9*/ item10, item11
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         Log.d("TEST_LOGOUT", position + "");
                         Intent i;
+
                         switch (position) {
                             case 1:
                                 i = new Intent(context, MyOrders.class);
@@ -205,7 +210,7 @@ public class CommonTasks {
                                 ((Activity) context).finish();
                                 break;
 
-                            case 8:
+                           /* case 8:
                                 i = new Intent(context, Instructions.class);
                                 result.closeDrawer();
                                 context.startActivity(i);
@@ -219,6 +224,27 @@ public class CommonTasks {
                                 context.startActivity(i);
                                 ((Activity) context).overridePendingTransition(R.anim.activity_enter, R.anim.activity_leave);
                                 PrefManager.getInstance(context).write(Constants.SP_LOGIN_CUSTOMER_KEY, "");
+                                ((Activity) context).finish();
+                                break;*/
+
+
+                            case 8:
+
+                                i = new Intent(context, ProfilePhotoSetter.class);
+                                result.closeDrawer();
+                                context.startActivity(i);
+                                ((Activity) context).overridePendingTransition(R.anim.activity_enter, R.anim.activity_leave);
+                                ((Activity) context).finish();
+                                break;
+
+
+                            case 9:
+                                i = new Intent(context, Splash.class);
+                                result.closeDrawer();
+                                context.startActivity(i);
+                                ((Activity) context).overridePendingTransition(R.anim.activity_enter, R.anim.activity_leave);
+                                PrefManager.getInstance(context).write(Constants.SP_LOGIN_CUSTOMER_KEY, "");
+                                // we still need to empty everything possible related to the user
                                 ((Activity) context).finish();
                                 break;
                         }

@@ -132,10 +132,10 @@ public class AdsAdapter extends ArrayAdapter<AdResponseModel> {
         viewHolder.expiryDate.setText(context.getResources().getString(R.string.adExpiry) +
                 " " + models.get(i).getAdvExpireDate().split("T")[0]);
         viewHolder.startDateHeader.setText(models.get(i).getDay());
-        if (ad.getPcyImage() != null  && ad.getAdvImage() != null && !ad.getAdvImage().isEmpty()) {
+        if (ad.getPcyImage() != null && !ad.getPcyImage().isEmpty()) {
             Glide
                     .with(context)
-                    .load(Constants.BASE_URL + ad.getAdvImage())
+                    .load(Constants.BASE_URL + ad.getPcyImage())
                     .centerCrop()
                     .into(viewHolder.pharmacyLogo);
         } else {

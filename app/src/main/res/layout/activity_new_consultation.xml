@@ -87,6 +87,7 @@
                     android:background="#38786B"
                     android:gravity="center"
                     android:text="@string/edit"
+                    android:textColor="#FFFFFF"
                     android:textSize="12sp" />
 
                 <ImageView

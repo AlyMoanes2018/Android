@@ -85,6 +85,7 @@
                     android:background="#38786B"
                     android:text="@string/edit"
                     android:gravity="center"
+                    android:textColor="#FFFFFF"
                     android:layout_centerVertical="true"
                     android:textSize="12sp" />
 

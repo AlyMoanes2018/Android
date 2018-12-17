@@ -15,7 +15,10 @@ import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -154,6 +157,21 @@ public class SearchCirclePharmacyByName extends AppCompatActivity implements Loc
             }
         });
 
+        searchET.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                if (i == EditorInfo.IME_ACTION_SEARCH) {
+                    InputMethodManager imm = (InputMethodManager) textView.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(textView.getWindowToken(), 0);
+                    validateInputDataAndSend();
+                    // This is a test comment
+
+                    // This is another test comment
+                }
+                return false;
+            }
+        });
+
         mLastKnownLocation.setLatitude(30.0340685);
         mLastKnownLocation.setLongitude(31.3461807);
         if (ContextCompat.checkSelfPermission(this,
@@ -178,6 +196,12 @@ public class SearchCirclePharmacyByName extends AppCompatActivity implements Loc
 
     @OnClick(R.id.searchButton)
     public void searchOnClick() {
+       validateInputDataAndSend();
+
+
+    }
+
+    public void validateInputDataAndSend(){
         if (DataValidator.isStringEmpty(searchET.getText().toString())) {
             Toast.makeText(this, getResources().getString(R.string.searchError), Toast.LENGTH_LONG).show();
         } else {
@@ -186,8 +210,6 @@ public class SearchCirclePharmacyByName extends AppCompatActivity implements Loc
             noNearby.setVisibility(View.GONE);
             goToNearbyWS();
         }
-
-
     }
 
     @Override

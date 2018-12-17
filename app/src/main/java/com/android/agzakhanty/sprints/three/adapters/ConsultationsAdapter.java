@@ -111,9 +111,9 @@ public class ConsultationsAdapter extends ArrayAdapter<Consultation> {
             viewHolder.pharmacyLogo.setImageBitmap(bmp);
         }
         if (PrefManager.getInstance(context).readInt(Constants.SP_LANGUAGE_KEY) == 0)
-            viewHolder.type.setText(consultation.getConsltionTypeNameEn());
-        else if (PrefManager.getInstance(context).readInt(Constants.SP_LANGUAGE_KEY) == 1)
             viewHolder.type.setText(consultation.getConsltionTypeName());
+        else if (PrefManager.getInstance(context).readInt(Constants.SP_LANGUAGE_KEY) == 1)
+            viewHolder.type.setText(consultation.getConsltionTypeNameEn());
 
         viewHolder.consultationNum.setText(context.getResources().getString(R.string.consNumber) + " " + consultation.getConsltionId());
         viewHolder.customerAddress.setText(context.getResources().getString(R.string.addressCon) + " " + consultation.getPcyAddress());

@@ -8,7 +8,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -345,6 +348,34 @@ public class NewMeasurementDetails extends AppCompatActivity implements DatePick
             unit.setText(measurement.getUnit());
         }
 
+        value.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                if (i == EditorInfo.IME_ACTION_DONE) {
+                    InputMethodManager imm = (InputMethodManager) textView.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(textView.getWindowToken(), 0);
+                    // This is a test comment
+
+                    // This is another test comment
+                }
+                return false;
+            }
+        });
+
+        value2.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                if (i == EditorInfo.IME_ACTION_DONE) {
+                    InputMethodManager imm = (InputMethodManager) textView.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(textView.getWindowToken(), 0);
+                    // This is a test comment
+
+                    // This is another test comment
+                }
+                return false;
+            }
+        });
+
         title.setText(getIntent().getStringExtra("title"));
 
         if (getIntent().getStringExtra("isView") != null)
@@ -442,7 +473,7 @@ public class NewMeasurementDetails extends AppCompatActivity implements DatePick
                 NewMeasurementDetails.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int i, int i1) {
-                measurementTime = String.format("%02d", i) + ":" + String.format("%02d", i1);
+                measurementTime = String.format("%02d", i) + ":" + String.format("%02d", i1) + ":00";
                 dateValue.setText(measurementDate);
                 timeValue.setText(measurementTime);
                 enterDate.setVisibility(View.GONE);

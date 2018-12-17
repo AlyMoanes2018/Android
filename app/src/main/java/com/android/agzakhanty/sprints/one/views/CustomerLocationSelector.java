@@ -88,6 +88,7 @@ public class CustomerLocationSelector extends AppCompatActivity implements OnMap
                 map.animateCamera(cameraUpdate);
                 location = place.getLatLng();
                 marker.setPosition(place.getLatLng());
+                marker.showInfoWindow();
             }
 
             @Override
@@ -124,12 +125,14 @@ public class CustomerLocationSelector extends AppCompatActivity implements OnMap
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
         map.setPadding(0, 1000, 0, 0);
-        location = new LatLng(29.9796143, 31.1495216);
+        location = new LatLng(30.044420, 31.235712);
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(location, 15);
         map.animateCamera(cameraUpdate);
          marker = map.addMarker(new MarkerOptions()
+                 .title(getResources().getString(R.string.mapMarkerTitle))
                 .position(new LatLng(location.latitude, location.longitude))
                 .draggable(true));
+         marker.showInfoWindow();
         if (mLocationPermissionGranted) {
             map.setMyLocationEnabled(true);
             map.setOnMyLocationButtonClickListener(this);
@@ -140,6 +143,7 @@ public class CustomerLocationSelector extends AppCompatActivity implements OnMap
     public boolean onMyLocationButtonClick() {
         location = new LatLng(map.getMyLocation().getLatitude(), map.getMyLocation().getLongitude());
         marker.setPosition(location);
+        marker.showInfoWindow();
         return false;
     }
 

@@ -95,6 +95,8 @@
     <string name="nav_violation">Report Violation</string>
     <string name="nav_instructions">Instructions</string>
     <string name="nav_settings">Settings</string>
+    <string name="signOut_settings">Sign out</string>
+    <string name="editData_settings">Edit Data</string>
     <string name="myOrdersTitle">My Orders</string>
     <string name="searchOrders">Search by order or pharmacy</string>
     <string name="searchAds">Search by order or item</string>
@@ -316,6 +318,7 @@
     <string name="noCode">You must enter a valid pharmacy code first</string>
     <string name="sendInvitation">Send an invitation</string>
     <string name="codeAdded">Pharmacy successfully added to your circle</string>
+    <string name="mapMarkerTitle">Long click on the pin to move it</string>
     <string-array name="reminder_types_array">
         <item>Medicine</item>
         <item>Task</item>

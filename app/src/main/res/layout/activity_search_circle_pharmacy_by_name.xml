@@ -118,6 +118,7 @@
                 android:drawablePadding="5dp"
                 android:hint="@string/nameHint"
                 android:inputType="text"
+                android:imeOptions="actionSearch"
                 android:textColor="#C0C0C0"
                 android:textColorHint="#C0C0C0"
                 android:textSize="14sp"

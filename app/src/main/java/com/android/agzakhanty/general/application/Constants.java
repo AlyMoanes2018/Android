@@ -31,7 +31,7 @@ public class Constants {
     public static final String SCHEDULED_ALARM_ORDER_ID = "alarmOrderID";
     public static final String REMINDER_SELECTED_INDEX = "index";
     public static final String NOTIFICATION_TEXT_REDIRECT = "notiText";
-    public static final String DEFAULT_ORDER_REMINDER_TIME = "2";
+    public static final String DEFAULT_ORDER_REMINDER_TIME = "10";
     public static final String TIMER_IS_STARTED = "timerStarted";
     public static final String ACTIVITY_STARTED_FROM = "from";
     public static final String ORDER_ID = "orderIDNoti";

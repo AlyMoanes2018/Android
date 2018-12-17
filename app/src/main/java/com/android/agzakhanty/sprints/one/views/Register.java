@@ -16,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -323,7 +324,7 @@ public class Register extends AppCompatActivity {
 
     @OnClick(R.id.terms)
     public void onTermsLabelClicked() {
-        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.AppTheme));
         builder1.setMessage(getResources().getString(R.string.termsText));
         builder1.setCancelable(false);
 

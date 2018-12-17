@@ -90,6 +90,8 @@
     <string name="nav_violation">أبلغ عن مخالفة</string>
     <string name="nav_instructions">الإرشادات</string>
     <string name="nav_settings">الإعدادات</string>
+    <string name="signOut_settings">تسجيل الخروج</string>
+    <string name="editData_settings">تعديل البيانات</string>
     <string name="myOrdersTitle">أوردراتي</string>
     <string name="searchOrders">ابحث بالصيدلية او بالاوردر</string>
     <string name="searchAds">ابحث بالصيدلية او بالصنف</string>
@@ -129,7 +131,7 @@
     <string name="addToCircles">أضف إلى دوائري</string>
     <string name="call">اتصل</string>
     <string name="ads">اعلانات الصيدليات</string>
-    <string name="ignore">تجاهل</string>
+    <string name="ignore">إخفاء</string>
     <string name="expireWithin">ينتهي في: ٧ أيام</string>
     <string name="desc">الوصف:</string>
     <string name="cats">الفئات:</string>
@@ -222,7 +224,7 @@
     <string name="cancelOrderDialogTitle">أوردر رقم:</string>
     <string name="cancelOrderDialogMsg">سيتم الآن إلغاء هذا الأوردر بسبب</string>
     <string name="areYouSure">هل أنت متأكد ؟</string>
-    <string name="yes">نعم</string>
+    <string name="yes">أوافق</string>
     <string name="no">لا</string>
     <string name="cancelingOrder">جاري إلغاء الأوردر..</string>
     <string name="cancelOrderSuccess">تم إلغاء الأوردر</string>
@@ -316,6 +318,7 @@
     <string name="sendInvitation">ارسال دعوة لصيدلية</string>
     <string name="noCode">يجب إدخال كود صيدلية صحيح أولا</string>
     <string name="codeAdded">تم إضافة الصيدلية إلى دائرتك بنجاح</string>
+    <string name="mapMarkerTitle">اضغط مطولا حتى تتمكن من تحريك العلامة</string>
     <string-array name="reminder_types_array">
         <item>موعد دواء</item>
         <item>مهمة</item>
