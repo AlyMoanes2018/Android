@@ -19,7 +19,10 @@ import com.android.agzakhanty.general.application.Constants;
 import com.android.agzakhanty.general.models.PrefManager;
 import com.android.agzakhanty.sprints.one.models.Customer;
 import com.android.agzakhanty.sprints.three.models.Consultation;
+import com.android.agzakhanty.sprints.three.views.MyConsultations;
+import com.android.agzakhanty.sprints.three.views.NewConsultation;
 import com.android.agzakhanty.sprints.two.models.Order;
+import com.android.agzakhanty.sprints.two.views.Dashboard;
 import com.android.agzakhanty.sprints.two.views.ViewOrderDetails;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -69,7 +72,7 @@ public class ConsultationsAdapter extends ArrayAdapter<Consultation> {
     @Override
     public View getView(final int i, View view, ViewGroup viewGroup) {
         // Get the data item for this position
-        Consultation consultation = consultations.get(i);
+        final Consultation consultation = consultations.get(i);
         // Check if an existing view is being reused, otherwise inflate the view
         final ViewHolder viewHolder; // view lookup cache stored in tag
         final View result;
@@ -117,7 +120,18 @@ public class ConsultationsAdapter extends ArrayAdapter<Consultation> {
 
         viewHolder.consultationNum.setText(context.getResources().getString(R.string.consNumber) + " " + consultation.getConsltionId());
         viewHolder.customerAddress.setText(context.getResources().getString(R.string.addressCon) + " " + consultation.getPcyAddress());
-
+        viewHolder.mainLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, NewConsultation.class);
+                intent.putExtra("isView", "true");
+                intent.putExtra("cons", new Gson().toJson(consultation));
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                context.startActivity(intent);
+                ((Activity) context).overridePendingTransition(R.anim.activity_leave, R.anim.activity_enter);
+                ((Activity) context).finish();
+            }
+        });
 
         return view;
     }

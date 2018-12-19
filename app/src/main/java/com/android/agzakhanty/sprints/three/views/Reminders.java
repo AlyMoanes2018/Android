@@ -62,6 +62,7 @@ public class Reminders extends AppCompatActivity {
     List<Reminder> reminders;
     private LocalDBHelper db;
     Fragment page;
+    Customer customer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +70,9 @@ public class Reminders extends AppCompatActivity {
         setContentView(R.layout.activity_reminders);
         ButterKnife.bind(this);
         db = new LocalDBHelper(this);
+        String custJSON = PrefManager.getInstance(this).read(Constants.SP_LOGIN_CUSTOMER_KEY);
+        customer = new Gson().fromJson(custJSON, new TypeToken<Customer>() {
+        }.getType());
         searchRemindersET.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -127,6 +131,13 @@ public class Reminders extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         page = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.viewpager + ":" + 0);
         reminders = db.getAllReminders();
+        if (customer.getFavPcy() != null && !customer.getFavPcy().isEmpty()) {
+            Log.d("TEST_HIDE", "IF");
+            addButton.setVisibility(View.VISIBLE);
+        } else {
+            Log.d("TEST_HIDE", "ELSE");
+            addButton.setVisibility(View.GONE);
+        }
         goToGetRemindersWS();
     }
 

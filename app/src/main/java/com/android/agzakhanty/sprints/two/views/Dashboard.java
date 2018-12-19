@@ -299,6 +299,7 @@ public class Dashboard extends AppCompatActivity {
             editFavPharmacyButton.setVisibility(View.VISIBLE);
             callFavPharmacy.setVisibility(View.GONE);
             progressBar.setVisibility(View.GONE);
+            menuRed.setVisibility(View.GONE);
             Log.d("TEST_UPDATE2", "Called from on create");
             goToActiveOrderWS(true);
         }
@@ -548,6 +549,7 @@ public class Dashboard extends AppCompatActivity {
                         callFavPharmacy.setVisibility(View.VISIBLE);
                         progressBar.setVisibility(View.GONE);
                         favPharmDataTV.setVisibility(View.VISIBLE);
+                        menuRed.setVisibility(View.VISIBLE);
                         Log.d("TEST_IMG", model.getPharmacy().getLogoURL() + "  E");
                         if (model.getPharmacy().getLogoURL() != null && !model.getPharmacy().getLogoURL().isEmpty()) {
 

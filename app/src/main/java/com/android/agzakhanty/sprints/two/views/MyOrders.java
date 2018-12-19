@@ -60,6 +60,7 @@ public class MyOrders extends AppCompatActivity {
     ImageView addButton;
     @BindView(R.id.searchOrdersET)
     EditText searchOrdersET;
+    Customer customer;
 
     ViewPager.OnPageChangeListener onPageChangeListener;
     ArrayList<Order> orders;
@@ -69,6 +70,10 @@ public class MyOrders extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_orders);
         ButterKnife.bind(this);
+        String custJSON = PrefManager.getInstance(this).read(Constants.SP_LOGIN_CUSTOMER_KEY);
+        customer = new Gson().fromJson(custJSON, new TypeToken<Customer>() {
+        }.getType());
+
         searchOrdersET.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -129,14 +134,18 @@ public class MyOrders extends AppCompatActivity {
 
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
-
+        if (customer.getFavPcy() != null && !customer.getFavPcy().isEmpty()) {
+            Log.d("TEST_HIDE", "IF");
+            addButton.setVisibility(View.VISIBLE);
+        } else {
+            Log.d("TEST_HIDE", "ELSE");
+            addButton.setVisibility(View.GONE);
+        }
         goToGetOrdersWS();
     }
 
     private void goToGetOrdersWS() {
-        String custJSON = PrefManager.getInstance(this).read(Constants.SP_LOGIN_CUSTOMER_KEY);
-        final Customer customer = new Gson().fromJson(custJSON, new TypeToken<Customer>() {
-        }.getType());
+
         Log.d("TEST_UPDATE", new Gson().toJson(customer));
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
         Call<ArrayList<Order>> call = apiService.getAllCustomerOrders(customer.getId());

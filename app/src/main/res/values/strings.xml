@@ -208,6 +208,7 @@
     <string name="newConsultations">New consultation request</string>
     <string name="consType">Consultation type</string>
     <string name="consTopic">Consultation topic</string>
+    <string name="response">Pharmacy response</string>
     <string name="consImg">Add Image</string>
     <string name="sendConsReq">Send</string>
     <string name="saveOrderSuccess">Order successfully sent</string>
@@ -252,7 +253,7 @@
     <string name="fourth">Fourth dose</string>
     <string name="fifth">Fifth dose</string>
     <string name="sixth">Sixth dose</string>
-    <string name="TwoMins">You will be asked again after two minutes</string>
+    <string name="TwoMins">You will be asked again after 10 minutes</string>
     <string name="delivered">Order delivered ?</string>
     <string name="backAgainToExit">Press BACK again to exit</string>
     <string name="newMeasure">New Measurement</string>

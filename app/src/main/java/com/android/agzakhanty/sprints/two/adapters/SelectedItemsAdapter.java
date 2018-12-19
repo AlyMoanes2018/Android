@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -46,6 +47,7 @@ public class SelectedItemsAdapter extends ArrayAdapter<ItemsResponseModel> {
         EditText price;
         EditText quantity;
         TextView availability;
+        ImageView deleteItem;
     }
 
     public SelectedItemsAdapter(ArrayList<ItemsResponseModel> models, Context context, boolean isView, String sttsID) {
@@ -84,6 +86,7 @@ public class SelectedItemsAdapter extends ArrayAdapter<ItemsResponseModel> {
             viewHolder.price = (EditText) view.findViewById(R.id.priceET);
             viewHolder.quantity = (EditText) view.findViewById(R.id.quantityET);
             viewHolder.availability = (TextView) view.findViewById(R.id.availableOrNot);
+            viewHolder.deleteItem = (ImageView) view.findViewById(R.id.deleteItem);
             /*viewHolder.price.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -133,6 +136,15 @@ public class SelectedItemsAdapter extends ArrayAdapter<ItemsResponseModel> {
             }
         });*/
 
+        viewHolder.deleteItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                models.remove(i);
+                notifyDataSetChanged();
+                ((AddOrderByItemsSelection) context).onDialogDoneButtonClicked(models);
+            }
+        });
+
         viewHolder.quantity.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -179,6 +191,7 @@ public class SelectedItemsAdapter extends ArrayAdapter<ItemsResponseModel> {
         viewHolder.quantity.setText(item.getQty());
         viewHolder.price.setText(item.getPrice());
         if (isView) {
+            viewHolder.deleteItem.setVisibility(View.GONE);
             viewHolder.price.setEnabled(false);
             viewHolder.quantity.setEnabled(false);
             if (orderStatusID.equals("2") || orderStatusID.equals("3")) {
@@ -194,6 +207,7 @@ public class SelectedItemsAdapter extends ArrayAdapter<ItemsResponseModel> {
             } else viewHolder.availability.setVisibility(View.GONE);
         } else {
             viewHolder.availability.setVisibility(View.GONE);
+            viewHolder.deleteItem.setVisibility(View.VISIBLE);
         }
 
         return view;

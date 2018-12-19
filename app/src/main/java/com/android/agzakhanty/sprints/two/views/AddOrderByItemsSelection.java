@@ -253,7 +253,7 @@ public class AddOrderByItemsSelection extends AppCompatActivity {
             noItemsAdded.setVisibility(View.VISIBLE);
         }
 
-        Log.d("TEST_ITEMS_ACTIVITY", selectedItems.get(0).getNameAr());
+        //Log.d("TEST_ITEMS_ACTIVITY", selectedItems.get(0).getNameAr());
     }
 
     public void updateTotalPrice(){

@@ -208,6 +208,7 @@
     <string name="newConsultations">طلب استشارة</string>
     <string name="consType">نوع الاستشارة</string>
     <string name="consTopic">موضوع الاستشارة</string>
+    <string name="response">رد الصيدلية</string>
     <string name="consImg">اضف صوره</string>
     <string name="sendConsReq">ارسل الاستفسار</string>
     <string name="saveOrderSuccess">تم إرسال الأوردر..انتظر تأكيد توافر الأصناف من الصيدلية</string>
@@ -252,7 +253,7 @@
     <string name="fourth">الجرعة الرابعة</string>
     <string name="fifth">الجرعة الخامسة</string>
     <string name="sixth">الجرعة السادسة</string>
-    <string name="TwoMins">سيتم تذكيرك عن طريق تنبيه آخر بعد دقيقتين من الآن</string>
+    <string name="TwoMins">سيتم تذكيرك عن طريق تنبيه آخر بعد 10 دقائق من الآن</string>
     <string name="delivered">تم التسليم ؟</string>
     <string name="backAgainToExit">اضغط مرة أخرى لإنهاء التطبيق</string>
     <string name="newMeasure">قياس جديد</string>

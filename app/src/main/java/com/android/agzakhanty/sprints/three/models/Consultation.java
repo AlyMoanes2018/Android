@@ -19,6 +19,7 @@ public class Consultation {
     private String ConsltionTypeNameEn;
     @SerializedName("Status")
     private String status;
+    private String ConsltReply;
 
 
 
@@ -92,5 +93,13 @@ public class Consultation {
 
     public void setConsltionTypeNameEn(String consltionTypeNameEn) {
         ConsltionTypeNameEn = consltionTypeNameEn;
+    }
+
+    public String getConsltReply() {
+        return ConsltReply;
+    }
+
+    public void setConsltReply(String consltReply) {
+        ConsltReply = consltReply;
     }
 }

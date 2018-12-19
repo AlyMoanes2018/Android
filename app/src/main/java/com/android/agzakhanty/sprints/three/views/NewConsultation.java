@@ -48,6 +48,7 @@ import com.android.agzakhanty.general.models.PrefManager;
 import com.android.agzakhanty.sprints.one.models.Customer;
 import com.android.agzakhanty.sprints.one.models.api_responses.PharmacyDistance;
 import com.android.agzakhanty.sprints.one.views.AddPharmacy;
+import com.android.agzakhanty.sprints.three.models.Consultation;
 import com.android.agzakhanty.sprints.three.models.api_requests.SaveConsultationRequestModel;
 import com.android.agzakhanty.sprints.three.models.api_responses.ConsultationTypesResponesModel;
 import com.android.agzakhanty.sprints.two.views.Dashboard;
@@ -89,6 +90,16 @@ public class NewConsultation extends AppCompatActivity {
     TextInputLayout topicWrapper;
     @BindView(R.id.typeWrapper)
     TextInputLayout typeWrapper;
+    @BindView(R.id.responseTV)
+    TextView responseTV;
+    @BindView(R.id.responseWrapper)
+    TextInputLayout responseWrapper;
+    @BindView(R.id.addPicTV)
+    TextView addPicTV;
+    @BindView(R.id.sendButton)
+    Button sendButton;
+    @BindView(R.id.responseET)
+    EditText responseET;
     int spinnerSelectedIndex;
     String imgByteArrStr;
     ArrayList<String> typesNames;
@@ -97,6 +108,7 @@ public class NewConsultation extends AppCompatActivity {
     Customer customer;
     String favoritePcyId = "";
     PharmacyDistance model;
+    Consultation consultation;
 
 
     @OnClick(R.id.imgLayout)
@@ -112,7 +124,7 @@ public class NewConsultation extends AppCompatActivity {
             Intent intent = new Intent(Intent.ACTION_CALL);
             intent.setData(Uri.parse("tel:" + model.getPharmacy().getMobile()));
             startActivity(intent);
-        }else {
+        } else {
             getPhoneCallPermission();
         }
     }
@@ -135,7 +147,6 @@ public class NewConsultation extends AppCompatActivity {
                     220);
         }
     }
-
 
 
     //sendButton
@@ -186,6 +197,30 @@ public class NewConsultation extends AppCompatActivity {
             editFavPharmacyButton.setVisibility(View.VISIBLE);
             callFavPharmacy.setVisibility(View.GONE);
             progressBar.setVisibility(View.GONE);
+        }
+
+        if (getIntent().getStringExtra("isView") != null && getIntent().getStringExtra("isView").equalsIgnoreCase("true")) {
+            consultationTypeSpinner.setEnabled(false);
+            topicET.setEnabled(false);
+            addPicTV.setVisibility(View.GONE);
+            imgLayout.setVisibility(View.GONE);
+            responseTV.setVisibility(View.VISIBLE);
+            responseWrapper.setVisibility(View.VISIBLE);
+            sendButton.setVisibility(View.GONE);
+            String consJSON = getIntent().getStringExtra("cons");
+            consultation = new Gson().fromJson(consJSON, new TypeToken<Consultation>() {
+            }.getType());
+            if (consultation.getConsltReply() != null && !consultation.getConsltReply().isEmpty() && !consultation.getConsltReply().equalsIgnoreCase("null"))
+                responseET.setText(consultation.getConsltReply());
+
+        } else {
+            consultationTypeSpinner.setEnabled(true);
+            topicET.setEnabled(true);
+            addPicTV.setVisibility(View.VISIBLE);
+            imgLayout.setVisibility(View.VISIBLE);
+            responseTV.setVisibility(View.GONE);
+            responseWrapper.setVisibility(View.GONE);
+            sendButton.setVisibility(View.VISIBLE);
         }
 
         consultationTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -240,8 +275,7 @@ public class NewConsultation extends AppCompatActivity {
                                 response.body().get(i).getActive().equalsIgnoreCase("y")) {
                             typesNames.add(response.body().get(i).getNameEn());
                             typesIds.add(response.body().get(i).getId());
-                        }
-                        else Log.d("TEST_TYPES", "NOT SAVED");
+                        } else Log.d("TEST_TYPES", "NOT SAVED");
 
                     }
 
@@ -250,6 +284,18 @@ public class NewConsultation extends AppCompatActivity {
                             NewConsultation.this, android.R.layout.simple_spinner_item, typesNames);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     consultationTypeSpinner.setAdapter(adapter);
+                    if (consultation != null) {
+                        int position = -1;
+                        for (int i = 0; i < typesNames.size(); i++) {
+                            Log.d("TEST_CONS", typesNames.get(i) + " " + consultation.getConsltionTypeName());
+                            if (typesNames.get(i).equalsIgnoreCase(consultation.getConsltionTypeName())) {
+                                position = i;
+                                break;
+                            }
+                        }
+                        if (position > -1)
+                            consultationTypeSpinner.setSelection(position);
+                    }
 
                 } else {
                     Log.d("TEST_TYPES", response.code() + "");
@@ -357,9 +403,7 @@ public class NewConsultation extends AppCompatActivity {
 
             }
 
-        }
-
-        else if (requestCode == 220) {
+        } else if (requestCode == 220) {
             // If request is cancelled, the result arrays are empty.
             if (grantResults.length > 0
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -407,7 +451,7 @@ public class NewConsultation extends AppCompatActivity {
     private void goToSendRequestWS() {
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
         SaveConsultationRequestModel request = new SaveConsultationRequestModel();
-        request.setConsltTypeId(spinnerSelectedIndex+"");
+        request.setConsltTypeId(spinnerSelectedIndex + "");
         request.setCstId(customer.getId());
         request.setPcyId(favoritePcyId);
         request.setSubject(topicET.getText().toString());
