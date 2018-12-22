@@ -1,6 +1,7 @@
 package com.android.agzakhanty.sprints.one.views;
 
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -27,6 +28,7 @@ import com.android.agzakhanty.general.application.DialogCreator;
 import com.android.agzakhanty.general.models.PrefManager;
 import com.android.agzakhanty.sprints.one.models.Customer;
 import com.android.agzakhanty.sprints.one.models.api_responses.CustomerInfoResponseModel;
+import com.bumptech.glide.Glide;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -60,6 +62,17 @@ public class ProfilePhotoSetter extends AppCompatActivity {
         setSupportActionBar(appBar);
         CommonTasks.setUpTranslucentStatusBar(this);
         dialog = DialogCreator.getInstance(this);
+        String custJSON = PrefManager.getInstance(this).read(Constants.SP_LOGIN_CUSTOMER_KEY);
+        Customer customer = new Gson().fromJson(custJSON, new TypeToken<Customer>() {
+        }.getType());
+        if (customer != null && customer.getProfilePhotoImgUrl() != null && !customer.getProfilePhotoImgUrl().isEmpty()) {
+            Glide
+                    .with(ProfilePhotoSetter.this)
+                    .load(Constants.BASE_URL + customer.getProfilePhotoImgUrl())
+                    .centerCrop()
+                    .into(imageView);
+        } else
+            imageView.setBackgroundResource(R.drawable.com_facebook_profile_picture_blank_square);
     }
 
     @Override
@@ -95,29 +108,32 @@ public class ProfilePhotoSetter extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 510 && resultCode == RESULT_OK) {
-
-            Bitmap photo = (Bitmap) data.getExtras().get("data");
-            imageView.setImageBitmap(photo);
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            photo.compress(Bitmap.CompressFormat.PNG, 100, stream);
-            byte[] byteArray = stream.toByteArray();
-            imgByteArrStr = Base64.encodeToString(byteArray, Base64.DEFAULT);
-            Log.d("TEST_BYTE_CAM", imgByteArrStr + "");
+            try {
+                Bitmap photo = (Bitmap) data.getExtras().get("data");
+                imageView.setImageBitmap(photo);
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                photo.compress(Bitmap.CompressFormat.PNG, 50, stream);
+                byte[] byteArray = stream.toByteArray();
+                imgByteArrStr = Base64.encodeToString(byteArray, Base64.DEFAULT);
+                Log.d("TEST_BYTE_CAM", imgByteArrStr + "");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } else if (requestCode == 511 && resultCode == RESULT_OK && data != null && data.getData() != null) {
             Uri uri = data.getData();
 
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                bitmap.compress(Bitmap.CompressFormat.PNG, 50, stream);
                 byte[] byteArray = stream.toByteArray();
-                imgByteArrStr = Base64.encodeToString(byteArray, Base64.DEFAULT);
-                Log.d("TEST_BYTE", imgByteArrStr + "");
-                /*byte[] bytes = Base64.decode(imgByteArrStr, Base64.DEFAULT);
-                Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);*/
+                if (byteArray.length <= (1024 * 1024)) {
+                    imgByteArrStr = Base64.encodeToString(byteArray, Base64.DEFAULT);
+                    Log.d("TEST_BYTE", imgByteArrStr + "");
+                    imageView.setImageBitmap(bitmap);
+                } else
+                    Toast.makeText(this, getResources().getString(R.string.picSize), Toast.LENGTH_LONG).show();
 
-                // Log.d(TAG, String.valueOf(bitmap));
-                imageView.setImageBitmap(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -178,6 +194,7 @@ public class ProfilePhotoSetter extends AppCompatActivity {
             }
         });
     }
+
 
 }
 

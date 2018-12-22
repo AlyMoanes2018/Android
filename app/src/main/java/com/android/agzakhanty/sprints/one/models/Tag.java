@@ -9,6 +9,7 @@ public class Tag {
     private String Id;
     private String TagEn;
     private String TagAr;
+    private String TagUrl;
 
     public String getId() {
         return Id;
@@ -32,5 +33,13 @@ public class Tag {
 
     public void setTagAr(String tagAr) {
         TagAr = tagAr;
+    }
+
+    public String getTagUrl() {
+        return TagUrl;
+    }
+
+    public void setTagUrl(String tagUrl) {
+        TagUrl = tagUrl;
     }
 }

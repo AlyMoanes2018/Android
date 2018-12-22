@@ -102,16 +102,19 @@ public class CommonTasks {
     public static void addLeftMenu(final Context context, Toolbar toolbar) {
 
         String custJSON = PrefManager.getInstance(context).read(Constants.SP_LOGIN_CUSTOMER_KEY);
+        Log.d("TEST_PROFILE", custJSON);
         Customer customer = new Gson().fromJson(custJSON, new TypeToken<Customer>() {
         }.getType());
         Drawable profile = null;
         String profileURL = null;
         if (customer.getProfilePhotoImgUrl() != null && !customer.getProfilePhotoImgUrl().isEmpty()) {
-            profileURL = customer.getProfilePhotoImgUrl();
+            profileURL = Constants.BASE_URL + customer.getProfilePhotoImgUrl();
+
         } else {
             profileURL = Constants.NO_IMG_FOUND_URL;
 
         }
+        Log.d("TEST_PROFILE", profileURL);
         //Drawer Menu
         SecondaryDrawerItem item1 = new SecondaryDrawerItem().withIdentifier(1).withName(context.getResources().getString(R.string.nav_orders)).withIcon(R.drawable.ic_add_shopping_cart);
         SecondaryDrawerItem item2 = new SecondaryDrawerItem().withIdentifier(2).withName(context.getResources().getString(R.string.nav_offers)).withIcon(R.drawable.ic_local_offer);

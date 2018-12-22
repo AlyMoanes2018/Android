@@ -185,7 +185,7 @@ public class CustomerLocationSelector extends AppCompatActivity implements OnMap
 
     private void goToUpdateWS() {
         String custJSON = PrefManager.getInstance(this).read(Constants.SP_LOGIN_CUSTOMER_KEY);
-        Customer customer = new Gson().fromJson(custJSON, new TypeToken<Customer>() {
+        final Customer customer = new Gson().fromJson(custJSON, new TypeToken<Customer>() {
         }.getType());
         customer.setLatitude(marker.getPosition().latitude+"");
         customer.setLongitude(marker.getPosition().longitude+"");
@@ -199,8 +199,9 @@ public class CustomerLocationSelector extends AppCompatActivity implements OnMap
             public void onResponse(Call<CustomerInfoResponseModel> call, Response<CustomerInfoResponseModel> response) {
                 if (response.body() != null) {
                     if (response.body().getStatus().equalsIgnoreCase("true")) {
+                        response.body().getCstmr().setProfilePhotoImgUrl(customer.getProfilePhotoImgUrl());
                         PrefManager.getInstance(CustomerLocationSelector.this).write(Constants.SP_LOGIN_CUSTOMER_KEY, new Gson().toJson(response.body().getCstmr()));
-                        Log.d("TEST_REG", response.body().getCstmr().getRegId() + " E");
+                        Log.d("TEST_UPDATE_PRO", new Gson().toJson(response.body().getCstmr()));
                         Intent intent = new Intent(CustomerLocationSelector.this, FavouritePharmacy.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);

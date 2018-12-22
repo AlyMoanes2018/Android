@@ -209,7 +209,7 @@ public class ViewOrderDetails extends AppCompatActivity {
                     ViewGroup header = (ViewGroup) inflater.inflate(R.layout.selected_items_header, null);
                     header.setPadding(0, 0, 0, 0);
                     itemsList.addHeaderView(header);
-                    SelectedItemsAdapter adapter = new SelectedItemsAdapter(order.getListItem(), ViewOrderDetails.this, true, order.getStatusId());
+                    SelectedItemsAdapter adapter = new SelectedItemsAdapter(order.getListItem(), ViewOrderDetails.this, true, order.getStatusId(), false);
                     itemsList.setAdapter(adapter);
                     if (order.getComment() != null) {
                         if (!order.getComment().isEmpty())

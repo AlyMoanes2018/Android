@@ -136,8 +136,8 @@ public class NewMeasurementDetails extends AppCompatActivity implements DatePick
         request.setMsrId(latestMeasure.getMsrId());
         request.setId(latestMeasure.getId());
         request.setVal1(value.getText().toString());
-        measurement.setIsTwoValues("y");
-        if (measurement.getIsTwoValues().equalsIgnoreCase("y"))
+        //measurement.setIsTwoValues("y");
+        if (measurement.getNoValues().equalsIgnoreCase("2"))
             request.setVal2(value2.getText().toString());
         else
             request.setVal2(null);
@@ -183,8 +183,8 @@ public class NewMeasurementDetails extends AppCompatActivity implements DatePick
         Log.d("TEST_SAVE", Integer.parseInt(measurement.getId()) + "");
         request.setMsrId(measurement.getId());
         request.setVal1(value.getText().toString());
-        measurement.setIsTwoValues("y");
-        if (measurement.getIsTwoValues().equalsIgnoreCase("y"))
+        //measurement.setIsTwoValues("y");
+        if (measurement.getNoValues().equalsIgnoreCase("2"))
             request.setVal2(value2.getText().toString());
         else
             request.setVal2(null);
@@ -256,7 +256,7 @@ public class NewMeasurementDetails extends AppCompatActivity implements DatePick
         measurementDate = "";
         measurementTime = "";
         value.setEnabled(true);
-        if (measurement.getIsTwoValues().equalsIgnoreCase("y")) {
+        if (measurement.getNoValues().equalsIgnoreCase("2")) {
             value2.setEnabled(true);
             separator.setVisibility(View.VISIBLE);
         } else {
@@ -344,7 +344,7 @@ public class NewMeasurementDetails extends AppCompatActivity implements DatePick
             }.getType());
             measurement.setId(getIntent().getStringExtra("id"));
             Log.d("TEST_CHART_DETAILS", measurement.getId());
-            measurement.setIsTwoValues("y");
+            //measurement.setIsTwoValues("y");
             unit.setText(measurement.getUnit());
         }
 
@@ -382,7 +382,7 @@ public class NewMeasurementDetails extends AppCompatActivity implements DatePick
             isView = getIntent().getStringExtra("isView");
         if (isView.equals("y")) {
             value.setEnabled(false);
-            if (measurement.getIsTwoValues().equalsIgnoreCase("y")) {
+            if (measurement.getNoValues() != null && measurement.getNoValues().equalsIgnoreCase("2")) {
                 value2.setEnabled(false);
                 separator.setVisibility(View.VISIBLE);
             } else {
@@ -400,7 +400,7 @@ public class NewMeasurementDetails extends AppCompatActivity implements DatePick
             goToGetLatestWS();
         } else {
             value.setEnabled(true);
-            if (measurement.getIsTwoValues().equalsIgnoreCase("y")) {
+            if (measurement.getNoValues().equalsIgnoreCase("2")) {
                 value2.setEnabled(true);
                 separator.setVisibility(View.VISIBLE);
             } else {
@@ -430,10 +430,17 @@ public class NewMeasurementDetails extends AppCompatActivity implements DatePick
                 dialog.dismiss();
                 if (response.body() != null && response.isSuccessful()) {
                     latestMeasure = response.body();
-                    Log.d("TEST_LATEST", (int) Float.parseFloat(latestMeasure.getVal1()) + "");
+                    Log.d("TEST_LATEST", new Gson().toJson(latestMeasure));
                     value.setText((int) Float.parseFloat(latestMeasure.getVal1()) + "");
-                    if (latestMeasure.getVal2() != null)
+                    if (latestMeasure.getVal2() != null && !latestMeasure.getVal2().equals("0.0")) {
+                        value2.setEnabled(false);
+                        value2.setVisibility(View.VISIBLE);
+                        separator.setVisibility(View.VISIBLE);
                         value2.setText((int) Float.parseFloat(latestMeasure.getVal2()) + "");
+                    }else {
+                        value2.setVisibility(View.GONE);
+                        separator.setVisibility(View.GONE);
+                    }
                     dateValue.setText(latestMeasure.getMsrDate().split("T")[0]);
                     timeValue.setText(latestMeasure.getMsrDate().split("T")[1]);
                 } else Log.d("TEST_NULL", response.code() + "");

@@ -16,6 +16,7 @@
             android:id="@+id/appBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
             android:background="@drawable/gradient_background"
             android:theme="@style/UserScreensThemes">
 
@@ -166,7 +167,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_marginStart="14dp"
-            android:layout_marginTop="20dp"
+
             android:layout_marginBottom="24dp"
             android:layout_below="@id/appBar"
             android:drawablePadding="12dp"

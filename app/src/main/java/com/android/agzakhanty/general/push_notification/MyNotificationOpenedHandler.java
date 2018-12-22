@@ -57,8 +57,8 @@ public class MyNotificationOpenedHandler implements OneSignal.NotificationOpened
                 intent.putExtra("PcyId", pcyID);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 context.startActivity(intent);
-                ((Activity) context).overridePendingTransition(R.anim.activity_enter, R.anim.activity_leave);
-                ((Activity) context).finish();
+                /*((Activity) context).overridePendingTransition(R.anim.activity_enter, R.anim.activity_leave);
+                ((Activity) context).finish();*/
             }
             //Remind me after 2 mins
             else if (result.action.actionID.equals("id2")) {

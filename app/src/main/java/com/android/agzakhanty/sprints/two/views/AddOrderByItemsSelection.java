@@ -157,11 +157,12 @@ public class AddOrderByItemsSelection extends AppCompatActivity {
             goToFavPCYWS(customer.getFavPcy());
         }
 
-        if (getIntent().getStringExtra("adItems") != null && !getIntent().getStringExtra("adItems").isEmpty()){
-           ArrayList<ItemsResponseModel> adItems  = new Gson().fromJson(getIntent().getStringExtra("adItems"),
-                   new TypeToken<ArrayList<ItemsResponseModel>>() {
-           }.getType());
-           onDialogDoneButtonClicked(adItems);
+        if (getIntent().getStringExtra("adItems") != null && !getIntent().getStringExtra("adItems").isEmpty()) {
+            ArrayList<ItemsResponseModel> adItems = new Gson().fromJson(getIntent().getStringExtra("adItems"),
+                    new TypeToken<ArrayList<ItemsResponseModel>>() {
+                    }.getType());
+            addItemTV.setVisibility(View.GONE);
+            onDialogDoneButtonClicked(adItems);
         }
     }
 
@@ -172,7 +173,7 @@ public class AddOrderByItemsSelection extends AppCompatActivity {
             @Override
             public void onResponse(Call<PharmacyDistance> call, Response<PharmacyDistance> response) {
                 if (response.body() != null) {
-                     model = response.body();
+                    model = response.body();
                     Log.d("TEST_DIST", model.getDistanceResult() + "  E");
                     if (response.body().getStatus().equalsIgnoreCase("true")) {
                         favouritePharmacyID = model.getPharmacy().getId();
@@ -241,10 +242,15 @@ public class AddOrderByItemsSelection extends AppCompatActivity {
 
     public void onDialogDoneButtonClicked(ArrayList<ItemsResponseModel> selectedItemsFromDialog) {
         selectedItems = selectedItemsFromDialog;
-        totalOrderPrice = calculateTotalOrderPrice();
-        priceValTV.setText(String.format("%.2f",totalOrderPrice) + " " + getResources().getString(R.string.egp));
+        boolean isAd = false;
+        if (getIntent().getStringExtra("adItems") != null && !getIntent().getStringExtra("adItems").isEmpty()) {
+            totalOrderPrice = Float.parseFloat(getIntent().getStringExtra("adPrice"));
+            isAd = true;
+        }else totalOrderPrice = calculateTotalOrderPrice();
+        priceValTV.setText(String.format("%.2f", totalOrderPrice) + " " + getResources().getString(R.string.egp));
         if (selectedItems.size() > 0) {
-            SelectedItemsAdapter adapter = new SelectedItemsAdapter(selectedItems, this, false, "");
+
+            SelectedItemsAdapter adapter = new SelectedItemsAdapter(selectedItems, this, false, "", isAd);
             itemsList.setAdapter(adapter);
             itemsList.setVisibility(View.VISIBLE);
             noItemsAdded.setVisibility(View.GONE);
@@ -256,9 +262,9 @@ public class AddOrderByItemsSelection extends AppCompatActivity {
         //Log.d("TEST_ITEMS_ACTIVITY", selectedItems.get(0).getNameAr());
     }
 
-    public void updateTotalPrice(){
+    public void updateTotalPrice() {
         totalOrderPrice = calculateTotalOrderPrice();
-        priceValTV.setText(String.format("%.2f",totalOrderPrice) + " " + getResources().getString(R.string.egp));
+        priceValTV.setText(String.format("%.2f", totalOrderPrice) + " " + getResources().getString(R.string.egp));
     }
 
     @OnClick(R.id.order)
@@ -345,7 +351,7 @@ public class AddOrderByItemsSelection extends AppCompatActivity {
             Intent intent = new Intent(Intent.ACTION_CALL);
             intent.setData(Uri.parse("tel:" + model.getPharmacy().getMobile()));
             startActivity(intent);
-        }else {
+        } else {
             getPhoneCallPermission();
         }
     }

@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:id="@+id/mainLayout"
     >
 
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/logo"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="15dp"
+        />
 
     <CheckBox
         android:layout_width="24dp"
@@ -10,6 +22,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="15dp"
+        android:layout_alignParentEnd="true"
         android:id="@+id/check"
         android:background="@android:color/white"
         android:alpha=".5"
@@ -20,7 +33,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/nameTV"
         android:text="صحه وجمال"
-        android:layout_toEndOf="@id/check"
+        android:layout_alignBaseline="@id/logo"
+        android:layout_toEndOf="@id/logo"
         android:layout_marginTop="26dp"
         android:textColor="@android:color/black"
         android:textSize="14sp"

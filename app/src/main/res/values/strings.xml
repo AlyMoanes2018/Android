@@ -184,6 +184,7 @@
     <string name="order">Order</string>
     <string name="press">Press here to capture a photo</string>
     <string name="camera">Camera permission denied</string>
+    <string name="picSize">Maximum file size allowed is 1 MB</string>
     <string name="ordersForResult">Select an order to repeat</string>
     <string name="noOrdersForResult">You must select an order to repeat</string>
     <string name="back">Back to my orders</string>

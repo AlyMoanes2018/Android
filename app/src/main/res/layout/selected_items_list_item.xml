@@ -78,10 +78,10 @@
                 android:layout_height="wrap_content"
                 android:gravity="bottom"
                 android:maxLines="1"
-                android:text="@string/available"
+                android:text=""
                 android:visibility="gone"
                 android:textColor="@color/colorPrimary"
-                android:textSize="12sp" />
+                android:textSize="9sp" />
 
         </LinearLayout>
 

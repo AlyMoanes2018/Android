@@ -19,7 +19,8 @@ public class Measurement {
     private String NameAr;
     private String Unit;
     private String Active;
-    private String IsTwoValues;
+    private String NoValues;
+    private String MsrUrl;
     private String Count;
 
     public String getId() {
@@ -62,13 +63,6 @@ public class Measurement {
         Active = active;
     }
 
-    public String getIsTwoValues() {
-        return IsTwoValues;
-    }
-
-    public void setIsTwoValues(String isTwoValues) {
-        IsTwoValues = isTwoValues;
-    }
 
     public String getCount() {
         return Count;
@@ -76,5 +70,21 @@ public class Measurement {
 
     public void setCount(String count) {
         Count = count;
+    }
+
+    public String getNoValues() {
+        return NoValues;
+    }
+
+    public void setNoValues(String noValues) {
+        NoValues = noValues;
+    }
+
+    public String getMsrUrl() {
+        return MsrUrl;
+    }
+
+    public void setMsrUrl(String msrUrl) {
+        MsrUrl = msrUrl;
     }
 }

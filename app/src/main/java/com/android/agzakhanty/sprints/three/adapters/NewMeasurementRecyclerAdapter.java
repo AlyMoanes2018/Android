@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.android.agzakhanty.general.application.Constants;
 import com.android.agzakhanty.general.models.PrefManager;
 import com.android.agzakhanty.sprints.three.models.Measurement;
 import com.android.agzakhanty.sprints.two.models.api_responses.AdResponseModel;
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -53,19 +55,20 @@ public class NewMeasurementRecyclerAdapter extends RecyclerView.Adapter<MyViewHo
         else if (PrefManager.getInstance(context).readInt(Constants.SP_LANGUAGE_KEY) == 1)
             holder.name.setText(list.get(position).getNameEn());
 
-        Random r = new Random();
-        Drawable d;
-        int rand = r.nextInt((4 - 1) + 1) + 1;
-        if (rand == 1)
-            d = ContextCompat.getDrawable(context, R.drawable.ic_add_shopping_cart);
-        else if (rand == 2)
-            d = ContextCompat.getDrawable(context, R.drawable.ic_cam);
-        else if (rand == 3)
-            d = ContextCompat.getDrawable(context, R.drawable.ic_weight);
-
-        else d = ContextCompat.getDrawable(context, R.drawable.ic_repeat);
-
-        holder.icon.setBackground(d);
+        if (list.get(position).getMsrUrl() != null && !list.get(position).getMsrUrl().isEmpty()) {
+            Log.d("TEST_INTERESTS", Constants.BASE_URL + list.get(position).getMsrUrl());
+            Glide
+                    .with(context)
+                    .load(Constants.BASE_URL + list.get(position).getMsrUrl())
+                    .centerCrop()
+                    .into(holder.icon);
+        } else {
+            Glide
+                    .with(context)
+                    .load(Constants.NO_IMG_FOUND_URL)
+                    .centerCrop()
+                    .into(holder.icon);
+        }
 
 
     }

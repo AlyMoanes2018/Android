@@ -36,7 +36,7 @@ public class Customer {
     private String FbId;
     private String GmailId;
     private String Pwd;
-    private String Profile_Photo;
+    private String ProfilePhoto;
     private String ProfilePhotoImgUrl;
     private String FileName;
 
@@ -141,11 +141,11 @@ public class Customer {
     }
 
     public String getProfile_Photo() {
-        return Profile_Photo;
+        return ProfilePhoto;
     }
 
     public void setProfile_Photo(String profile_Photo) {
-        Profile_Photo = profile_Photo;
+        ProfilePhoto = profile_Photo;
     }
 
     public String getId() {

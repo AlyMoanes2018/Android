@@ -177,7 +177,7 @@
         <ListView
             android:id="@+id/itemsList"
             android:layout_width="match_parent"
-            android:layout_height="136dp"
+            android:layout_height="200dp"
             android:layout_below="@id/addItemTV"
             android:layout_marginBottom="20dp"
             android:layout_marginEnd="16dp"

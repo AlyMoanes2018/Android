@@ -184,6 +184,7 @@
     <string name="order">الاوردر</string>
     <string name="press">اضغط هنا لتصوير الروشتة</string>
     <string name="camera">برجاء السماح للتطبيق باستخدام الكاميرا</string>
+    <string name="picSize">لا يمكن تحميل صورة بحجم أكبر من 1 ميجا</string>
     <string name="ordersForResult">اختر أوردر</string>
     <string name="noOrdersForResult">يجب اختيار اوردر اولا حتى يتم تكراره</string>
     <string name="back">عودة إلى أوردراتي</string>
