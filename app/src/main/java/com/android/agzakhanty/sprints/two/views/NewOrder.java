@@ -352,7 +352,15 @@ public class NewOrder extends AppCompatActivity {
 
                 if (response.body() != null) {
                     toBeRepeated = response.body();
-                    dialog.setMessage(getResources().getString(R.string.loadingOrder));
+                    dialog.dismiss();
+                    Intent intent = new Intent(NewOrder.this, AddOrderByItemsSelection.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    intent.putExtra("adItems", new Gson().toJson(toBeRepeated.getListItem()));
+                    intent.putExtra("adPrice", toBeRepeated.getTotal());
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.activity_enter, R.anim.activity_leave);
+                    finish();
+                    /*dialog.setMessage(getResources().getString(R.string.loadingOrder));
                     //create the order object
                     SaveOrderResponseModel order = new SaveOrderResponseModel();
                     SaveOrderDetails orderDetails = new SaveOrderDetails();
@@ -375,7 +383,7 @@ public class NewOrder extends AppCompatActivity {
                     Log.d("TEST_ORDER_SENT", new Gson().toJson(order));
                     //send customer order
 
-                    goToSaveOrderWS(order);
+                    goToSaveOrderWS(order);*/
                 } else {
                     dialog.dismiss();
                     Toast.makeText(NewOrder.this, getResources().getString(R.string.serverFailureMsg), Toast.LENGTH_LONG).show();

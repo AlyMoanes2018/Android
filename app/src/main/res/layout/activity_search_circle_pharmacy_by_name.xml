@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true"
-    >
+
 
     <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <android.support.design.widget.AppBarLayout
             android:id="@+id/appBar"
@@ -61,10 +58,21 @@
         </android.support.design.widget.AppBarLayout>
 
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/appBar"
+        android:layout_above="@+id/searchButton">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+
         <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/appBar"
             android:id="@+id/radioGroup"
             android:layout_marginTop="16dp"
             android:layout_marginStart="11dp"
@@ -148,13 +156,13 @@
             android:id="@+id/results"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/searchButton"
             android:layout_below="@+id/searchET"
             android:layout_marginTop="17dp"
             android:visibility="invisible">
 
         </ListView>
-
+        </RelativeLayout>
+    </ScrollView>
         <Button
             android:id="@+id/searchButton"
             android:layout_width="match_parent"
@@ -169,4 +177,3 @@
             android:textColor="@android:color/white"
             android:textSize="16sp" />
     </RelativeLayout>
-</ScrollView>

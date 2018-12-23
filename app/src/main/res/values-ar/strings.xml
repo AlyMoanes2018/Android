@@ -188,6 +188,7 @@
     <string name="ordersForResult">اختر أوردر</string>
     <string name="noOrdersForResult">يجب اختيار اوردر اولا حتى يتم تكراره</string>
     <string name="back">عودة إلى أوردراتي</string>
+    <string name="backToCons">عودة إلى الاستشارات</string>
     <string name="noActiveOrder">لا يوجد أي طلب نشط حاليا</string>
     <string name="noAds">لا يوجد أي إعلان حاليا</string>
     <string name="searchItems">أدخل اسم الصنف</string>

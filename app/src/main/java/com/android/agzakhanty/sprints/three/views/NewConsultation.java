@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -53,6 +54,9 @@ import com.android.agzakhanty.sprints.three.models.api_requests.SaveConsultation
 import com.android.agzakhanty.sprints.three.models.api_responses.ConsultationTypesResponesModel;
 import com.android.agzakhanty.sprints.two.views.Dashboard;
 import com.android.agzakhanty.sprints.two.views.SearchPharmacyByName;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -100,6 +104,10 @@ public class NewConsultation extends AppCompatActivity {
     Button sendButton;
     @BindView(R.id.responseET)
     EditText responseET;
+    @BindView(R.id.addImgButton)
+    Button addImgButton;
+    @BindView(R.id.backToCons)
+    Button backToCons;
     int spinnerSelectedIndex;
     String imgByteArrStr;
     ArrayList<String> typesNames;
@@ -113,7 +121,17 @@ public class NewConsultation extends AppCompatActivity {
 
     @OnClick(R.id.imgLayout)
     public void addImage() {
-        CommonTasks.showImagesSelectionDialog(this);
+        if (getIntent().getStringExtra("isView") == null || getIntent().getStringExtra("isView").equalsIgnoreCase("false")) {
+            CommonTasks.showImagesSelectionDialog(this);
+        }
+    }
+
+    @OnClick(R.id.backToCons)
+    public void back(){
+        Intent intent = new Intent(NewConsultation.this, MyConsultations.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        overridePendingTransition(R.anim.activity_leave, R.anim.activity_enter);
     }
 
     @OnClick(R.id.callButton)
@@ -176,6 +194,7 @@ public class NewConsultation extends AppCompatActivity {
         setSupportActionBar(toolbar);
         CommonTasks.setUpTranslucentStatusBar(this);
         CommonTasks.addLeftMenu(this, toolbar);
+        CommonTasks.hideKeyboard(this);
         dialog = DialogCreator.getInstance(this);
         getConsultaionTypes();
         imgByteArrStr = "";
@@ -202,16 +221,36 @@ public class NewConsultation extends AppCompatActivity {
         if (getIntent().getStringExtra("isView") != null && getIntent().getStringExtra("isView").equalsIgnoreCase("true")) {
             consultationTypeSpinner.setEnabled(false);
             topicET.setEnabled(false);
+            topicET.setFocusable(false);
+            topicET.setFocusableInTouchMode(false);
             addPicTV.setVisibility(View.GONE);
             imgLayout.setVisibility(View.GONE);
             responseTV.setVisibility(View.VISIBLE);
             responseWrapper.setVisibility(View.VISIBLE);
-            sendButton.setVisibility(View.GONE);
+            sendButton.setVisibility(View.INVISIBLE);
+            backToCons.setVisibility(View.VISIBLE);
             String consJSON = getIntent().getStringExtra("cons");
             consultation = new Gson().fromJson(consJSON, new TypeToken<Consultation>() {
             }.getType());
             if (consultation.getConsltReply() != null && !consultation.getConsltReply().isEmpty() && !consultation.getConsltReply().equalsIgnoreCase("null"))
                 responseET.setText(consultation.getConsltReply());
+            if (consultation.getSubject() != null && !consultation.getSubject().isEmpty() && !consultation.getSubject().equalsIgnoreCase("null"))
+                topicET.setText(consultation.getSubject());
+            if (consultation.getConsltImgUrl() != null && !consultation.getConsltImgUrl().isEmpty() && !consultation.getConsltImgUrl().equalsIgnoreCase("null")) {
+                Glide.with(this).load(Constants.BASE_URL + consultation.getConsltImgUrl()).
+                        asBitmap().into(new SimpleTarget<Bitmap>(116, 116) {
+                    @Override
+                    public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                        Drawable drawable = new BitmapDrawable(getResources(), resource);
+                        imgLayout.setBackground(drawable);
+                    }
+                });
+                imgLayout.setVisibility(View.VISIBLE);
+                addImgButton.setVisibility(View.GONE);
+            } else {
+                imgLayout.setVisibility(View.GONE);
+            }
+
 
         } else {
             consultationTypeSpinner.setEnabled(true);
@@ -221,6 +260,7 @@ public class NewConsultation extends AppCompatActivity {
             responseTV.setVisibility(View.GONE);
             responseWrapper.setVisibility(View.GONE);
             sendButton.setVisibility(View.VISIBLE);
+            backToCons.setVisibility(View.GONE);
         }
 
         consultationTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

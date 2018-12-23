@@ -188,6 +188,7 @@
     <string name="ordersForResult">Select an order to repeat</string>
     <string name="noOrdersForResult">You must select an order to repeat</string>
     <string name="back">Back to my orders</string>
+    <string name="backToCons">Back to my consultations</string>
     <string name="noActiveOrder">Can\'t find any active order</string>
     <string name="noAds">Can\'t find any ad</string>
     <string name="searchItems">Enter item number</string>

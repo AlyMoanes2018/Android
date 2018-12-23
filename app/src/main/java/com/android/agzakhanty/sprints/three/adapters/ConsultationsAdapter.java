@@ -24,6 +24,7 @@ import com.android.agzakhanty.sprints.three.views.NewConsultation;
 import com.android.agzakhanty.sprints.two.models.Order;
 import com.android.agzakhanty.sprints.two.views.Dashboard;
 import com.android.agzakhanty.sprints.two.views.ViewOrderDetails;
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -109,9 +110,18 @@ public class ConsultationsAdapter extends ArrayAdapter<Consultation> {
         }.getType());
         //viewHolder.customerAddress.setText(customer.getA);
         if (consultation.getPcyImage() != null && !consultation.getPcyImage().isEmpty()) {
-            byte[] decodedString = Base64.decode(consultation.getPcyImage(), Base64.DEFAULT);
-            Bitmap bmp = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            viewHolder.pharmacyLogo.setImageBitmap(bmp);
+
+            Glide
+                    .with(context)
+                    .load(Constants.BASE_URL + consultation.getPcyImage())
+                    .centerCrop()
+                    .into(viewHolder.pharmacyLogo);
+        } else {
+            Glide
+                    .with(context)
+                    .load(Constants.NO_IMG_FOUND_URL)
+                    .centerCrop()
+                    .into(viewHolder.pharmacyLogo);
         }
         if (PrefManager.getInstance(context).readInt(Constants.SP_LANGUAGE_KEY) == 0)
             viewHolder.type.setText(consultation.getConsltionTypeName());

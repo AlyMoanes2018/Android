@@ -228,11 +228,11 @@ public class ViewOrderDetails extends AppCompatActivity {
                             actionsLayout.setVisibility(View.VISIBLE);
                             backLayout.setVisibility(View.GONE);
                         } else {
-                            actionsLayout.setVisibility(View.GONE);
+                            actionsLayout.setVisibility(View.INVISIBLE);
                             backLayout.setVisibility(View.VISIBLE);
                         }
                     } else {
-                        actionsLayout.setVisibility(View.GONE);
+                        actionsLayout.setVisibility(View.INVISIBLE);
                         backLayout.setVisibility(View.VISIBLE);
                     }
                 } else Log.d("TEST_NULL14", response.code() + "");

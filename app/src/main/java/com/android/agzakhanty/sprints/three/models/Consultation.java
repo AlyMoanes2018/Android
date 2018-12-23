@@ -20,6 +20,8 @@ public class Consultation {
     @SerializedName("Status")
     private String status;
     private String ConsltReply;
+    private String Subject;
+    private String ConsltImgUrl;
 
 
 
@@ -101,5 +103,21 @@ public class Consultation {
 
     public void setConsltReply(String consltReply) {
         ConsltReply = consltReply;
+    }
+
+    public String getSubject() {
+        return Subject;
+    }
+
+    public void setSubject(String subject) {
+        Subject = subject;
+    }
+
+    public String getConsltImgUrl() {
+        return ConsltImgUrl;
+    }
+
+    public void setConsltImgUrl(String consltImgUrl) {
+        ConsltImgUrl = consltImgUrl;
     }
 }

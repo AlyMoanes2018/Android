@@ -1,184 +1,191 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_add_advertisment_rate"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    android:fillViewport="true"
     tools:context="com.android.agzakhanty.sprints.two.views.AddAdvertismentRate">
 
-    <RelativeLayout
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="#459283"
+        app:elevation="0dp"
+        app:theme="@style/CustomActionBar">
 
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/appBar"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#459283"
-            app:elevation="0dp"
-            app:theme="@style/CustomActionBar">
+            android:layout_height="wrap_content">
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <RelativeLayout
+                <TextView
+                    android:id="@+id/regTitle"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/reportViolation"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp" />
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
 
-                    <TextView
-                        android:id="@+id/regTitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_centerVertical="true"
-                        android:text="@string/reportViolation"
-                        android:textColor="@android:color/white"
-                        android:textSize="20sp" />
-                </RelativeLayout>
-            </android.support.v7.widget.Toolbar>
-        </android.support.design.widget.AppBarLayout>
-
-        <TextView
-            android:id="@+id/typeTV"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/appBar"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="30dp"
-            android:text="@string/violationType"
-            android:textColor="#459283"
-            android:textSize="14sp" />
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/typeWrapper"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/typeTV"
-            android:layout_marginBottom="34dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginStart="13dp"
-            android:layout_marginTop="15dp"
-            app:errorTextAppearance="@style/error_appearance">
-
-            <Spinner
-                android:id="@+id/spinner1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:prompt="@string/prompt"
-                android:backgroundTint="#12000000"
-                android:gravity="start" />
-
-        </android.support.design.widget.TextInputLayout>
-
-        <TextView
-            android:id="@+id/addItemTV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="23dp"
-            android:layout_marginBottom="23dp"
-            android:layout_below="@id/typeWrapper"
-            android:drawablePadding="12dp"
-            android:drawableStart="@drawable/ic_add_circle"
-            android:text="@string/addPcy"
-            fontPath="fonts/bold.otf"
-            android:gravity="center"
-            android:textColor="#CB2E25"
-            android:textSize="14sp"
-            android:visibility="visible"
-            />
+    <ScrollView
+        android:id="@+id/activity_add_advertisment_rate"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/appBar"
+        android:layout_above="@+id/submit"
+        android:layout_marginBottom="15dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/itemNameAndDeleteAction"
-            android:layout_below="@id/addItemTV"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:paddingStart="12dp"
-            android:paddingEnd="10dp"
-            android:layout_marginStart="14dp"
-            android:layout_marginEnd="16dp"
-            android:background="#FAFAFA"
-            android:visibility="gone">
+            android:layout_height="wrap_content">
+
 
             <TextView
-                android:layout_width="280dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/addedItemNameTV"
-                android:text="صيدلية العزبى"
-                android:maxLines="1"
-                android:ellipsize="marquee"
-                android:marqueeRepeatLimit ="marquee_forever"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:scrollHorizontally="true"
-                />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/deletIcon"
-                android:layout_alignParentEnd="true"
-                android:background="@drawable/ic_delete_red"/>
-
-        </RelativeLayout>
-
-        <TextView
-            android:id="@+id/reminderNameTV"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/itemNameAndDeleteAction"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="30dp"
-            android:text="@string/details"
-            android:textColor="#459283"
-            android:textSize="14sp" />
-
-
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/detailsWrapper"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/reminderNameTV"
-            android:layout_marginBottom="20dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="10dp"
-            app:errorTextAppearance="@style/error_appearance">
-
-            <LinearLayout
-                android:layout_width="0px"
-                android:layout_height="0px"
-                android:focusable="true"
-                android:focusableInTouchMode="true" />
-            <EditText
-                android:id="@+id/detailsET"
+                android:id="@+id/typeTV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:textColor="#50000000"
-                android:textSize="12sp"
-                android:theme="@style/MyEditTextTheme4" />
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="30dp"
+                android:text="@string/violationType"
+                android:textColor="#459283"
+                android:textSize="14sp" />
 
-        </android.support.design.widget.TextInputLayout>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:background="@drawable/layout_rounded_button"
-            android:text="@string/report"
-            android:textColor="@android:color/white"
-            android:textSize="16sp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="18dp"
-            android:id="@+id/submit"/>
-    </RelativeLayout>
-</ScrollView>
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/typeWrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/typeTV"
+                android:layout_marginStart="13dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="34dp"
+                app:errorTextAppearance="@style/error_appearance">
+
+                <Spinner
+                    android:id="@+id/spinner1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#12000000"
+                    android:gravity="start"
+                    android:prompt="@string/prompt" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <TextView
+                android:id="@+id/addItemTV"
+                fontPath="fonts/bold.otf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/typeWrapper"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="23dp"
+                android:layout_marginBottom="23dp"
+                android:drawableStart="@drawable/ic_add_circle"
+                android:drawablePadding="12dp"
+                android:gravity="center"
+                android:text="@string/addPcy"
+                android:textColor="#CB2E25"
+                android:textSize="14sp"
+                android:visibility="visible" />
+
+            <RelativeLayout
+                android:id="@+id/itemNameAndDeleteAction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/addItemTV"
+                android:layout_marginStart="14dp"
+                android:layout_marginEnd="16dp"
+                android:background="#FAFAFA"
+                android:paddingStart="12dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="10dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/addedItemNameTV"
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="marquee"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:maxLines="1"
+                    android:scrollHorizontally="true"
+                    android:text="صيدلية العزبى" />
+
+                <ImageView
+                    android:id="@+id/deletIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:background="@drawable/ic_delete_red" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/reminderNameTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/itemNameAndDeleteAction"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="30dp"
+                android:text="@string/details"
+                android:textColor="#459283"
+                android:textSize="14sp" />
+
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/detailsWrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/reminderNameTV"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="20dp"
+                app:errorTextAppearance="@style/error_appearance">
+
+                <LinearLayout
+                    android:layout_width="0px"
+                    android:layout_height="0px"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true" />
+
+                <EditText
+                    android:id="@+id/detailsET"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:textColor="#50000000"
+                    android:textSize="12sp"
+                    android:theme="@style/MyEditTextTheme4" />
+
+            </android.support.design.widget.TextInputLayout>
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/layout_rounded_button"
+        android:gravity="center"
+        android:text="@string/report"
+        android:textColor="@android:color/white"
+        android:textSize="16sp" />
+</RelativeLayout>
