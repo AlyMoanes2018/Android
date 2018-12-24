@@ -71,8 +71,8 @@ public class ProfilePhotoSetter extends AppCompatActivity {
                     .load(Constants.BASE_URL + customer.getProfilePhotoImgUrl())
                     .centerCrop()
                     .into(imageView);
-        } else
-            imageView.setBackgroundResource(R.drawable.com_facebook_profile_picture_blank_square);
+        } /*else
+            imageView.setBackgroundResource(R.drawable.com_facebook_profile_picture_blank_square);*/
     }
 
     @Override

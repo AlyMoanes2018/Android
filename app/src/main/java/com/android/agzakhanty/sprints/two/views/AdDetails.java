@@ -100,7 +100,7 @@ public class AdDetails extends AppCompatActivity implements SwipeRefreshLayout.O
     @OnClick(R.id.addToCart)
     public void confirmOrder() {
         //create the order object
-        Log.d("TEST_AD_ITEM", adItems.getListItem().get(0).getNameAr());
+        Log.d("TEST_AD_ITEM", new Gson().toJson(adItems.getListItem()));
         Log.d("TEST_AD_ITEM", adItems.getTotal());
         Intent intent = new Intent(AdDetails.this, AddOrderByItemsSelection.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

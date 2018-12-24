@@ -113,7 +113,7 @@ public class SelectedItemsAdapter extends ArrayAdapter<ItemsResponseModel> {
             @Override
             public void afterTextChanged(Editable editable) {
                 String newPrice = "";
-                if (!isView) {
+                if (!isView && !isAd) {
                     if (!viewHolder.quantity.getText().toString().isEmpty()) {
                         if (Float.parseFloat(viewHolder.quantity.getText().toString()) != 0) {
                             models.get(i).setQty(viewHolder.quantity.getText().toString());
@@ -139,7 +139,7 @@ public class SelectedItemsAdapter extends ArrayAdapter<ItemsResponseModel> {
             viewHolder.name.setText(item.getNameAr());
         else if (prefManager.readInt(Constants.SP_LANGUAGE_KEY) == 1)
             viewHolder.name.setText(item.getNameEn());
-        if (!isAd)
+        if (!isView && !isAd)
             item.setQty("1");
         //Log.d("TEST_ITEMS_DIALOG", new Gson().toJson(models) + "    EE");
         prefManager.write(Constants.ORDER_SELECTED_ITMES, new Gson().toJson(models));
@@ -174,6 +174,7 @@ public class SelectedItemsAdapter extends ArrayAdapter<ItemsResponseModel> {
             if (isAd) {
                 viewHolder.deleteItem.setVisibility(View.GONE);
                 viewHolder.price.setEnabled(false);
+
                 viewHolder.quantity.setEnabled(false);
                 viewHolder.quantity.setText(item.getQty());
                 viewHolder.availability.setVisibility(View.GONE);

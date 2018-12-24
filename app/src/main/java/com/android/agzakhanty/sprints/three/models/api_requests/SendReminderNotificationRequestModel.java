@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class SendReminderNotificationRequestModel {
 
     private String MedicineName;
+    private String ReminderDescName;
     private ArrayList<String> ReminderTimes;
 
     public String getMedicineName() {
@@ -21,5 +22,13 @@ public class SendReminderNotificationRequestModel {
 
     public void setReminderTimes(ArrayList<String> reminderTimes) {
         ReminderTimes = reminderTimes;
+    }
+
+    public String getReminderDescName() {
+        return ReminderDescName;
+    }
+
+    public void setReminderDescName(String reminderDescName) {
+        ReminderDescName = reminderDescName;
     }
 }

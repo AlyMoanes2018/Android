@@ -176,6 +176,8 @@ public class CustomerLocationSelector extends AppCompatActivity implements OnMap
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     mLocationPermissionGranted = true;
+                    map.setMyLocationEnabled(true);
+                    map.setOnMyLocationButtonClickListener(this);
                 } else {
                     mLocationPermissionGranted = false;
                 }

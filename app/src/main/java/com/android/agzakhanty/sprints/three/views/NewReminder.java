@@ -234,6 +234,7 @@ public class NewReminder extends AppCompatActivity implements DatePickerDialog.O
         }
         SendReminderNotificationRequestModel sendReminderNotificationRequestModel = new SendReminderNotificationRequestModel();
         sendReminderNotificationRequestModel.setMedicineName(medicineNameIfAny);
+        sendReminderNotificationRequestModel.setReminderDescName(nameET.getText().toString());
         sendReminderNotificationRequestModel.setReminderTimes(dates);
         Log.d("TEST_REM_NOTI", new Gson().toJson(sendReminderNotificationRequestModel));
         Call<Boolean> call = apiService.sendMeasureNotifications(customer.getId(), sendReminderNotificationRequestModel);

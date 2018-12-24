@@ -285,7 +285,7 @@ public class Dashboard extends AppCompatActivity {
         String custJSON = PrefManager.getInstance(this).read(Constants.SP_LOGIN_CUSTOMER_KEY);
         Customer customer = new Gson().fromJson(custJSON, new TypeToken<Customer>() {
         }.getType());
-        Log.d("TEST_REG", customer.getRegId() + " E");
+        Log.d("TEST_REG", new Gson().toJson(customer));
 
         if (customer.getFavPcy() != null && !customer.getFavPcy().isEmpty()) {
             callFavPharmacy.setVisibility(View.GONE);
