@@ -33,6 +33,8 @@ public class SaveOrderDetails {
     private String Total;
     private String Status;
     private String Comment;
+    private String RefType;
+    private String RefId;
     @SerializedName("CstDtlOrdTrns")
     private ArrayList<ItemsResponseModel> ItemsList;
 
@@ -135,5 +137,21 @@ public class SaveOrderDetails {
 
     public void setItemsList(ArrayList<ItemsResponseModel> itemsList) {
         ItemsList = itemsList;
+    }
+
+    public String getRefType() {
+        return RefType;
+    }
+
+    public void setRefType(String refType) {
+        RefType = refType;
+    }
+
+    public String getRefId() {
+        return RefId;
+    }
+
+    public void setRefId(String refId) {
+        RefId = refId;
     }
 }

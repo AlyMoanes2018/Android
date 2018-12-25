@@ -192,7 +192,7 @@ public class CustomerLocationSelector extends AppCompatActivity implements OnMap
         customer.setLatitude(marker.getPosition().latitude+"");
         customer.setLongitude(marker.getPosition().longitude+"");
         customer.setRegId(PrefManager.getInstance(CustomerLocationSelector.this).read(Constants.REGISTRATION_ID));
-        Log.d("TEST_UPDATE", new Gson().toJson(customer));
+        Log.d("TEST_LOCATION_BEFORE", new Gson().toJson(customer));
         customer.setFileName();
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
         Call<CustomerInfoResponseModel> call = apiService.updateCustomerInfo(customer.getId(), customer);
@@ -203,7 +203,7 @@ public class CustomerLocationSelector extends AppCompatActivity implements OnMap
                     if (response.body().getStatus().equalsIgnoreCase("true")) {
                         response.body().getCstmr().setProfilePhotoImgUrl(customer.getProfilePhotoImgUrl());
                         PrefManager.getInstance(CustomerLocationSelector.this).write(Constants.SP_LOGIN_CUSTOMER_KEY, new Gson().toJson(response.body().getCstmr()));
-                        Log.d("TEST_UPDATE_PRO", new Gson().toJson(response.body().getCstmr()));
+                        Log.d("TEST_LOCATION_AFTER", new Gson().toJson(response.body().getCstmr()));
                         Intent intent = new Intent(CustomerLocationSelector.this, FavouritePharmacy.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
