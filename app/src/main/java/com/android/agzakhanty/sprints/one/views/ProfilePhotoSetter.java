@@ -127,7 +127,8 @@ public class ProfilePhotoSetter extends AppCompatActivity {
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 bitmap.compress(Bitmap.CompressFormat.PNG, 50, stream);
                 byte[] byteArray = stream.toByteArray();
-                if (byteArray.length <= (1024 * 1024)) {
+                float imgSizeInMB = (byteArray.length/(1024*1024));
+                if (imgSizeInMB <= 1f) {
                     imgByteArrStr = Base64.encodeToString(byteArray, Base64.DEFAULT);
                     Log.d("TEST_BYTE", imgByteArrStr + "");
                     imageView.setImageBitmap(bitmap);

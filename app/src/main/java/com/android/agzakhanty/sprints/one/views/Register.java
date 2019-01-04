@@ -337,16 +337,6 @@ public class Register extends AppCompatActivity {
                 });
         AlertDialog alert11 = builder1.create();
         alert11.show();
-        /*int sex = maleRB.isChecked()?0:1;
-        TempRegisterData trd = new TempRegisterData(usernameET.getText().toString(),
-                emailET.getText().toString(),
-                passwordET.getText().toString(),
-                edtPhoneNumber.getText().toString(),
-                DOBET.getText().toString(),
-                sex);
-        PrefManager.getInstance(this).write("trd", new Gson().toJson(trd));
-        Intent i = new Intent(Register.this, TermsAndConditions.class);
-        startActivity(i);*/
     }
 
     public void goToRegisterWS(Customer cstmr) {

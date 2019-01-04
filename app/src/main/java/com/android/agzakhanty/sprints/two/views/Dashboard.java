@@ -102,8 +102,8 @@ public class Dashboard extends AppCompatActivity {
     FloatingActionMenu menuRed;
     @BindView(R.id.fab1)
     FloatingActionButton fab1;
-    @BindView(R.id.fab2)
-    FloatingActionButton fab2;
+    /*@BindView(R.id.fab2)
+    FloatingActionButton fab2;*/
     @BindView(R.id.fab3)
     FloatingActionButton fab3;
     @BindView(R.id.fab4)

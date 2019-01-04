@@ -246,7 +246,7 @@ public class AddOrderByItemsSelection extends AppCompatActivity {
         if (getIntent().getStringExtra("adItems") != null && !getIntent().getStringExtra("adItems").isEmpty()) {
             totalOrderPrice = Float.parseFloat(getIntent().getStringExtra("adPrice"));
             isAd = true;
-        }else totalOrderPrice = calculateTotalOrderPrice();
+        } else totalOrderPrice = calculateTotalOrderPrice();
         priceValTV.setText(String.format("%.2f", totalOrderPrice) + " " + getResources().getString(R.string.egp));
         if (selectedItems.size() > 0) {
 
@@ -273,7 +273,10 @@ public class AddOrderByItemsSelection extends AppCompatActivity {
         SaveOrderResponseModel order = new SaveOrderResponseModel();
         SaveOrderDetails orderDetails = new SaveOrderDetails();
         orderDetails.setCstId(customer.getId());
-        orderDetails.setPcyId(favouritePharmacyID);
+        if (getIntent().getStringExtra("adItems") != null && !getIntent().getStringExtra("adItems").isEmpty())
+            orderDetails.setPcyId(getIntent().getStringExtra("adPcy"));
+        else
+            orderDetails.setPcyId(favouritePharmacyID);
         if (pharmacyPickup.isChecked())
             orderDetails.setDeliveryType("D");
         else if (homeDelivery.isChecked())

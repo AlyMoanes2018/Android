@@ -20,12 +20,15 @@
             android:layout_height="wrap_content"
             android:background="#459283"
             app:elevation="0dp"
+            android:fitsSystemWindows="true"
             app:theme="@style/CustomActionBar">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"

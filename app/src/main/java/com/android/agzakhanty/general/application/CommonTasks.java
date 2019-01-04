@@ -120,14 +120,14 @@ public class CommonTasks {
         SecondaryDrawerItem item1 = new SecondaryDrawerItem().withIdentifier(1).withName(context.getResources().getString(R.string.nav_orders)).withIcon(R.drawable.ic_add_shopping_cart);
         SecondaryDrawerItem item2 = new SecondaryDrawerItem().withIdentifier(2).withName(context.getResources().getString(R.string.nav_offers)).withIcon(R.drawable.ic_local_offer);
         SecondaryDrawerItem item3 = new SecondaryDrawerItem().withIdentifier(3).withName(context.getResources().getString(R.string.nav_consultations)).withIcon(R.drawable.ic_phone_in_talk);
-        SecondaryDrawerItem item4 = new SecondaryDrawerItem().withIdentifier(4).withName(context.getResources().getString(R.string.nav_measurements)).withIcon(R.drawable.ic_phone_in_talk);
+        SecondaryDrawerItem item4 = new SecondaryDrawerItem().withIdentifier(4).withName(context.getResources().getString(R.string.nav_measurements)).withIcon(R.drawable.ic_insert_chart_black_24dp);
         SecondaryDrawerItem item5 = new SecondaryDrawerItem().withIdentifier(5).withName(context.getResources().getString(R.string.nav_my_circle)).withIcon(R.drawable.ic_mode_edit);
         SecondaryDrawerItem item6 = new SecondaryDrawerItem().withIdentifier(6).withName(context.getResources().getString(R.string.nav_reminders)).withIcon(R.drawable.ic_alarm_add);
         SecondaryDrawerItem item7 = new SecondaryDrawerItem().withIdentifier(7).withName(context.getResources().getString(R.string.nav_violation)).withIcon(R.drawable.ic_warning);
         SecondaryDrawerItem item8 = new SecondaryDrawerItem().withIdentifier(8).withName(context.getResources().getString(R.string.nav_instructions)).withIcon(R.drawable.ic_instructions);
         SecondaryDrawerItem item9 = new SecondaryDrawerItem().withIdentifier(9).withName(context.getResources().getString(R.string.nav_settings)).withIcon(R.drawable.ic_settings);
         SecondaryDrawerItem item10 = new SecondaryDrawerItem().withIdentifier(10).withName(context.getResources().getString(R.string.editData_settings)).withIcon(R.drawable.ic_settings);
-        SecondaryDrawerItem item11 = new SecondaryDrawerItem().withIdentifier(11).withName(context.getResources().getString(R.string.signOut_settings)).withIcon(R.drawable.ic_settings);
+        SecondaryDrawerItem item11 = new SecondaryDrawerItem().withIdentifier(11).withName(context.getResources().getString(R.string.signOut_settings)).withIcon(R.drawable.ic_input_black_24dp);
         AccountHeader headerResult = new AccountHeaderBuilder()
                 .withActivity((Activity) context)
                 .withHeaderBackground(R.drawable.gradient_background)

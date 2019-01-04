@@ -357,33 +357,11 @@ public class NewOrder extends AppCompatActivity {
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     intent.putExtra("adItems", new Gson().toJson(toBeRepeated.getListItem()));
                     intent.putExtra("adPrice", toBeRepeated.getTotal());
+                    intent.putExtra("adPcy", pcyId);
                     startActivity(intent);
                     overridePendingTransition(R.anim.activity_enter, R.anim.activity_leave);
                     finish();
-                    /*dialog.setMessage(getResources().getString(R.string.loadingOrder));
-                    //create the order object
-                    SaveOrderResponseModel order = new SaveOrderResponseModel();
-                    SaveOrderDetails orderDetails = new SaveOrderDetails();
-                    orderDetails.setCstId(customer.getId());
-                    // we nee pcy id field
-                    Log.d("TEST_ORDER_SENT_PCY", getIntent().getStringExtra("orderPCYID") + "   E");
-                    orderDetails.setPcyId(pcyId);
-                    // we need delivery type field
-                    orderDetails.setDeliveryType(toBeRepeated.getDeliveryType());
-                    orderDetails.setLattitude(customer.getLatitude());
-                    orderDetails.setLongitude(customer.getLongitude());
-                    orderDetails.setTotal(toBeRepeated.getTotal() + "");
-                    orderDetails.setComment(toBeRepeated.getComment());
-                    orderDetails.setItemsList(toBeRepeated.getListItem());
-                    order.setRxImage(null);
-                    ArrayList<SaveOrderDetails> arr = new ArrayList<>();
-                    arr.add(orderDetails);
-                    order.setOrderDetails(arr);
-                    order.setFileName();
-                    Log.d("TEST_ORDER_SENT", new Gson().toJson(order));
-                    //send customer order
 
-                    goToSaveOrderWS(order);*/
                 } else {
                     dialog.dismiss();
                     Toast.makeText(NewOrder.this, getResources().getString(R.string.serverFailureMsg), Toast.LENGTH_LONG).show();

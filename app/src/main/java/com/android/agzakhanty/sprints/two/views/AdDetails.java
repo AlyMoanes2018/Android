@@ -81,6 +81,8 @@ public class AdDetails extends AppCompatActivity implements SwipeRefreshLayout.O
     TextView noUserRatesTV;
     @BindView(R.id.swiperefresh)
     SwipeRefreshLayout swiperefresh;
+    @BindView(R.id.addToCart)
+    TextView addToCart;
     AdResponseModel ad;
     DetailedOrderResponseModel adItems;
     PrefManager prefManager;
@@ -106,6 +108,7 @@ public class AdDetails extends AppCompatActivity implements SwipeRefreshLayout.O
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.putExtra("adItems", new Gson().toJson(adItems.getListItem()));
         intent.putExtra("adPrice", adItems.getTotal());
+        intent.putExtra("adPcy", ad.getPcyId());
         startActivity(intent);
         overridePendingTransition(R.anim.activity_enter, R.anim.activity_leave);
         finish();
@@ -167,6 +170,12 @@ public class AdDetails extends AppCompatActivity implements SwipeRefreshLayout.O
             }
             expiryDateTV.setText(expiryText);
         } else Log.d("TEST_DATE", "NULL");
+
+        if (expiryDateTV.getText().toString().equalsIgnoreCase(getResources().getString(R.string.adExpiryDtl3)))
+        {
+            addToCart.setEnabled(false);
+            addToCart.setAlpha(0.50f);
+        }
 
         if (ad.getAdvImage() != null && !ad.getAdvImage().equalsIgnoreCase("null") && !ad.getAdvImage().isEmpty()) {
             Glide

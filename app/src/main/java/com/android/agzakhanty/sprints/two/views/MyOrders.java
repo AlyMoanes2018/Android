@@ -74,6 +74,10 @@ public class MyOrders extends AppCompatActivity {
         customer = new Gson().fromJson(custJSON, new TypeToken<Customer>() {
         }.getType());
 
+        if (customer.getFavPcy() == null || customer.getFavPcy().isEmpty())
+            addButton.setVisibility(View.GONE);
+        else addButton.setVisibility(View.VISIBLE);
+
         searchOrdersET.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

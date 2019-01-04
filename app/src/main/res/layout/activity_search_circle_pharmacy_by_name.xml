@@ -130,6 +130,7 @@
                 android:textColor="#C0C0C0"
                 android:textColorHint="#C0C0C0"
                 android:textSize="14sp"
+                android:maxLines="1"
                 android:theme="@style/MyEditTextTheme2" />
 
         <ProgressBar

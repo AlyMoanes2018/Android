@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.agzakhanty.R;
 import com.android.agzakhanty.general.application.Constants;
@@ -20,6 +21,7 @@ import com.android.agzakhanty.general.models.PrefManager;
 import com.android.agzakhanty.sprints.two.models.Order;
 import com.android.agzakhanty.sprints.two.views.Circles;
 import com.android.agzakhanty.sprints.two.views.Dashboard;
+import com.android.agzakhanty.sprints.two.views.NewOrder;
 import com.android.agzakhanty.sprints.two.views.SearchCirclePharmacyByName;
 import com.android.agzakhanty.sprints.two.views.ViewOrderDetails;
 import com.bumptech.glide.Glide;
@@ -29,6 +31,7 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 
 /**
@@ -111,13 +114,17 @@ public class OrdersAdapter extends ArrayAdapter<Order> {
             @Override
             public void onClick(View view) {
                 if (((Activity) context).getCallingActivity() != null) {
-                    // select an order
                     Intent intent = new Intent();
-                    intent.putExtra("order", orders.get(i).getOrderId());
-                    intent.putExtra("orderPCYID", orders.get(i).getPcyId());
-                    ((Activity) context).setResult(RESULT_OK, intent);
-                    //close this Activity...
-                    ((Activity) context).finish();
+                    if (orders.get(i).getStatusId().equalsIgnoreCase("6")) {
+                        // select an order
+                        intent.putExtra("order", orders.get(i).getOrderId());
+                        intent.putExtra("orderPCYID", orders.get(i).getPcyId());
+                        ((Activity) context).setResult(RESULT_OK, intent);
+                        //close this Activity...
+                        ((Activity) context).finish();
+                    } else
+                        Toast.makeText(context, context.getResources().getString(R.string.noOrdersForResult), Toast.LENGTH_LONG).show();
+
                 } else {
                     //view order details
                     Intent intent = new Intent(context, ViewOrderDetails.class);

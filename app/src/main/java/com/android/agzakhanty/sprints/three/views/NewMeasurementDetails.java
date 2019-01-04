@@ -188,6 +188,7 @@ public class NewMeasurementDetails extends AppCompatActivity implements DatePick
             request.setVal2(value2.getText().toString());
         else
             request.setVal2(null);
+
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
         Call<Boolean> call = apiService.saveMeasure(measurementDate + " " + measurementTime, request);
         call.enqueue(new Callback<Boolean>() {
@@ -294,7 +295,7 @@ public class NewMeasurementDetails extends AppCompatActivity implements DatePick
     public void onEnterDateClicked() {
         DatePickerDialog datePickerDialog = new DatePickerDialog(
                 NewMeasurementDetails.this, NewMeasurementDetails.this, yearNow, monthNow, dayNow);
-        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() -1000);
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         datePickerDialog.show();
     }
 
@@ -437,7 +438,7 @@ public class NewMeasurementDetails extends AppCompatActivity implements DatePick
                         value2.setVisibility(View.VISIBLE);
                         separator.setVisibility(View.VISIBLE);
                         value2.setText((int) Float.parseFloat(latestMeasure.getVal2()) + "");
-                    }else {
+                    } else {
                         value2.setVisibility(View.GONE);
                         separator.setVisibility(View.GONE);
                     }
@@ -475,7 +476,7 @@ public class NewMeasurementDetails extends AppCompatActivity implements DatePick
 
     @Override
     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-        measurementDate = i2 + "/" + (i1 + 1) + "/" + i;
+        measurementDate = String.format("%02d", i2) + "/" + String.format("%02d", (i1 + 1)) + "/" + i;
         TimePickerDialog timePickerDialog = new TimePickerDialog(
                 NewMeasurementDetails.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
