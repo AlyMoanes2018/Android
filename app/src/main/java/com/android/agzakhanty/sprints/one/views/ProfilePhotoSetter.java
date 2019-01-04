@@ -164,7 +164,7 @@ public class ProfilePhotoSetter extends AppCompatActivity {
         customer.setProfile_Photo(imgArr);
         customer.setFileName();
         customer.setRegId(PrefManager.getInstance(ProfilePhotoSetter.this).read(Constants.REGISTRATION_ID));
-        Log.d("TEST_UPDATE", new Gson().toJson(customer));
+        Log.d("TEST_PHOTO_BEFORE", new Gson().toJson(customer));
         Log.d("TEST_UPDATE", customer.getPwd() + " & " + customer.getName() + " & " + customer.getE_Mail() + " & " + customer.getDateOfBirth() + " & " + customer.getMobile() + " & " + customer.getGender() + " & " + customer.getId());
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
         Call<CustomerInfoResponseModel> call = apiService.updateCustomerInfo(customer.getId(), customer);
@@ -174,7 +174,7 @@ public class ProfilePhotoSetter extends AppCompatActivity {
                 if (response.body() != null) {
                     if (response.body().getStatus().equalsIgnoreCase("true")) {
                         PrefManager.getInstance(ProfilePhotoSetter.this).write(Constants.SP_LOGIN_CUSTOMER_KEY, new Gson().toJson(response.body().getCstmr()));
-                        Log.d("TEST_NULL", new Gson().toJson(response.body().getCstmr()));
+                        Log.d("TEST_PHOTO_AFTER", new Gson().toJson(response.body().getCstmr()));
                         Log.d("TEST_REG", response.body().getCstmr().getRegId() + " E");
                         Intent intent = new Intent(ProfilePhotoSetter.this, CustomerLocationSelector.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

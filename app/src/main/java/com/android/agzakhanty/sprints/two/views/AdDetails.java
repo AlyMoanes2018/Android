@@ -109,6 +109,7 @@ public class AdDetails extends AppCompatActivity implements SwipeRefreshLayout.O
         intent.putExtra("adItems", new Gson().toJson(adItems.getListItem()));
         intent.putExtra("adPrice", adItems.getTotal());
         intent.putExtra("adPcy", ad.getPcyId());
+        intent.putExtra("adId", ad.getAdvId());
         startActivity(intent);
         overridePendingTransition(R.anim.activity_enter, R.anim.activity_leave);
         finish();

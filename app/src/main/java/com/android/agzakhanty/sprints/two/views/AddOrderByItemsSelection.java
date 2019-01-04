@@ -287,6 +287,14 @@ public class AddOrderByItemsSelection extends AppCompatActivity {
         orderDetails.setComment(commentET.getText().toString());
         orderDetails.setItemsList(selectedItems);
         order.setRxImage(null);
+        if (getIntent().getStringExtra("adItems") != null && !getIntent().getStringExtra("adItems").isEmpty()) {
+            orderDetails.setRefType("A");
+            orderDetails.setRefId(getIntent().getStringExtra("adId"));
+        }
+        else {
+            orderDetails.setRefType(null);
+            orderDetails.setRefId(null);
+        }
         ArrayList<SaveOrderDetails> arr = new ArrayList<>();
         arr.add(orderDetails);
         order.setOrderDetails(arr);
