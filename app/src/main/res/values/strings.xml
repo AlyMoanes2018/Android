@@ -238,6 +238,7 @@
     <string name="cancelOrderFailure">لم يتم إلغاء الأوردر..حاول مرة أخرى</string>
     <string name="laterTotal">سيتم حساب الإجمالي بعد اطلاع الصيدلية على الأوردر</string>
     <string name="noItemsSelected">يجب اختيار أصناف الأوردر أولا</string>
+    <string name="noLocation">يجب استكمال بيانات الموقع الخاصة بك أولا</string>
     <string name="noPhoto">يجب تصوير الروشتة أولا</string>
     <string name="remind">لا ذكرني بعد 10 دقائق</string>
     <string name="deliverdYet">هل قمت باستلام هذا الأوردر بعد ؟</string>

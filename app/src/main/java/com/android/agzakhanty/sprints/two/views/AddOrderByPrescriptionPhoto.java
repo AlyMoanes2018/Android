@@ -175,6 +175,10 @@ public class AddOrderByPrescriptionPhoto extends AppCompatActivity {
                         callFavPharmacy.setVisibility(View.VISIBLE);
                         progressBar.setVisibility(View.GONE);
                         favPharmDataTV.setVisibility(View.VISIBLE);
+                        if (model.getPharmacy().getDelivery().equalsIgnoreCase("n"))
+                            pharmacyPickup.setEnabled(false);
+                        else
+                            pharmacyPickup.setEnabled(true);
                         if (model.getPharmacy().getLogoURL() != null && !model.getPharmacy().getLogoURL().isEmpty()) {
                             Glide
                                     .with(AddOrderByPrescriptionPhoto.this)
@@ -312,8 +316,10 @@ public class AddOrderByPrescriptionPhoto extends AppCompatActivity {
         order.setOrderDetails(arr);
         order.setFileName();
         Log.d("TEST_ORDER_SENT", new Gson().toJson(order));
-
-        if (!imgByteArrStr.isEmpty()) {
+        if (customer.getLatitude().isEmpty() || customer.getLongitude().isEmpty()){
+            Toast.makeText(AddOrderByPrescriptionPhoto.this, getResources().getString(R.string.noLocation), Toast.LENGTH_LONG).show();
+        }
+        if (!imgByteArrStr.isEmpty() && !customer.getLatitude().isEmpty() && !customer.getLongitude().isEmpty()) {
             //send customer order
             dialog.setMessage(getResources().getString(R.string.savingOrder));
             dialog.show();

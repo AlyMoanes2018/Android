@@ -152,7 +152,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_toEndOf="@id/distanceTV"
-                            android:background="@drawable/ic_perm_phone_msg"
+                            android:background="@drawable/ic_directions_bike"
                             android:visibility="gone" />
 
                         <ImageView

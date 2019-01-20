@@ -184,6 +184,10 @@ public class AddOrderByItemsSelection extends AppCompatActivity {
                         callFavPharmacy.setVisibility(View.VISIBLE);
                         progressBar.setVisibility(View.GONE);
                         favPharmDataTV.setVisibility(View.VISIBLE);
+                        if (model.getPharmacy().getDelivery().equalsIgnoreCase("n"))
+                            pharmacyPickup.setEnabled(false);
+                        else
+                            pharmacyPickup.setEnabled(true);
                         if (model.getPharmacy().getLogoURL() != null && !model.getPharmacy().getLogoURL().isEmpty()) {
                             Glide
                                     .with(AddOrderByItemsSelection.this)
@@ -301,7 +305,10 @@ public class AddOrderByItemsSelection extends AppCompatActivity {
         order.setFileName();
         Log.d("TEST_ORDER_SENT", new Gson().toJson(order));
 
-        if (selectedItems.size() > 0) {
+        if (customer.getLatitude().isEmpty() || customer.getLongitude().isEmpty()){
+            Toast.makeText(AddOrderByItemsSelection.this, getResources().getString(R.string.noLocation), Toast.LENGTH_LONG).show();
+        }
+        if (selectedItems.size() > 0 && !customer.getLatitude().isEmpty() && !customer.getLongitude().isEmpty()) {
             //send customer order
             dialog.setMessage(getResources().getString(R.string.savingOrder));
             dialog.show();
@@ -318,6 +325,8 @@ public class AddOrderByItemsSelection extends AppCompatActivity {
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                 dialog.dismiss();
                 if (response.body() != null) {
+                    PrefManager.getInstance(AddOrderByItemsSelection.this).write(null, Constants.ORDER_SELECTED_ITMES);
+                    Log.d("TEST_ITEMS_DIALOG", PrefManager.getInstance(AddOrderByItemsSelection.this).read(Constants.ORDER_SELECTED_ITMES) + "   E");
                     if (response.body()) {
                         Toast.makeText(AddOrderByItemsSelection.this, getResources().getString(R.string.saveOrderSuccess), Toast.LENGTH_LONG).show();
                         //back to my orders after saving order
@@ -333,6 +342,7 @@ public class AddOrderByItemsSelection extends AppCompatActivity {
                 } else {
                     Log.d("TEST_NULL", response.code() + "");
                     Toast.makeText(AddOrderByItemsSelection.this, getResources().getString(R.string.saveOrderFailure), Toast.LENGTH_LONG).show();
+                    PrefManager.getInstance(AddOrderByItemsSelection.this).write("", Constants.ORDER_SELECTED_ITMES);
                 }
             }
 
@@ -340,6 +350,7 @@ public class AddOrderByItemsSelection extends AppCompatActivity {
             public void onFailure(Call<Boolean> call, Throwable t) {
                 dialog.dismiss();
                 Toast.makeText(AddOrderByItemsSelection.this, getResources().getString(R.string.serverFailureMsg), Toast.LENGTH_LONG).show();
+                PrefManager.getInstance(AddOrderByItemsSelection.this).write("", Constants.ORDER_SELECTED_ITMES);
             }
         });
     }

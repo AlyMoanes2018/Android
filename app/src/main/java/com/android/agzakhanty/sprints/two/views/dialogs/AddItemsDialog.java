@@ -156,12 +156,13 @@ public class AddItemsDialog extends AlertDialog {
                     for (int i = 0; i < selectedItems.size(); i++) {
                         selectedItems.get(i).setQty("1");
                     }
+                    //send items to activity
+                    if (isFromNewOrder)
+                        ((AddOrderByItemsSelection) context).onDialogDoneButtonClicked(selectedItems);
+                    else
+                        ((NewReminder) context).onDialogDoneButtonClicked(selectedItems);
                 }
-                //send items to activity
-                if (isFromNewOrder)
-                    ((AddOrderByItemsSelection) context).onDialogDoneButtonClicked(selectedItems);
-                else
-                    ((NewReminder) context).onDialogDoneButtonClicked(selectedItems);
+
                 dismiss();
             }
         });
