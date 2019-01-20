@@ -113,6 +113,7 @@
             android:layout_marginEnd="66dp"
             android:textColor="#000000"
             android:alpha=".8"
+            android:visibility="gone"
             android:textStyle="bold"
             android:gravity="center_horizontal"
             android:textSize="14sp" />
@@ -120,13 +121,13 @@
         <EditText
             android:id="@+id/value"
             android:layout_width="wrap_content"
-            android:layout_height="100dp"
-            android:layout_marginBottom="5dp"
+            android:layout_height="70dp"
+            android:layout_marginBottom="25dp"
             android:gravity="center"
             android:text=""
             android:layout_centerHorizontal="true"
             android:inputType="number"
-            android:layout_below="@id/pcyCode"
+            android:layout_below="@id/layout"
             android:textColor="#32B59C"
             android:textSize="42sp" />
 
@@ -140,8 +141,10 @@
             android:textStyle="bold"
             android:layout_marginStart="66dp"
             android:layout_marginEnd="66dp"
-            android:textColor="#000000"
+            android:textColor="#FFFFFF"
             android:alpha=".8"
+            android:padding="10dp"
+            android:background="@drawable/layout_rounded_button"
             android:gravity="center_horizontal"
             android:textSize="14sp" />
     </RelativeLayout>

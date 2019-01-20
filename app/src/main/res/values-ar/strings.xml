@@ -74,6 +74,7 @@
     <string name="validEmailError">بريد إلكتروني غير صحيح</string>
     <string name="validPhoneError">رقم هاتف غير صحيح</string>
     <string name="selectPic2">اختر الصورة</string>
+    <string name="updated">تم تعيين صيدليتك المفضلة بنجاح</string>
     <string name="searchError">ٍيجب إدخال اسم الصيدلية</string>
     <string name="termsText">شروط وأحكام استخدام تطبيق آجزخانتي: تتغير شروط الاستخدام من حين لآخر، وفي حالة إجراء مثل هذه التغييرات، سيعرض تطبيق آجزخانتي إخطارات لكي يكون المُستخدِم على علم بها. استمرار المُستخدِم في استعمال الموقع/ تطبيق آجزخانتي قائم على قبول شروط وأحكام الاستخدام هذه، حسب ما يجري تعديلها من وقت لآخر من أجل خدمة أفضل و جودة أعلى. أي مخالفة لهذه الاتفاقية من قبل العميل / المشترك قد تعرض حسابه للإيقاف بدون إشعار مسبق .</string>
     <string name="apiStatusFalseMsg">لم يتم تنفيذ طلبك..حاول مرة أخرى</string>
@@ -321,7 +322,7 @@
     <string name="reminderNotSaved">لم يتم حفظ التذكير </string>
     <string name="endDateIsBefore">تاريخ نهاية التذكير يجب أن يكون بعد تاريخ اليوم </string>
     <string name="pcyCode">كود الصيدلية</string>
-    <string name="sendInvitation">ارسال دعوة لصيدلية</string>
+    <string name="sendInvitation">ادخل كود الصيدلية المفضلة مباشرة</string>
     <string name="noCode">يجب إدخال كود صيدلية صحيح أولا</string>
     <string name="codeAdded">تم إضافة الصيدلية إلى دائرتك بنجاح</string>
     <string name="mapMarkerTitle">اضغط مطولا حتى تتمكن من تحريك العلامة</string>
