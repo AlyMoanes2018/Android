@@ -160,7 +160,7 @@ public class NewMeasurementDetails extends AppCompatActivity implements DatePick
                 if (response.body() != null && response.isSuccessful()) {
                     if (response.body().getStatus().equalsIgnoreCase("true")) {
                         Toast.makeText(NewMeasurementDetails.this, getResources().getString(R.string.updatingMeasuresSuccess), Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(NewMeasurementDetails.this, Dashboard.class);
+                        Intent intent = new Intent(NewMeasurementDetails.this, MyMeasurements.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.activity_enter, R.anim.activity_leave);
                     } else {
@@ -204,7 +204,7 @@ public class NewMeasurementDetails extends AppCompatActivity implements DatePick
                 if (response.body() != null && response.isSuccessful()) {
                     if (response.body()) {
                         Toast.makeText(NewMeasurementDetails.this, getResources().getString(R.string.sendingMeasuresSuccess), Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(NewMeasurementDetails.this, Dashboard.class);
+                        Intent intent = new Intent(NewMeasurementDetails.this, MyMeasurements.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.activity_enter, R.anim.activity_leave);
                     } else {
