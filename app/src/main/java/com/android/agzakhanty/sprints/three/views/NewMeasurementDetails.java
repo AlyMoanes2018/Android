@@ -137,10 +137,14 @@ public class NewMeasurementDetails extends AppCompatActivity implements DatePick
         request.setId(latestMeasure.getId());
         request.setVal1(value.getText().toString());
         //measurement.setIsTwoValues("y");
-        if (measurement.getNoValues().equalsIgnoreCase("2"))
+        if (measurement.getNoValues() != null) {
+            if (measurement.getNoValues().equalsIgnoreCase("2"))
+                request.setVal2(value2.getText().toString());
+            else
+                request.setVal2(null);
+        } else if (latestMeasure.getVal2() != null) {
             request.setVal2(value2.getText().toString());
-        else
-            request.setVal2(null);
+        } else request.setVal2(null);
         Log.d("TEST_MEASURE", latestMeasure.getId());
         Log.d("TEST_MEASURE", measurementDate + " " + measurementTime);
         Log.d("TEST_MEASURE", new Gson().toJson(request));
@@ -258,7 +262,7 @@ public class NewMeasurementDetails extends AppCompatActivity implements DatePick
         measurementDate = "";
         measurementTime = "";
         value.setEnabled(true);
-        if (measurement.getNoValues().equalsIgnoreCase("2")) {
+        if (latestMeasure.getVal2() != null && !latestMeasure.getVal2().isEmpty()) {
             value2.setEnabled(true);
             separator.setVisibility(View.VISIBLE);
         } else {
