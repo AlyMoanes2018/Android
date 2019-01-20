@@ -210,7 +210,10 @@ public interface ApiInterface {
     Call<Boolean> sendMeasureNotifications(
             @Query("CstmrId") String CstmrId,
             @Body SendReminderNotificationRequestModel srnrm
-            );
+    );
+
+    @GET("Login/ForgetPassword")
+    Call<String> forgetPassword(@Query("ForgetPassMail") String email);
 
 }
 

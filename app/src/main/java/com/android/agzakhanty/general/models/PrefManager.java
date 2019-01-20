@@ -9,7 +9,7 @@ import android.content.SharedPreferences;
 
 public class PrefManager {
 
-    private static PrefManager insatnce ;
+    private static PrefManager insatnce;
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
     private Context context;
@@ -23,35 +23,33 @@ public class PrefManager {
     private final String USER_PROFILE_PIC_KEY = "profilePic";
 
 
-
-
-    private PrefManager(Context ctx){
+    private PrefManager(Context ctx) {
         context = ctx;
-        preferences = ctx.getSharedPreferences(PREFERENCES_NAME,Context.MODE_PRIVATE);
+        preferences = ctx.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE);
         editor = preferences.edit();
     }
 
-    public static PrefManager getInstance(Context context)
-    {
-        insatnce = new PrefManager(context);
+    public static PrefManager getInstance(Context context) {
+        if (insatnce == null)
+            insatnce = new PrefManager(context);
         return insatnce;
     }
 
-    public void write(String text, String key){
+    public void write(String text, String key) {
         editor.putString(text, key);
         editor.apply();
     }
 
-    public String read(String key){
+    public String read(String key) {
         return preferences.getString(key, "");
     }
 
-    public void write(int number, String key){
+    public void write(int number, String key) {
         editor.putInt(key, number);
         editor.apply();
     }
 
-    public int readInt(String key){
+    public int readInt(String key) {
         return preferences.getInt(key, 0);
     }
 

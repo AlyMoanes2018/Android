@@ -15,6 +15,7 @@ import com.android.agzakhanty.R;
 import com.android.agzakhanty.general.api.ApiClient;
 import com.android.agzakhanty.general.api.ApiInterface;
 import com.android.agzakhanty.general.application.CommonTasks;
+import com.android.agzakhanty.sprints.three.models.Measurement;
 import com.android.agzakhanty.sprints.three.models.MeasurementChartDetails;
 import com.android.agzakhanty.sprints.three.models.api_responses.MeasurementChartDetailsResponseModel;
 import com.android.agzakhanty.sprints.two.views.Dashboard;
@@ -23,6 +24,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 
@@ -46,6 +48,7 @@ public class MeasurementChart extends AppCompatActivity {
     @BindView(R.id.toValueTV)
     TextView toTV;
     MeasurementChartDetailsResponseModel chartData;
+    Measurement measurement;
 
 
     @Override
@@ -56,7 +59,11 @@ public class MeasurementChart extends AppCompatActivity {
         CommonTasks.setUpTranslucentStatusBar(this);
         chartTitle.setText(getIntent().getStringExtra("title"));
         chartData = new MeasurementChartDetailsResponseModel();
-
+        if (getIntent().getStringExtra("measure") != null) {
+            measurement = new Gson().fromJson(getIntent().getStringExtra("measure"), new TypeToken<Measurement>() {
+            }.getType());
+            measurement.setId(getIntent().getStringExtra("id"));
+        }
         goToChartWS();
     }
 
@@ -127,8 +134,11 @@ public class MeasurementChart extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(MeasurementChart.this, NewMeasurementDetails.class);
+        Intent intent = new Intent(MeasurementChart.this, MyMeasurements.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        /*intent.putExtra("measure", new Gson().toJson(measurement));
+        intent.putExtra("isView", "y");
+        intent.putExtra("id", measurement.getId());*/
         startActivity(intent);
         overridePendingTransition(R.anim.activity_leave, R.anim.activity_enter);
         finish();

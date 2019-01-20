@@ -12,6 +12,7 @@
     <string name="userNameError">يجب إدخال اسم المستخدم</string>
     <string name="passError">يجب إدخال كلمة مرور</string>
     <string name="emailError">يجب إدخال البريد الإلكتروني</string>
+    <string name="sending">جاري تحميل البيانات</string>
     <string name="phoneError">يجب إدخال رقم الهاتف</string>
     <string name="dobError">يجب إدخال تاريخ الميلاد</string>
     <string name="updatingMeasuresSuccess">تم تحديث القياس بنجاح</string>
