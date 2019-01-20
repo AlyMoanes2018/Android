@@ -154,4 +154,11 @@ public class InterestsActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i = new Intent(this, FavouritePharmacy.class);
+        startActivity(i);
+        overridePendingTransition(R.anim.activity_enter, R.anim.activity_leave);
+    }
 }

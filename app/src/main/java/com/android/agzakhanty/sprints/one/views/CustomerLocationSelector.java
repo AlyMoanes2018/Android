@@ -223,4 +223,12 @@ public class CustomerLocationSelector extends AppCompatActivity implements OnMap
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i = new Intent(this, ProfilePhotoSetter.class);
+        startActivity(i);
+        overridePendingTransition(R.anim.activity_enter, R.anim.activity_leave);
+    }
 }

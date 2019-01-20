@@ -28,6 +28,7 @@ import com.android.agzakhanty.general.application.DialogCreator;
 import com.android.agzakhanty.general.models.PrefManager;
 import com.android.agzakhanty.sprints.one.models.Customer;
 import com.android.agzakhanty.sprints.one.models.api_responses.CustomerInfoResponseModel;
+import com.android.agzakhanty.sprints.two.views.Dashboard;
 import com.bumptech.glide.Glide;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
@@ -53,6 +54,7 @@ public class ProfilePhotoSetter extends AppCompatActivity {
     CircleImageView imageView;
     ProgressDialog dialog;
     String imgByteArrStr = "";
+    Boolean isEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +63,7 @@ public class ProfilePhotoSetter extends AppCompatActivity {
         ButterKnife.bind(this);
         setSupportActionBar(appBar);
         CommonTasks.setUpTranslucentStatusBar(this);
+        isEdit = getIntent().getBooleanExtra("edit", false);
         dialog = DialogCreator.getInstance(this);
         String custJSON = PrefManager.getInstance(this).read(Constants.SP_LOGIN_CUSTOMER_KEY);
         Customer customer = new Gson().fromJson(custJSON, new TypeToken<Customer>() {
@@ -127,7 +130,7 @@ public class ProfilePhotoSetter extends AppCompatActivity {
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 bitmap.compress(Bitmap.CompressFormat.PNG, 50, stream);
                 byte[] byteArray = stream.toByteArray();
-                float imgSizeInMB = (byteArray.length/(1024*1024));
+                float imgSizeInMB = (byteArray.length / (1024 * 1024));
                 if (imgSizeInMB <= 1f) {
                     imgByteArrStr = Base64.encodeToString(byteArray, Base64.DEFAULT);
                     Log.d("TEST_BYTE", imgByteArrStr + "");
@@ -196,6 +199,15 @@ public class ProfilePhotoSetter extends AppCompatActivity {
         });
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i;
+        if (isEdit) {
+            i = new Intent(this, Dashboard.class);
+            startActivity(i);
+            overridePendingTransition(R.anim.activity_enter, R.anim.activity_leave);
+        }
+    }
 }
 

@@ -236,6 +236,7 @@ public class CommonTasks {
                             case 8:
 
                                 i = new Intent(context, ProfilePhotoSetter.class);
+                                i.putExtra("edit", true);
                                 result.closeDrawer();
                                 context.startActivity(i);
                                 ((Activity) context).overridePendingTransition(R.anim.activity_enter, R.anim.activity_leave);
