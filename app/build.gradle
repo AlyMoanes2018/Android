@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
-
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 android {
     compileSdkVersion 25
     buildToolsVersion '27.0.3'
@@ -14,10 +16,34 @@ android {
         manifestPlaceholders = [onesignal_app_id               : "94a8a900-7b33-4c19-a8c5-c1972f37b53f",
                                 onesignal_google_project_number: "REMOTE"]
     }
+
+    signingConfigs {
+
+        debug{
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+        }
+
+        release {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+        }
+    }
+
     buildTypes {
+
+        debug{
+            signingConfig signingConfigs.debug
+        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 

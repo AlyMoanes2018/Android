@@ -57,6 +57,7 @@ import com.onesignal.OneSignal;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -97,21 +98,6 @@ public class Splash extends AppCompatActivity implements GoogleApiClient.OnConne
         ButterKnife.bind(this);
         Log.d("TEST_INTER_SPLASH", PrefManager.getInstance(this).readInt(Constants.SP_LANGUAGE_KEY) + "  E");
         dialog = DialogCreator.getInstance(this);
-
-        try {
-            PackageInfo info = getPackageManager().getPackageInfo(
-                    "com.android.agzakhanty",
-                    PackageManager.GET_SIGNATURES);
-            for (Signature signature : info.signatures) {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-
-        } catch (NoSuchAlgorithmException e) {
-
-        }
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -146,7 +132,7 @@ public class Splash extends AppCompatActivity implements GoogleApiClient.OnConne
                                     cstmr.setE_Mail(object.getString("email"));
                                     cstmr.setFbId(object.getString("id"));
                                     cstmr.setName(object.getString("name"));
-                                    cstmr.setGender(object.getString("gender"));
+                                    //cstmr.setGender(object.getString("gender"));
                                     cstmr.setDateOfBirth(object.getString("birthday"));
                                     PrefManager.getInstance(Splash.this).write(Constants.SP_LOGIN_CUSTOMER_KEY, new Gson().toJson(cstmr));
                                     dialog.setMessage(getResources().getString(R.string.loginMsg));
@@ -277,7 +263,14 @@ public class Splash extends AppCompatActivity implements GoogleApiClient.OnConne
 
     @OnClick(R.id.fbLoginButton)
     public void loginWithFB() {
-        fbLoginBtn.performClick();
+        String cstmrJSON = PrefManager.getInstance(this).read(Constants.SP_LOGIN_TEMP_CUSTOMER_KEY);
+        Type type = new TypeToken<Customer>() {
+        }.getType();
+        Customer cstmr = new Gson().fromJson(cstmrJSON, type);
+        if (cstmr != null && cstmr.getFbId() != null && !cstmr.getFbId().isEmpty())
+            callFBLoginWS(cstmr.getFbId());
+        else
+            fbLoginBtn.performClick();
     }
 
     @OnClick(R.id.gRegisterButton)

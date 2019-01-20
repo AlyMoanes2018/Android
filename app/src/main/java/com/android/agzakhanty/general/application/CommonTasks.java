@@ -45,6 +45,7 @@ import com.android.agzakhanty.sprints.three.views.Reminders;
 import com.android.agzakhanty.sprints.three.views.ReportViolation;
 import com.android.agzakhanty.sprints.three.views.Settings;
 import com.android.agzakhanty.sprints.two.views.SearchPharmacyByName;
+import com.facebook.login.LoginManager;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.mikepenz.materialdrawer.AccountHeader;
@@ -249,6 +250,7 @@ public class CommonTasks {
                                 ((Activity) context).overridePendingTransition(R.anim.activity_enter, R.anim.activity_leave);
                                 PrefManager.getInstance(context).write(Constants.SP_LOGIN_CUSTOMER_KEY, "");
                                 // we still need to empty everything possible related to the user
+                                LoginManager.getInstance().logOut();
                                 ((Activity) context).finish();
                                 break;
                         }
