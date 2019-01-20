@@ -37,6 +37,7 @@ public class Order {
     private String totalPrice;
     private String RemainingTime;
     private String RemainingTimeSecond;
+    private String RemainingTimeHours;
     private String DeliveryType;
     private ArrayList<ItemsResponseModel> ListItem;
     private Order activeOrder;
@@ -175,5 +176,13 @@ public class Order {
 
     public void setRemainingTimeSecond(String remainingTimeSeconds) {
         RemainingTimeSecond = remainingTimeSeconds;
+    }
+
+    public String getRemainingTimeHours() {
+        return RemainingTimeHours;
+    }
+
+    public void setRemainingTimeHours(String remainingTimeHours) {
+        RemainingTimeHours = remainingTimeHours;
     }
 }

@@ -68,6 +68,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -405,6 +406,7 @@ public class Dashboard extends AppCompatActivity {
                                          timelineLayout.setVisibility(View.GONE);
                                          deliverdLayout.setVisibility(View.VISIBLE);
                                      } else {
+                                         int hours = Integer.parseInt(activeOrder.getRemainingTimeHours());
                                          int minutes = Integer.parseInt(activeOrder.getRemainingTime());
                                          try {
                                              seconds = Integer.parseInt(activeOrder.getRemainingTimeSecond());
@@ -412,10 +414,12 @@ public class Dashboard extends AppCompatActivity {
                                              seconds = 0;
                                          }
                                          Log.d("TEST_SECONDS", seconds + "");
-                                         int timerLimitInMilliS = minutes * 60 * 1000;
+                                         int timerLimitInMilliS = hours * 60 * 60 * 1000;
                                          Log.d("TEST_TIMER", timerLimitInMilliS + "");
                                          timeRemainingTV2.setTextSize(20f);
-                                         timeRemainingTV2.setText(String.format("%02d", minutes) + ":" + String.format("%02d", seconds));
+                                         timeRemainingTV2.setText(String.format("%02d", hours) + ":" +
+                                                 String.format("%02d", minutes) + ":" +
+                                                 String.format("%02d", seconds));
                                          alarmIntent.putExtra("orderNum", activeOrder.getOrderId());
                                          Log.d("TEST_NUM", activeOrder.getOrderId());
 
@@ -423,15 +427,16 @@ public class Dashboard extends AppCompatActivity {
                                              timer = new CountDownTimer(timerLimitInMilliS, 1000) {
                                                  @Override
                                                  public void onTick(long l) {
+                                                     int updatedHours = (int) ((l / (1000 * 60 * 60)) % 24);
                                                      int updatedSeconds = (int) (l / 1000) % 60;
                                                      int updatedMinutes = (int) ((l / (1000 * 60)) % 60);
-                                                     timeRemainingTV2.setText(String.format("%02d", updatedMinutes) + ":" + String.format("%02d", updatedSeconds));
+                                                     timeRemainingTV2.setText(String.format("%02d", updatedHours) + ":" + String.format("%02d", updatedMinutes) + ":" + String.format("%02d", updatedSeconds));
 
                                                  }
 
                                                  @Override
                                                  public void onFinish() {
-                                                     timeRemainingTV2.setText("00:00");
+                                                     timeRemainingTV2.setText("00:00:00");
                                                      timelineLayout.setVisibility(View.GONE);
                                                      deliverdLayout.setVisibility(View.VISIBLE);
                                                      PrefManager.getInstance(Dashboard.this).write(Constants.TIMER_IS_STARTED, "");
