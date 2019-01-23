@@ -266,7 +266,6 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight=".5"
-                    android:checked="true"
                     android:paddingStart="11dp"
                     android:text="@string/delivery"
                     android:textColor="#000000"
@@ -278,6 +277,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight=".5"
                     android:paddingStart="11dp"
+                    android:checked="true"
                     android:text="@string/delivery2"
                     android:textColor="#000000"
                     android:textSize="14sp" />

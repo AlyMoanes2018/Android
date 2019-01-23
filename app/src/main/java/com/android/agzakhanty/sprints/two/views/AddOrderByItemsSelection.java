@@ -185,9 +185,9 @@ public class AddOrderByItemsSelection extends AppCompatActivity {
                         progressBar.setVisibility(View.GONE);
                         favPharmDataTV.setVisibility(View.VISIBLE);
                         if (model.getPharmacy().getDelivery().equalsIgnoreCase("n"))
-                            pharmacyPickup.setEnabled(false);
+                            homeDelivery.setEnabled(false);
                         else
-                            pharmacyPickup.setEnabled(true);
+                            homeDelivery.setEnabled(true);
                         if (model.getPharmacy().getLogoURL() != null && !model.getPharmacy().getLogoURL().isEmpty()) {
                             Glide
                                     .with(AddOrderByItemsSelection.this)
@@ -201,7 +201,8 @@ public class AddOrderByItemsSelection extends AppCompatActivity {
                                     .centerCrop()
                                     .into(pharmacyLogo);
                         }
-                        if (model.getPharmacy().getAllDay() != null && !model.getPharmacy().getAllDay().isEmpty()) {
+                        if (model.getPharmacy().getAllDay() != null && !model.getPharmacy().getAllDay().isEmpty()
+                                && model.getPharmacy().getAllDay().equalsIgnoreCase("y")) {
                             twentyFourTV.setVisibility(View.VISIBLE);
                         }
                         if (model.getPharmacy().getDistance() != null && !model.getPharmacy().getDistance().isEmpty()) {
@@ -209,10 +210,12 @@ public class AddOrderByItemsSelection extends AppCompatActivity {
                             distanceTV.setText(model.getPharmacy().getDistance());
                             distanceTV.setVisibility(View.VISIBLE);
                         }
-                        if (model.getPharmacy().getDelivery() != null && !model.getPharmacy().getDelivery().isEmpty()) {
+                        if (model.getPharmacy().getDelivery() != null && !model.getPharmacy().getDelivery().isEmpty()
+                                && model.getPharmacy().getDelivery().equalsIgnoreCase("y")) {
                             deliveryButton.setVisibility(View.VISIBLE);
                         }
-                        if (model.getPharmacy().getChat() != null && !model.getPharmacy().getChat().isEmpty()) {
+                        if (model.getPharmacy().getChat() != null && !model.getPharmacy().getChat().isEmpty()
+                                && model.getPharmacy().getChat().equalsIgnoreCase("y")) {
                             phoneButton.setVisibility(View.VISIBLE);
                         }
                         if (model.getPharmacy().getRate() != null && !model.getPharmacy().getRate().isEmpty()) {
