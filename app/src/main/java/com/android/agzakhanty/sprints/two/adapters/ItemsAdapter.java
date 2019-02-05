@@ -137,6 +137,7 @@ public class ItemsAdapter extends ArrayAdapter<ItemsResponseModel> {
                     }
                 }
                 prefManager.write(Constants.ORDER_SELECTED_ITMES, new Gson().toJson(selectedItems));
+                Log.d("TEST_ITEMS_Adapter_GEN", selectedItems.size() + "");
             }
         });
 

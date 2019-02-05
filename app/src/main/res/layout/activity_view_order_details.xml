@@ -55,6 +55,7 @@
                     android:layout_marginBottom="25dp"
                     android:layout_marginStart="16dp"
                     android:text="@string/tempFacPharm"
+                    fontPath="fonts/bold.ttf"
                     android:textColor="@android:color/white"
                     android:textSize="14sp" />
 

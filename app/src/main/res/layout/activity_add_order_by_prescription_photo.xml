@@ -53,6 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="25dp"
+                fontPath="fonts/bold.ttf"
                 android:text="@string/tempFacPharm"
                 android:textColor="@android:color/white"
                 android:textSize="14sp" />

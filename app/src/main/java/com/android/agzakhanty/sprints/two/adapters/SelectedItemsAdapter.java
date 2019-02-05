@@ -60,6 +60,7 @@ public class SelectedItemsAdapter extends ArrayAdapter<ItemsResponseModel> {
         this.isAd = isAd;
         this.orderStatusID = sttsID;
         prefManager = PrefManager.getInstance(context);
+        //prefManager.write(new Gson().toJson(models), Constants.ORDER_SELECTED_ITMES);
     }
 
     @Override
@@ -94,6 +95,7 @@ public class SelectedItemsAdapter extends ArrayAdapter<ItemsResponseModel> {
             @Override
             public void onClick(View view) {
                 models.remove(i);
+                prefManager.write(new Gson().toJson(models), Constants.ORDER_SELECTED_ITMES);
                 notifyDataSetChanged();
                 ((AddOrderByItemsSelection) context).onDialogDoneButtonClicked(models);
             }
@@ -142,7 +144,6 @@ public class SelectedItemsAdapter extends ArrayAdapter<ItemsResponseModel> {
         if (!isView && !isAd)
             item.setQty("1");
         //Log.d("TEST_ITEMS_DIALOG", new Gson().toJson(models) + "    EE");
-        prefManager.write(Constants.ORDER_SELECTED_ITMES, new Gson().toJson(models));
         viewHolder.quantity.setText(item.getQty());
         viewHolder.price.setText(item.getPrice());
         if (isView) {

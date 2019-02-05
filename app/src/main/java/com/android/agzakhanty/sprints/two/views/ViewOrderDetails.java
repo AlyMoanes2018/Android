@@ -224,7 +224,7 @@ public class ViewOrderDetails extends AppCompatActivity {
                     else if (order.getDeliveryType().equalsIgnoreCase("h"))
                         homeDelivery.setChecked(true);
                     if (order.getStatusId() != null) {
-                        if (order.getStatusId().equals("3") || order.getStatusId().equals("2")) {
+                        if (!order.getStatusId().equals("6") && !order.getStatusId().equals("7")) {
                             actionsLayout.setVisibility(View.VISIBLE);
                             backLayout.setVisibility(View.GONE);
                         } else {

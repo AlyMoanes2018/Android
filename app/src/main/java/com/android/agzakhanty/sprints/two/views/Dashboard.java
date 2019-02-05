@@ -555,9 +555,9 @@ public class Dashboard extends AppCompatActivity {
                         progressBar.setVisibility(View.GONE);
                         favPharmDataTV.setVisibility(View.VISIBLE);
                         menuRed.setVisibility(View.VISIBLE);
-                        Log.d("TEST_IMG", model.getPharmacy().getLogoURL() + "  E");
+                        Log.d("TEST_IMG", Constants.BASE_URL + model.getPharmacy().getLogoURL() + "  E");
                         if (model.getPharmacy().getLogoURL() != null && !model.getPharmacy().getLogoURL().isEmpty()) {
-
+                            Log.d("TEST_IMG","INNNN");
                             Glide
                                     .with(Dashboard.this)
                                     .load(Constants.BASE_URL + model.getPharmacy().getLogoURL())

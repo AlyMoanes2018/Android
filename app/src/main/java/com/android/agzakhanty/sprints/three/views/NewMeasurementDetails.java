@@ -437,12 +437,12 @@ public class NewMeasurementDetails extends AppCompatActivity implements DatePick
                 if (response.body() != null && response.isSuccessful()) {
                     latestMeasure = response.body();
                     Log.d("TEST_LATEST", new Gson().toJson(latestMeasure));
-                    value.setText((int) Float.parseFloat(latestMeasure.getVal1()) + "");
+                    value.setText(Float.parseFloat(latestMeasure.getVal1()) + "");
                     if (latestMeasure.getVal2() != null && !latestMeasure.getVal2().equals("0.0")) {
                         value2.setEnabled(false);
                         value2.setVisibility(View.VISIBLE);
                         separator.setVisibility(View.VISIBLE);
-                        value2.setText((int) Float.parseFloat(latestMeasure.getVal2()) + "");
+                        value2.setText( Float.parseFloat(latestMeasure.getVal2()) + "");
                     } else {
                         value2.setVisibility(View.GONE);
                         separator.setVisibility(View.GONE);

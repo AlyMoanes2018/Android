@@ -121,7 +121,9 @@ public class AddOrderByItemsSelection extends AppCompatActivity {
 
     @OnClick(R.id.addItemTV)
     public void onAddItemClicked() {
-        Log.d("TEST_ITEMS_ACTIVITY2", selectedItems.size() + "");
+        PrefManager.getInstance(AddOrderByItemsSelection.this).write(Constants.ORDER_SELECTED_ITMES, "");
+        Log.d("TEST_ITEMS_ACTIVITY", PrefManager.getInstance(AddOrderByItemsSelection.this).read(Constants.ORDER_SELECTED_ITMES) + "    EE");
+        Log.d("TEST_ITEMS_ACTIVITY", selectedItems.size() + "");
         AddItemsDialog dialog = new AddItemsDialog(AddOrderByItemsSelection.this, selectedItems, true);
         dialog.show();
         dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
@@ -326,9 +328,9 @@ public class AddOrderByItemsSelection extends AppCompatActivity {
         call.enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                PrefManager.getInstance(AddOrderByItemsSelection.this).write(Constants.ORDER_SELECTED_ITMES, "");
                 dialog.dismiss();
                 if (response.body() != null) {
-                    PrefManager.getInstance(AddOrderByItemsSelection.this).write(null, Constants.ORDER_SELECTED_ITMES);
                     Log.d("TEST_ITEMS_DIALOG", PrefManager.getInstance(AddOrderByItemsSelection.this).read(Constants.ORDER_SELECTED_ITMES) + "   E");
                     if (response.body()) {
                         Toast.makeText(AddOrderByItemsSelection.this, getResources().getString(R.string.saveOrderSuccess), Toast.LENGTH_LONG).show();
@@ -345,7 +347,6 @@ public class AddOrderByItemsSelection extends AppCompatActivity {
                 } else {
                     Log.d("TEST_NULL", response.code() + "");
                     Toast.makeText(AddOrderByItemsSelection.this, getResources().getString(R.string.saveOrderFailure), Toast.LENGTH_LONG).show();
-                    PrefManager.getInstance(AddOrderByItemsSelection.this).write("", Constants.ORDER_SELECTED_ITMES);
                 }
             }
 

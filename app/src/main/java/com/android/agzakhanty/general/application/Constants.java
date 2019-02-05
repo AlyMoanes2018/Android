@@ -43,8 +43,8 @@ public class Constants {
     public static final String MINUTES_OF_HOURS = "moh";
     public static final String DAY_OF_WEEK = "dow";
     public static final String FAVOURITE_PCY_ID = "favPcyId";
-    public static final String BASE_URL = "https://www.agzakhanty.com";
-    public static final String NO_IMG_FOUND_URL = "https://www.agzakhanty.com/assets/global/images/avatars/profil3.jpg";
+    public static final String BASE_URL = "http://www.agzakhanty.com";
+    public static final String NO_IMG_FOUND_URL = "http://www.agzakhanty.com/assets/global/images/avatars/profil3.jpg";
 
 
 }
