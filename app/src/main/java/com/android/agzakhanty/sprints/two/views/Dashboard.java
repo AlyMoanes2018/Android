@@ -40,6 +40,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.akexorcist.localizationactivity.ui.LocalizationActivity;
 import com.android.agzakhanty.R;
 import com.android.agzakhanty.general.api.ApiClient;
 import com.android.agzakhanty.general.api.ApiInterface;
@@ -47,6 +48,7 @@ import com.android.agzakhanty.general.application.Agzakhanty;
 import com.android.agzakhanty.general.application.CommonTasks;
 import com.android.agzakhanty.general.application.Constants;
 import com.android.agzakhanty.general.models.PrefManager;
+import com.android.agzakhanty.general.views.BaseActivity;
 import com.android.agzakhanty.sprints.one.models.Customer;
 import com.android.agzakhanty.sprints.one.models.api_responses.PharmacyDistance;
 import com.android.agzakhanty.sprints.one.views.AddPharmacy;
@@ -79,7 +81,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class Dashboard extends AppCompatActivity {
+public class Dashboard extends BaseActivity {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -242,7 +244,7 @@ public class Dashboard extends AppCompatActivity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         ButterKnife.bind(this);
@@ -484,10 +486,10 @@ public class Dashboard extends AppCompatActivity {
         );
     }
 
-    @Override
+   /* @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
-    }
+    }*/
 
     public void setTimelineStep(int step) {
         if (step == 1 || step == 2 || step == 3 || step == 4) {
@@ -709,7 +711,7 @@ public class Dashboard extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         // Add the following line to register the Session Manager Listener onResume
         mSensorManager.registerListener(mShakeDetector, mAccelerometer, SensorManager.SENSOR_DELAY_UI);

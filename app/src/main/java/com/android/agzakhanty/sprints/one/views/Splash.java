@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.akexorcist.localizationactivity.ui.LocalizationActivity;
 import com.android.agzakhanty.R;
 
 import com.android.agzakhanty.general.api.ApiClient;
@@ -32,6 +33,7 @@ import com.android.agzakhanty.general.application.DialogCreator;
 import com.android.agzakhanty.general.models.PrefManager;
 import com.android.agzakhanty.general.push_notification.MyNotificationOpenedHandler;
 import com.android.agzakhanty.general.push_notification.MyNotificationReceivedHandler;
+import com.android.agzakhanty.general.views.BaseActivity;
 import com.android.agzakhanty.sprints.one.models.Customer;
 import com.android.agzakhanty.sprints.one.models.api_responses.CustomerInfoResponseModel;
 import com.android.agzakhanty.sprints.two.views.Dashboard;
@@ -70,7 +72,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class Splash extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener,
+public class Splash extends BaseActivity implements GoogleApiClient.OnConnectionFailedListener,
         OSSubscriptionObserver {
 
     @BindView(R.id.buttonsContainerLayout)
@@ -86,10 +88,11 @@ public class Splash extends AppCompatActivity implements GoogleApiClient.OnConne
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.UserScreensThemes);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        setLanguage("ar");
         //MyNotificationOpenedHandler : This will be called when a notification is tapped on.
         //MyNotificationReceivedHandler : This will be called when a notification is received while your app is running.
         PrefManager.getInstance(this).write(0, Constants.SP_LANGUAGE_KEY);

@@ -124,6 +124,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
                             android:drawableStart="@drawable/ic_access_time"
                             android:drawablePadding="5dp"
                             android:gravity="center"
@@ -136,7 +137,7 @@
                             android:id="@+id/distanceTV"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
+                            android:layout_centerVertical="true"
                             android:layout_marginStart="10dp"
                             android:layout_toEndOf="@id/twentyFourTV"
                             android:drawableStart="@drawable/ic_place_white"
@@ -152,6 +153,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
+                            android:layout_centerVertical="true"
                             android:layout_toEndOf="@id/distanceTV"
                             android:background="@drawable/ic_directions_bike"
                             android:visibility="gone" />
@@ -161,6 +163,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
+                            android:layout_centerVertical="true"
                             android:layout_toEndOf="@id/deliveryButton"
                             android:background="@drawable/ic_perm_phone_msg"
                             android:visibility="gone" />

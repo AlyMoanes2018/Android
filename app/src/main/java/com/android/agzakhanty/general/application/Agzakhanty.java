@@ -11,6 +11,7 @@ import android.support.multidex.MultiDex;
 import android.util.DisplayMetrics;
 import android.widget.ImageView;
 
+import com.akexorcist.localizationactivity.core.LocalizationApplicationDelegate;
 import com.android.agzakhanty.R;
 import com.android.agzakhanty.general.push_notification.MyNotificationOpenedHandler;
 import com.android.agzakhanty.general.push_notification.MyNotificationReceivedHandler;
@@ -24,23 +25,27 @@ import com.onesignal.OneSignal;
 import java.util.Locale;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
  * Created by a.moanes on 16/10/2017.
  */
 
-public class Agzakhanty extends Application {
+public  class  Agzakhanty extends Application {
     public static SharedPreferences preferences;
     private static Context context;
+    public static LocalizationApplicationDelegate localizationDelegate;
 
     public static Context getContext() {
         return context;
     }
 
+
     @Override
     public void onCreate() {
         super.onCreate();
         context = this;
+        localizationDelegate = new LocalizationApplicationDelegate(this);
         //initialize and create the image loader logic
         DrawerImageLoader.init(new AbstractDrawerImageLoader() {
             @Override
@@ -50,7 +55,7 @@ public class Agzakhanty extends Application {
 
             @Override
             public void cancel(ImageView imageView) {
-               // Glide.with(imageView.getContext()).clear(imageView);
+                // Glide.with(imageView.getContext()).clear(imageView);
             }
 
             @Override
@@ -72,12 +77,12 @@ public class Agzakhanty extends Application {
                 return super.placeholder(ctx, tag);
             }
         });
-        Locale myLocale = new Locale("ar");
+       /* Locale myLocale = new Locale("ar");
         Resources res = getResources();
         DisplayMetrics dm = res.getDisplayMetrics();
         Configuration conf = res.getConfiguration();
         conf.setLocale(myLocale);
-        res.updateConfiguration(conf, dm);
+        res.updateConfiguration(conf, dm);*/
         preferences = getSharedPreferences("APP_SHARED_DATA", MODE_PRIVATE);
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
                 .setDefaultFontPath("fonts/medium.ttf")
@@ -93,7 +98,21 @@ public class Agzakhanty extends Application {
 
     @Override
     protected void attachBaseContext(Context base) {
-        super.attachBaseContext(base);
+        if (localizationDelegate == null)
+            localizationDelegate = new LocalizationApplicationDelegate(this);
+        super.attachBaseContext(localizationDelegate.attachBaseContext(base));
         MultiDex.install(this);
+    }
+
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        localizationDelegate.onConfigurationChanged(this);
+    }
+
+    @Override
+    public Context getApplicationContext() {
+        return localizationDelegate.getApplicationContext(super.getApplicationContext());
     }
 }
