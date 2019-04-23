@@ -481,12 +481,12 @@ public class NewMeasurementDetails extends AppCompatActivity implements DatePick
 
     @Override
     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-        measurementDate = String.format("%02d", i2) + "/" + String.format("%02d", (i1 + 1)) + "/" + i;
+        measurementDate = String.format(new Locale("en"),"%02d", i2) + "/" + String.format(new Locale("en"),"%02d", (i1 + 1)) + "/" + i;
         TimePickerDialog timePickerDialog = new TimePickerDialog(
                 NewMeasurementDetails.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int i, int i1) {
-                measurementTime = String.format("%02d", i) + ":" + String.format("%02d", i1) + ":00";
+                measurementTime = String.format(new Locale("en"),"%02d", i) + ":" + String.format(new Locale("en"),"%02d", i1) + ":00";
                 dateValue.setText(measurementDate);
                 timeValue.setText(measurementTime);
                 enterDate.setVisibility(View.GONE);

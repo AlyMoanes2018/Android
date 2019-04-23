@@ -21,6 +21,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -96,6 +97,8 @@ public class ViewOrderDetails extends AppCompatActivity {
     LinearLayout actionsLayout;
     @BindView(R.id.backLayout)
     LinearLayout backLayout;
+    @BindView(R.id.order)
+    Button orderBtn;
     Customer customer;
     String orderID;
     ProgressDialog dialog;
@@ -226,6 +229,10 @@ public class ViewOrderDetails extends AppCompatActivity {
                     if (order.getStatusId() != null) {
                         if (!order.getStatusId().equals("6") && !order.getStatusId().equals("7")) {
                             actionsLayout.setVisibility(View.VISIBLE);
+                            backLayout.setVisibility(View.GONE);
+                        } else if (order.getStatusId().equals("5")) {
+                            actionsLayout.setVisibility(View.VISIBLE);
+                            orderBtn.setVisibility(View.GONE);
                             backLayout.setVisibility(View.GONE);
                         } else {
                             actionsLayout.setVisibility(View.INVISIBLE);
