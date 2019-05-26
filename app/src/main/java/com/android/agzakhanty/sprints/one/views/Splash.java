@@ -66,7 +66,6 @@ import java.security.NoSuchAlgorithmException;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import es.dmoral.toasty.Toasty;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -154,12 +153,12 @@ public class Splash extends BaseActivity implements GoogleApiClient.OnConnection
 
             @Override
             public void onCancel() {
-                Toasty.normal(Splash.this, "Cancelled", Toast.LENGTH_LONG).show();
+                Toast.makeText(Splash.this, "Cancelled", Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onError(FacebookException error) {
-                Toasty.normal(Splash.this, "Error", Toast.LENGTH_LONG).show();
+                Toast.makeText(Splash.this, "Error", Toast.LENGTH_LONG).show();
                 error.printStackTrace();
             }
         });
