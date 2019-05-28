@@ -340,6 +340,9 @@ public class Register extends AppCompatActivity {
     }
 
     public void goToRegisterWS(Customer cstmr) {
+        cstmr.setGovernrate_id(null);
+        cstmr.setCityId(null);
+        cstmr.setAddress(null);
         Log.d("TEST_NULL", new Gson().toJson(cstmr));
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
         Call<CustomerInfoResponseModel> call = apiService.register(cstmr);

@@ -58,6 +58,7 @@ public class CustomerLocationSelector extends AppCompatActivity implements OnMap
     Marker marker;
     @BindView(R.id.toolbar)
     Toolbar appBar;
+    Customer customer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +69,9 @@ public class CustomerLocationSelector extends AppCompatActivity implements OnMap
         setSupportActionBar(appBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         dialog = DialogCreator.getInstance(this);
+        String custJSON = PrefManager.getInstance(this).read(Constants.SP_LOGIN_CUSTOMER_KEY);
+        customer = new Gson().fromJson(custJSON, new TypeToken<Customer>() {
+        }.getType());
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -110,12 +114,12 @@ public class CustomerLocationSelector extends AppCompatActivity implements OnMap
         if (marker != null) {
             Log.d("TEST_LOC2", marker.getPosition().latitude + " " + marker.getPosition().longitude);
 
-           goToUpdateWS();
+            goToUpdateWS();
         }
     }
 
     @OnClick(R.id.skip)
-    public void onSkipClicked(){
+    public void onSkipClicked() {
         Intent intent = new Intent(CustomerLocationSelector.this, FavouritePharmacy.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
@@ -125,14 +129,19 @@ public class CustomerLocationSelector extends AppCompatActivity implements OnMap
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
         map.setPadding(0, 1000, 0, 0);
-        location = new LatLng(30.044420, 31.235712);
+        if (getIntent().getStringExtra("fromEdit") != null &&
+                getIntent().getStringExtra("fromEdit").equalsIgnoreCase("y") &&
+                customer.getLongitude() != null && customer.getLatitude() != null) {
+            location = new LatLng(Double.parseDouble(customer.getLatitude()), Double.parseDouble(customer.getLongitude()));
+        } else
+            location = new LatLng(30.044420, 31.235712);
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(location, 15);
         map.animateCamera(cameraUpdate);
-         marker = map.addMarker(new MarkerOptions()
-                 .title(getResources().getString(R.string.mapMarkerTitle))
+        marker = map.addMarker(new MarkerOptions()
+                .title(getResources().getString(R.string.mapMarkerTitle))
                 .position(new LatLng(location.latitude, location.longitude))
                 .draggable(true));
-         marker.showInfoWindow();
+        marker.showInfoWindow();
         if (mLocationPermissionGranted) {
             map.setMyLocationEnabled(true);
             map.setOnMyLocationButtonClickListener(this);
@@ -149,11 +158,11 @@ public class CustomerLocationSelector extends AppCompatActivity implements OnMap
 
 
     private void getLocationPermission() {
-    /*
-     * Request location permission, so that we can get the location of the
-     * device. The result of the permission request is handled by a callback,
-     * onRequestPermissionsResult.
-     */
+        /*
+         * Request location permission, so that we can get the location of the
+         * device. The result of the permission request is handled by a callback,
+         * onRequestPermissionsResult.
+         */
         if (ContextCompat.checkSelfPermission(this,
                 android.Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
@@ -189,8 +198,8 @@ public class CustomerLocationSelector extends AppCompatActivity implements OnMap
         String custJSON = PrefManager.getInstance(this).read(Constants.SP_LOGIN_CUSTOMER_KEY);
         final Customer customer = new Gson().fromJson(custJSON, new TypeToken<Customer>() {
         }.getType());
-        customer.setLatitude(marker.getPosition().latitude+"");
-        customer.setLongitude(marker.getPosition().longitude+"");
+        customer.setLatitude(marker.getPosition().latitude + "");
+        customer.setLongitude(marker.getPosition().longitude + "");
         customer.setRegId(PrefManager.getInstance(CustomerLocationSelector.this).read(Constants.REGISTRATION_ID));
         Log.d("TEST_LOCATION_BEFORE", new Gson().toJson(customer));
         customer.setFileName();
@@ -205,6 +214,8 @@ public class CustomerLocationSelector extends AppCompatActivity implements OnMap
                         PrefManager.getInstance(CustomerLocationSelector.this).write(Constants.SP_LOGIN_CUSTOMER_KEY, new Gson().toJson(response.body().getCstmr()));
                         Log.d("TEST_LOCATION_AFTER", new Gson().toJson(response.body().getCstmr()));
                         Intent intent = new Intent(CustomerLocationSelector.this, FavouritePharmacy.class);
+                        if (getIntent().getStringExtra("fromEdit") != null)
+                            intent.putExtra("fromEdit", "y");
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                     } else {

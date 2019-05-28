@@ -12,8 +12,10 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.agzakhanty.R;
@@ -26,9 +28,13 @@ import com.android.agzakhanty.general.models.PrefManager;
 import com.android.agzakhanty.sprints.one.adapters.FavouritePharmaciesAdapter;
 import com.android.agzakhanty.sprints.one.models.Customer;
 import com.android.agzakhanty.sprints.one.models.api_responses.CustomerInfoResponseModel;
+import com.android.agzakhanty.sprints.one.models.api_responses.PharmacyDistance;
 import com.android.agzakhanty.sprints.two.adapters.CirclePharmaciesAdapter;
 import com.android.agzakhanty.sprints.two.models.api_responses.CircleResponseModel;
+import com.android.agzakhanty.sprints.two.views.Dashboard;
+import com.android.agzakhanty.sprints.two.views.NewOrder;
 import com.android.agzakhanty.sprints.two.views.SearchPharmacyByName;
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -46,6 +52,12 @@ public class FavouritePharmacy extends AppCompatActivity {
     Toolbar appBar;
     @BindView(R.id.value)
     EditText pcyCode;
+    @BindView(R.id.cryingFace)
+    ImageView pcyLogo;
+    @BindView(R.id.noPharmacies)
+    TextView noPharmacies;
+    Customer customer;
+    ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +67,17 @@ public class FavouritePharmacy extends AppCompatActivity {
         CommonTasks.setUpTranslucentStatusBar(this);
         setSupportActionBar(appBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        String custJSON = PrefManager.getInstance(this).read(Constants.SP_LOGIN_CUSTOMER_KEY);
+        dialog = DialogCreator.getInstance(this);
+        customer = new Gson().fromJson(custJSON, new TypeToken<Customer>() {
+        }.getType());
+        if (getIntent().getStringExtra("fromEdit") != null) {
+            if (customer.getFavPcy() != null && !customer.getFavPcy().isEmpty()) {
+                dialog.setMessage("جاري تحميل بيانات الصيدلية..");
+                dialog.show();
+                goToWS(customer.getFavPcy());
+            }
+        }
     }
 
     @Override
@@ -73,6 +96,8 @@ public class FavouritePharmacy extends AppCompatActivity {
     @OnClick(R.id.skip)
     public void onSkipClicked() {
         Intent intent = new Intent(FavouritePharmacy.this, InterestsActivity.class);
+        if (getIntent().getStringExtra("fromEdit") != null)
+            intent.putExtra("fromEdit", "y");
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
@@ -95,6 +120,8 @@ public class FavouritePharmacy extends AppCompatActivity {
                     Intent intent = new Intent(FavouritePharmacy.this, SearchPharmacyByName.class);
                     intent.putExtra("next", Constants.FAVOURITE_PHARMACY_NEXT_REGISTER);
                     intent.putExtra(Constants.ACTIVITY_STARTED_FROM, "fav");
+                    if (getIntent().getStringExtra("fromEdit") != null)
+                        intent.putExtra("fromEdit", "y");
                     startActivity(intent);
                     overridePendingTransition(R.anim.activity_enter, R.anim.activity_leave);
                     finish();
@@ -134,6 +161,8 @@ public class FavouritePharmacy extends AppCompatActivity {
                         PrefManager.getInstance(FavouritePharmacy.this).write(Constants.SP_LOGIN_CUSTOMER_KEY, new Gson().toJson(response.body().getCstmr()));
                         Log.d("TEST_REG", response.body().getCstmr().getRegId() + " E");
                         Intent intent = new Intent(FavouritePharmacy.this, InterestsActivity.class);
+                        if (getIntent().getStringExtra("fromEdit") != null)
+                            intent.putExtra("fromEdit", "y");
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                         finish();
@@ -158,5 +187,43 @@ public class FavouritePharmacy extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
+    }
+
+    private void goToWS(String id) {
+        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+        Call<PharmacyDistance> call = apiService.getCustomerFavouritePharmacy(id, customer.getId(), null, null);
+        call.enqueue(new Callback<PharmacyDistance>() {
+            @Override
+            public void onResponse(Call<PharmacyDistance> call, Response<PharmacyDistance> response) {
+                if (response.body() != null) {
+                    PharmacyDistance model = response.body();
+                    if (response.body().getStatus().equalsIgnoreCase("true")) {
+                        noPharmacies.setText("صيدلية " + model.getPharmacy().getName());
+                        if (model.getPharmacy().getLogoURL() != null && !model.getPharmacy().getLogoURL().isEmpty()) {
+                            Log.d("TEST_IMG","INNNN");
+                            Glide
+                                    .with(FavouritePharmacy.this)
+                                    .load(Constants.BASE_URL + model.getPharmacy().getLogoURL())
+                                    .centerCrop()
+                                    .into(pcyLogo);
+                        } else {
+                            Glide
+                                    .with(FavouritePharmacy.this)
+                                    .load(Constants.NO_IMG_FOUND_URL)
+                                    .centerCrop()
+                                    .into(pcyLogo);
+                        }
+
+                    }
+                } else Log.d("TEST_NULL", response.code() + "");
+                dialog.dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<PharmacyDistance> call, Throwable t) {
+                dialog.dismiss();
+                //Toast.makeText(FavouritePharmacy.this, getResources().getString(R.string.serverFailureMsg), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }

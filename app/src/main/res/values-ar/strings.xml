@@ -326,6 +326,13 @@
     <string name="sendInvitation">ادخل كود الصيدلية المفضلة مباشرة</string>
     <string name="noCode">يجب إدخال كود صيدلية صحيح أولا</string>
     <string name="codeAdded">تم إضافة الصيدلية إلى دائرتك بنجاح</string>
+    <string name="addressTitle">العنوان</string>
+    <string name="gov">المحافظة</string>
+    <string name="city">المدينة</string>
+    <string name="detailedAdd">العنوان تفصيليا</string>
+    <string name="selectGovPrompt">اختر المحافظة</string>
+    <string name="changePass">تغيير كلمة المرور</string>
+    <string name="selectCityPrompt">اختر المدينة</string>
     <string name="mapMarkerTitle">اضغط مطولا حتى تتمكن من تحريك العلامة</string>
     <string-array name="reminder_types_array">
         <item>موعد دواء</item>

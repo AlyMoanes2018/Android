@@ -5,8 +5,10 @@ package com.android.agzakhanty.general.api;
 import com.android.agzakhanty.sprints.one.models.Customer;
 import com.android.agzakhanty.sprints.one.models.Pharmacy;
 import com.android.agzakhanty.sprints.one.models.TagAndUser;
+import com.android.agzakhanty.sprints.one.models.api_responses.City;
 import com.android.agzakhanty.sprints.one.models.api_responses.CustomerInfoResponseModel;
 import com.android.agzakhanty.sprints.one.models.TagsAndStatus;
+import com.android.agzakhanty.sprints.one.models.api_responses.Governorate;
 import com.android.agzakhanty.sprints.one.models.api_responses.PharmacyDistance;
 import com.android.agzakhanty.sprints.one.models.api_responses.TagUserResponseModel;
 import com.android.agzakhanty.sprints.three.models.Consultation;
@@ -36,6 +38,7 @@ import com.android.agzakhanty.sprints.two.models.api_responses.ItemsResponseMode
 import com.android.agzakhanty.sprints.two.models.api_responses.OrderResponseModel;
 import com.android.agzakhanty.sprints.two.models.api_responses.PharmacyResponseModel;
 import com.android.agzakhanty.sprints.two.models.api_responses.RateResponseModel;
+import com.android.agzakhanty.sprints.two.models.api_responses.UpdatePcyStatusResponseModel;
 
 import java.util.ArrayList;
 
@@ -214,6 +217,15 @@ public interface ApiInterface {
 
     @GET("Login/ForgetPassword")
     Call<String> forgetPassword(@Query("ForgetPassMail") String email);
+
+    @GET("Pharmacy/GetAllGovernorates")
+    Call<ArrayList<Governorate>> getAllGovernrates();
+
+    @GET("Pharmacy/GetAllCities")
+    Call<ArrayList<City>> getAllGovernrateCities(@Query("GovId") int govId);
+
+    @PUT("AddToCircle/UpdateCirclePcyStatus")
+    Call<UpdatePcyStatusResponseModel> updateCirclePcyStatus(@Query("PcyId") String pcyId, @Query("CstmrId") String customerId);
 
 }
 

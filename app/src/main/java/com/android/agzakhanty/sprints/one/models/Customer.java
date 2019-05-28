@@ -38,6 +38,9 @@ public class Customer {
     private String Pwd;
     private String ProfilePhoto;
     private String ProfilePhotoImgUrl;
+    private Integer CityId;
+    private Integer Governrate_id;
+    private String Address;
     private String FileName;
 
     public void setFileName() {
@@ -162,5 +165,29 @@ public class Customer {
 
     public void setProfilePhotoImgUrl(String profilePhotoImgUrl) {
         ProfilePhotoImgUrl = profilePhotoImgUrl;
+    }
+
+    public Integer getCityId() {
+        return CityId;
+    }
+
+    public void setCityId(Integer cityId) {
+        CityId = cityId;
+    }
+
+    public Integer getGovernrate_id() {
+        return Governrate_id;
+    }
+
+    public void setGovernrate_id(Integer governrate_id) {
+        Governrate_id = governrate_id;
+    }
+
+    public String getAddress() {
+        return Address;
+    }
+
+    public void setAddress(String address) {
+        Address = address;
     }
 }

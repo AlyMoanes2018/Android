@@ -34,6 +34,13 @@
     <string name="postRegistrationExplanationText">شكراً لتسجيلك\n أضف الآن اهتماماتك وصيدلياتك المفضلة</string>
     <string name="postRegisterSelectSkipButtonText">تخطي الآن</string>
     <string name="regiterTitle">انشاء حساب</string>
+    <string name="addressTitle">العنوان</string>
+    <string name="gov">المحافظة</string>
+    <string name="city">المدينة</string>
+    <string name="detailedAdd">العنوان تفصيليا</string>
+    <string name="selectGovPrompt">اختر المحافظة</string>
+    <string name="selectCityPrompt">اختر المدينة</string>
+    <string name="changePass">تغيير كلمة المرور</string>
     <string name="terms">شروط الاستخدام</string>
     <string name="userName">الاسم</string>
     <string name="email">البريد الإلكتروني</string>

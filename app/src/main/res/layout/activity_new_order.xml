@@ -212,6 +212,41 @@
                         android:textSize="16sp" />
                 </RelativeLayout>
             </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="146dp"
+                android:layout_height="141dp"
+                android:id="@+id/ads"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_toEndOf="@id/repeat"
+                android:layout_below="@id/photo"
+                android:background="@drawable/layout_rounded2">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true">
+
+
+                    <ImageView
+                        android:id="@+id/camera"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:background="@drawable/ic_local_offer" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/camera"
+                        android:layout_marginTop="34dp"
+                        android:gravity="center"
+                        android:text="الإعلانات"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp" />
+                </RelativeLayout>
+            </RelativeLayout>
         </RelativeLayout>
 
     </RelativeLayout>

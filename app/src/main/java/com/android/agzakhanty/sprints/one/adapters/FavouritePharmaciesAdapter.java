@@ -58,7 +58,7 @@ public class FavouritePharmaciesAdapter extends ArrayAdapter<PharmacyDistance> {
 
     ArrayList<PharmacyDistance> pharmacies;
     Context context;
-    String next;
+    String next, fromEdit;
 
     // View lookup cache
     private static class ViewHolder {
@@ -70,11 +70,12 @@ public class FavouritePharmaciesAdapter extends ArrayAdapter<PharmacyDistance> {
         RelativeLayout mainLayout;
     }
 
-    public FavouritePharmaciesAdapter(ArrayList<PharmacyDistance> pharmacies, Context context, String next) {
+    public FavouritePharmaciesAdapter(ArrayList<PharmacyDistance> pharmacies, Context context, String next, String fromEdit) {
         super(context, R.layout.favourite_paharmacy_list_item, pharmacies);
         this.context = context;
         this.pharmacies = pharmacies;
         this.next = next;
+        this.fromEdit = fromEdit;
     }
 
     @Override
@@ -202,6 +203,8 @@ public class FavouritePharmaciesAdapter extends ArrayAdapter<PharmacyDistance> {
     public void decideNextView() {
         if (next.equalsIgnoreCase(Constants.FAVOURITE_PHARMACY_NEXT_REGISTER)) {
             Intent intent = new Intent(context, InterestsActivity.class);
+            if (fromEdit != null)
+                intent.putExtra("fromEdit", "y");
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             context.startActivity(intent);
             ((Activity) context).finish();

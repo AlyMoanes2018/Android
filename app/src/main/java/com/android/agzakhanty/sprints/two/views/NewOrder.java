@@ -163,6 +163,13 @@ public class NewOrder extends AppCompatActivity {
         overridePendingTransition(R.anim.activity_enter, R.anim.activity_leave);
     }
 
+    @OnClick(R.id.ads)
+    public void onAdsClicked() {
+        Intent intent = new Intent(NewOrder.this, Ads.class);
+        startActivityForResult(intent, 124);
+        overridePendingTransition(R.anim.activity_enter, R.anim.activity_leave);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

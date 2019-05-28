@@ -71,22 +71,18 @@ public class InterestsAdapter extends ArrayAdapter<TagsAndStatus> {
         // Check if an existing view is being reused, otherwise inflate the view
         final ViewHolder viewHolder; // view lookup cache stored in tag
         final View result;
-        if (view == null) {
 
-            viewHolder = new ViewHolder();
-            LayoutInflater inflater = LayoutInflater.from(getContext());
-            view = inflater.inflate(R.layout.interests_list_item, viewGroup, false);
-            viewHolder.name = (TextView) view.findViewById(R.id.nameTV);
-            viewHolder.check = (CheckBox) view.findViewById(R.id.check);
-            viewHolder.logo = (ImageView) view.findViewById(R.id.logo);
-            viewHolder.mainLayout = (RelativeLayout) view.findViewById(R.id.mainLayout);
-            result = view;
+        viewHolder = new ViewHolder();
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        view = inflater.inflate(R.layout.interests_list_item, viewGroup, false);
+        viewHolder.name = (TextView) view.findViewById(R.id.nameTV);
+        viewHolder.check = (CheckBox) view.findViewById(R.id.check);
+        viewHolder.logo = (ImageView) view.findViewById(R.id.logo);
+        viewHolder.mainLayout = (RelativeLayout) view.findViewById(R.id.mainLayout);
+        result = view;
 
-            view.setTag(viewHolder);
-        } else {
-            viewHolder = (ViewHolder) view.getTag();
-            result = view;
-        }
+        view.setTag(viewHolder);
+
 
         // load language from sp
         PrefManager prefManager = PrefManager.getInstance(context);
@@ -95,6 +91,9 @@ public class InterestsAdapter extends ArrayAdapter<TagsAndStatus> {
             viewHolder.name.setText(interest.getTag().getTagAr());
         else if (PrefManager.getInstance(context).readInt(Constants.SP_LANGUAGE_KEY) == 1)
             viewHolder.name.setText(interest.getTag().getTagEn());
+        if (interest.getStatus() != null && interest.getStatus().equalsIgnoreCase("true")) {
+            viewHolder.check.setChecked(true);
+        } else viewHolder.check.setChecked(false);
         viewHolder.check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {

@@ -172,7 +172,7 @@ public class PharmaciesListFragment extends Fragment implements LocationListener
                 if (response.body() != null && response.body().size() > 0) {
                     ArrayList<PharmacyDistance> nearby = response.body();
                     FavouritePharmaciesAdapter adapter = new FavouritePharmaciesAdapter(nearby, getContext(),
-                            getActivity().getIntent().getStringExtra("next"));
+                            getActivity().getIntent().getStringExtra("next"), null);
                     pharmaciesList.setAdapter(adapter);
                     pharmaciesList.setVisibility(View.VISIBLE);
                     noNearby.setVisibility(View.GONE);

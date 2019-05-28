@@ -25,6 +25,8 @@ import com.android.agzakhanty.sprints.one.models.Customer;
 import com.android.agzakhanty.sprints.one.models.Pharmacy;
 import com.android.agzakhanty.sprints.one.models.api_responses.CustomerInfoResponseModel;
 import com.android.agzakhanty.sprints.one.models.api_responses.PharmacyDistance;
+import com.android.agzakhanty.sprints.two.models.api_responses.UpdatePcyStatusResponseModel;
+import com.android.agzakhanty.sprints.two.views.CirclesFull;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -42,6 +44,7 @@ public class CircleFullPharmaciesAdapter extends ArrayAdapter<PharmacyDistance> 
 
     ArrayList<PharmacyDistance> pharmacies;
     Context context;
+    ProgressDialog dialog;
 
     // View lookup cache
     private static class ViewHolder {
@@ -49,12 +52,14 @@ public class CircleFullPharmaciesAdapter extends ArrayAdapter<PharmacyDistance> 
         TextView address;
         TextView distance;
         TextView call;
+        TextView toggle;
     }
 
     public CircleFullPharmaciesAdapter(ArrayList<PharmacyDistance> pharmacies, Context context) {
         super(context, R.layout.circle_full_paharmacy_list_item, pharmacies);
         this.context = context;
         this.pharmacies = pharmacies;
+        dialog = DialogCreator.getInstance(context);
     }
 
     @Override
@@ -69,7 +74,7 @@ public class CircleFullPharmaciesAdapter extends ArrayAdapter<PharmacyDistance> 
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(final int i, View view, ViewGroup viewGroup) {
         // Get the data item for this position
         final PharmacyDistance pharmacy = pharmacies.get(i);
         LayoutInflater inflater = LayoutInflater.from(getContext());
@@ -83,7 +88,7 @@ public class CircleFullPharmaciesAdapter extends ArrayAdapter<PharmacyDistance> 
         viewHolder.address = (TextView) view.findViewById(R.id.addressTV);
         viewHolder.distance = (TextView) view.findViewById(R.id.distanceTV);
         viewHolder.call = (TextView) view.findViewById(R.id.call);
-
+        viewHolder.toggle = (TextView) view.findViewById(R.id.togglePcyActivityButton);
         viewHolder.call.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -96,16 +101,56 @@ public class CircleFullPharmaciesAdapter extends ArrayAdapter<PharmacyDistance> 
                 }
             }
         });
+        viewHolder.toggle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.setMessage("جاري تحديث بيانات الصيدلية..");
+                dialog.show();
+                goToUpdateActiveWS(i);
+            }
+        });
 
         viewHolder.name.setText(pharmacy.getPharmacy().getName());
         viewHolder.address.setText(pharmacy.getPharmacy().getAddress());
         viewHolder.distance.setText(pharmacy.getDistanceResult());
+        if (pharmacy.getPharmacy().getActive().equalsIgnoreCase("y"))
+            viewHolder.toggle.setText("غير نشطة");
+        else
+            viewHolder.toggle.setText("تنشيط");
         //}
         /*else {
             pharmacies.remove(pharmacy);
             notifyDataSetChanged();
         }*/
         return view;
+    }
+
+    private void goToUpdateActiveWS(final int index) {
+        String custJSON = PrefManager.getInstance(context).read(Constants.SP_LOGIN_CUSTOMER_KEY);
+        final Customer customer = new Gson().fromJson(custJSON, new TypeToken<Customer>() {
+        }.getType());
+        Log.d("TEST_UPDATE", new Gson().toJson(customer));
+        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+        Call<UpdatePcyStatusResponseModel> call = apiService.updateCirclePcyStatus(pharmacies.get(index).getPharmacy().getId(), customer.getId());
+        call.enqueue(new Callback<UpdatePcyStatusResponseModel>() {
+            @Override
+            public void onResponse(Call<UpdatePcyStatusResponseModel> call, Response<UpdatePcyStatusResponseModel> response) {
+                if (response.body() != null && response.isSuccessful() && response.body().isUpdated().equalsIgnoreCase("true")) {
+                    String activeResult = response.body().isActive().equalsIgnoreCase("true") ? "Y" : "N";
+                    pharmacies.get(index).getPharmacy().setActive(activeResult);
+                    notifyDataSetChanged();
+                    PrefManager.getInstance(context).write(Constants.CIRCLE_ALL_PHARMACIES_LIST, new Gson().toJson(pharmacies));
+                }
+                dialog.dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<UpdatePcyStatusResponseModel> call, Throwable t) {
+                Toast.makeText(context, context.getResources().getString(R.string.serverFailureMsg), Toast.LENGTH_LONG).show();
+                Log.d("TEST_CERT", t.getMessage());
+                dialog.dismiss();
+            }
+        });
     }
 
 

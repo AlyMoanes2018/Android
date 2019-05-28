@@ -85,7 +85,8 @@ public class ProfilePhotoSetter extends AppCompatActivity {
 
     @OnClick(R.id.skip)
     public void skip() {
-        Intent i = new Intent(this, CustomerLocationSelector.class);
+        Intent i = new Intent(this, AddressActivity.class);
+        i.putExtra("fromEdit", "y");
         startActivity(i);
     }
 
@@ -179,7 +180,8 @@ public class ProfilePhotoSetter extends AppCompatActivity {
                         PrefManager.getInstance(ProfilePhotoSetter.this).write(Constants.SP_LOGIN_CUSTOMER_KEY, new Gson().toJson(response.body().getCstmr()));
                         Log.d("TEST_PHOTO_AFTER", new Gson().toJson(response.body().getCstmr()));
                         Log.d("TEST_REG", response.body().getCstmr().getRegId() + " E");
-                        Intent intent = new Intent(ProfilePhotoSetter.this, CustomerLocationSelector.class);
+                        Intent intent = new Intent(ProfilePhotoSetter.this, AddressActivity.class);
+                        intent.putExtra("fromEdit", "y");
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                     } else {

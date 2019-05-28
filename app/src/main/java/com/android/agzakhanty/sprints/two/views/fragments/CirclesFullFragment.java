@@ -101,8 +101,8 @@ public class CirclesFullFragment extends Fragment {
                 activePharmacies.add(copy.get(i));
             }
         }
-        CircleFullPharmaciesAdapter adapter = new CircleFullPharmaciesAdapter(copy, getContext());
-        Log.d("TEST_PAGE4", copy.size() + "");
+        CircleFullPharmaciesAdapter adapter = new CircleFullPharmaciesAdapter(activePharmacies, getContext());
+        Log.d("TEST_PAGE4_active", new Gson().toJson(activePharmacies));
         if (activePharmacies.size() > 0) {
             pharmaciesList.setAdapter(adapter);
             noNearby.setVisibility(View.GONE);
@@ -132,7 +132,7 @@ public class CirclesFullFragment extends Fragment {
             }
         }
         CircleFullPharmaciesAdapter adapter = new CircleFullPharmaciesAdapter(inActivePharmacies, getContext());
-        Log.d("TEST_PAGE4", copy.size() + "");
+        Log.d("TEST_PAGE4", new Gson().toJson(inActivePharmacies));
         if (inActivePharmacies.size() > 0) {
             pharmaciesList.setAdapter(adapter);
             noNearby.setVisibility(View.GONE);

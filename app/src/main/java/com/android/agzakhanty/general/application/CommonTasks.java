@@ -30,6 +30,7 @@ import com.android.agzakhanty.R;
 import com.android.agzakhanty.general.models.PrefManager;
 import com.android.agzakhanty.sprints.one.models.Customer;
 import com.android.agzakhanty.sprints.one.views.AddPharmacy;
+import com.android.agzakhanty.sprints.one.views.ChangePasswordActivity;
 import com.android.agzakhanty.sprints.one.views.FavouritePharmacy;
 import com.android.agzakhanty.sprints.one.views.ProfilePhotoSetter;
 import com.android.agzakhanty.sprints.one.views.Splash;
@@ -128,7 +129,8 @@ public class CommonTasks {
         SecondaryDrawerItem item8 = new SecondaryDrawerItem().withIdentifier(8).withName(context.getResources().getString(R.string.nav_instructions)).withIcon(R.drawable.ic_instructions);
         SecondaryDrawerItem item9 = new SecondaryDrawerItem().withIdentifier(9).withName(context.getResources().getString(R.string.nav_settings)).withIcon(R.drawable.ic_settings);
         SecondaryDrawerItem item10 = new SecondaryDrawerItem().withIdentifier(10).withName(context.getResources().getString(R.string.editData_settings)).withIcon(R.drawable.ic_settings);
-        SecondaryDrawerItem item11 = new SecondaryDrawerItem().withIdentifier(11).withName(context.getResources().getString(R.string.signOut_settings)).withIcon(R.drawable.ic_input_black_24dp);
+        SecondaryDrawerItem item11 = new SecondaryDrawerItem().withIdentifier(11).withName(context.getResources().getString(R.string.changePass)).withIcon(R.drawable.ic_refresh);
+        SecondaryDrawerItem item12 = new SecondaryDrawerItem().withIdentifier(12).withName(context.getResources().getString(R.string.signOut_settings)).withIcon(R.drawable.ic_input_black_24dp);
         AccountHeader headerResult = new AccountHeaderBuilder()
                 .withActivity((Activity) context)
                 .withHeaderBackground(R.drawable.gradient_background)
@@ -150,7 +152,7 @@ public class CommonTasks {
                 .withActivity((Activity) context)
                 .withToolbar(toolbar)
                 .addDrawerItems(
-                        item1, item2, item3, item4, item5, item6, item7, /*item8, item9*/ item10, item11
+                        item1, item2, item3, item4, item5, item6, item7, /*item8, item9*/ item10, item11, item12
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -245,6 +247,16 @@ public class CommonTasks {
 
 
                             case 9:
+
+                                i = new Intent(context, ChangePasswordActivity.class);
+                                result.closeDrawer();
+                                context.startActivity(i);
+                                ((Activity) context).overridePendingTransition(R.anim.activity_enter, R.anim.activity_leave);
+                                ((Activity) context).finish();
+                                break;
+
+
+                            case 10:
                                 i = new Intent(context, Splash.class);
                                 result.closeDrawer();
                                 context.startActivity(i);
@@ -262,8 +274,8 @@ public class CommonTasks {
         result.setSelection(0);
     }
 
-    public static void showImagesSelectionDialog(final Context ctx){
-        View view = ((Activity)ctx).getLayoutInflater().inflate(R.layout.fragment_bottom_sheet_dialog_pics, null);
+    public static void showImagesSelectionDialog(final Context ctx) {
+        View view = ((Activity) ctx).getLayoutInflater().inflate(R.layout.fragment_bottom_sheet_dialog_pics, null);
         final BottomSheetDialog dialog = new BottomSheetDialog(ctx);
         dialog.setContentView(view);
         RadioGroup rg = (RadioGroup) view.findViewById(R.id.radioSelect);
@@ -273,23 +285,22 @@ public class CommonTasks {
         rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
-                if (cam.isChecked()){
+                if (cam.isChecked()) {
                     dialog.dismiss();
                     if (ctx.checkSelfPermission(Manifest.permission.CAMERA)
                             != PackageManager.PERMISSION_GRANTED) {
-                        ((Activity)ctx).requestPermissions(new String[]{Manifest.permission.CAMERA},
+                        ((Activity) ctx).requestPermissions(new String[]{Manifest.permission.CAMERA},
                                 124);
                     } else {
                         Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                         ((Activity) ctx).startActivityForResult(cameraIntent, 510);
                     }
-                }
-                else if (gallery.isChecked()){
+                } else if (gallery.isChecked()) {
                     dialog.dismiss();
                     Intent intent = new Intent();
                     intent.setType("image/*");
                     intent.setAction(Intent.ACTION_GET_CONTENT);
-                    ((Activity)ctx).startActivityForResult(Intent.createChooser(intent,
+                    ((Activity) ctx).startActivityForResult(Intent.createChooser(intent,
                             ctx.getResources().getString(R.string.selectPic2)), 511);
                 }
             }

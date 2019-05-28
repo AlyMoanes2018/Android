@@ -3,6 +3,7 @@ package com.android.agzakhanty.sprints.two.views;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -10,6 +11,7 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -38,6 +40,7 @@ import com.android.agzakhanty.sprints.one.views.FavouritePharmacy;
 import com.android.agzakhanty.sprints.one.views.InterestsActivity;
 import com.android.agzakhanty.sprints.three.views.NewConsultation;
 import com.android.agzakhanty.sprints.three.views.ReportViolation;
+import com.android.agzakhanty.sprints.two.views.fragments.CirclesFullFragment;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -92,6 +95,7 @@ public class SearchPharmacyByName extends AppCompatActivity implements LocationL
             Log.d("TEST_LOC", "Denied");
             getLocationPermission();
         }
+        goToGetCirclesWS();
     }
 
     @Override
@@ -102,10 +106,8 @@ public class SearchPharmacyByName extends AppCompatActivity implements LocationL
     @OnClick(R.id.searchButton)
     public void searchOnClick() {
         if (DataValidator.isStringEmpty(searchET.getText().toString())) {
-           Toast.makeText(this,getResources().getString(R.string.searchError), Toast.LENGTH_LONG).show();
-        }
-
-        else{
+            Toast.makeText(this, getResources().getString(R.string.searchError), Toast.LENGTH_LONG).show();
+        } else {
             progressBar.setVisibility(View.VISIBLE);
             goToNearbyWS();
         }
@@ -141,11 +143,11 @@ public class SearchPharmacyByName extends AppCompatActivity implements LocationL
     }
 
     private void getLocationPermission() {
-    /*
-     * Request location permission, so that we can get the location of the
-     * device. The result of the permission request is handled by a callback,
-     * onRequestPermissionsResult.
-     */
+        /*
+         * Request location permission, so that we can get the location of the
+         * device. The result of the permission request is handled by a callback,
+         * onRequestPermissionsResult.
+         */
         if (ContextCompat.checkSelfPermission(this,
                 android.Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
@@ -191,8 +193,9 @@ public class SearchPharmacyByName extends AppCompatActivity implements LocationL
             public void onResponse(Call<ArrayList<PharmacyDistance>> call, Response<ArrayList<PharmacyDistance>> response) {
                 if (response.body() != null && response.body().size() > 0) {
                     ArrayList<PharmacyDistance> nearby = response.body();
+                    String fromEdit = getIntent().getStringExtra("fromEdit") != null ? "y" : null;
                     FavouritePharmaciesAdapter adapter = new FavouritePharmaciesAdapter(nearby, SearchPharmacyByName.this,
-                            getIntent().getStringExtra("next"));
+                            getIntent().getStringExtra("next"), fromEdit);
                     pharmaciesLV.setAdapter(adapter);
                     pharmaciesLV.setVisibility(View.VISIBLE);
                     progressBar.setVisibility(View.GONE);
@@ -201,8 +204,8 @@ public class SearchPharmacyByName extends AppCompatActivity implements LocationL
                 } else {
                     pharmaciesLV.setVisibility(View.GONE);
                     progressBar.setVisibility(View.GONE);
-                    Log.d("TEST_CERT", response.code()+"");
-                   // noNearby.setVisibility(View.VISIBLE);
+                    Log.d("TEST_CERT", response.code() + "");
+                    // noNearby.setVisibility(View.VISIBLE);
                 }
 
             }
@@ -242,6 +245,41 @@ public class SearchPharmacyByName extends AppCompatActivity implements LocationL
         startActivity(intent);
         overridePendingTransition(R.anim.activity_leave, R.anim.activity_enter);
         finish();
+
+    }
+
+    private void goToGetCirclesWS() {
+        String custJSON = PrefManager.getInstance(this).read(Constants.SP_LOGIN_CUSTOMER_KEY);
+        final Customer customer = new Gson().fromJson(custJSON, new TypeToken<Customer>() {
+        }.getType());
+        Log.d("TEST_UPDATE", new Gson().toJson(customer));
+        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+        Call<ArrayList<PharmacyDistance>> call = apiService.getallCustomerCirclePharmacies(customer.getId(),
+                customer.getLatitude() + "",
+                customer.getLongitude() + "");
+        call.enqueue(new Callback<ArrayList<PharmacyDistance>>() {
+            @Override
+            public void onResponse(Call<ArrayList<PharmacyDistance>> call, Response<ArrayList<PharmacyDistance>> response) {
+                if (response.body() != null && response.isSuccessful() && response.body().size() > 0) {
+                    String fromEdit = getIntent().getStringExtra("fromEdit") != null ? "y" : null;
+                    FavouritePharmaciesAdapter adapter = new FavouritePharmaciesAdapter(response.body(), SearchPharmacyByName.this,
+                            getIntent().getStringExtra("next"), fromEdit);
+                    pharmaciesLV.setAdapter(adapter);
+                    pharmaciesLV.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.GONE);
+                    Log.d("TEST_Full", new Gson().toJson(customer));
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<PharmacyDistance>> call, Throwable t) {
+                Toast.makeText(SearchPharmacyByName.this, getResources().getString(R.string.serverFailureMsg), Toast.LENGTH_LONG).show();
+                Log.d("TEST_CERT", t.getMessage());
+
+            }
+        });
 
     }
 }
