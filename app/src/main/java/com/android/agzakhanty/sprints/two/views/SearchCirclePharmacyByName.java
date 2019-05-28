@@ -67,6 +67,7 @@ public class SearchCirclePharmacyByName extends AppCompatActivity implements Loc
     RadioButton phone;
     @BindView(R.id.noNearby)
     TextView noNearby;
+    Customer customer;
 
     String searchType = Constants.SERVICE_SEARCH_BY_PHARMACY_NAME;
     private LocationManager locationManager;
@@ -92,7 +93,9 @@ public class SearchCirclePharmacyByName extends AppCompatActivity implements Loc
         ButterKnife.bind(this);
         CommonTasks.setUpTranslucentStatusBar(this);
         setSupportActionBar(toolbar);
-
+        String custJSON = PrefManager.getInstance(this).read(Constants.SP_LOGIN_CUSTOMER_KEY);
+        customer = new Gson().fromJson(custJSON, new TypeToken<Customer>() {
+        }.getType());
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         name.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -172,8 +175,13 @@ public class SearchCirclePharmacyByName extends AppCompatActivity implements Loc
             }
         });
 
-        mLastKnownLocation.setLatitude(30.0340685);
-        mLastKnownLocation.setLongitude(31.3461807);
+        if (customer.getLatitude() != null && customer.getLongitude() != null) {
+            mLastKnownLocation.setLatitude(Double.parseDouble(customer.getLatitude()));
+            mLastKnownLocation.setLatitude(Double.parseDouble(customer.getLongitude()));
+        } else {
+            mLastKnownLocation.setLatitude(30.0340685);
+            mLastKnownLocation.setLongitude(31.3461807);
+        }
         if (ContextCompat.checkSelfPermission(this,
                 android.Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
@@ -196,12 +204,12 @@ public class SearchCirclePharmacyByName extends AppCompatActivity implements Loc
 
     @OnClick(R.id.searchButton)
     public void searchOnClick() {
-       validateInputDataAndSend();
+        validateInputDataAndSend();
 
 
     }
 
-    public void validateInputDataAndSend(){
+    public void validateInputDataAndSend() {
         if (DataValidator.isStringEmpty(searchET.getText().toString())) {
             Toast.makeText(this, getResources().getString(R.string.searchError), Toast.LENGTH_LONG).show();
         } else {
@@ -240,11 +248,11 @@ public class SearchCirclePharmacyByName extends AppCompatActivity implements Loc
     }
 
     private void getLocationPermission() {
-    /*
-     * Request location permission, so that we can get the location of the
-     * device. The result of the permission request is handled by a callback,
-     * onRequestPermissionsResult.
-     */
+        /*
+         * Request location permission, so that we can get the location of the
+         * device. The result of the permission request is handled by a callback,
+         * onRequestPermissionsResult.
+         */
         if (ContextCompat.checkSelfPermission(this,
                 android.Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {

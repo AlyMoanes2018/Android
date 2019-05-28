@@ -155,7 +155,7 @@
                             android:layout_marginStart="10dp"
                             android:layout_centerVertical="true"
                             android:layout_toEndOf="@id/distanceTV"
-                            android:background="@drawable/ic_directions_bike"
+                            android:background="@drawable/ic_delivery_dash"
                             android:visibility="gone" />
 
                         <ImageView

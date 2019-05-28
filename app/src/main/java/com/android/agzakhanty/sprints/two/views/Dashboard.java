@@ -420,8 +420,7 @@ public class Dashboard extends BaseActivity {
                                          Log.d("TEST_TIMER", timerLimitInMilliS + "");
                                          timeRemainingTV2.setTextSize(20f);
                                          timeRemainingTV2.setText(String.format("%02d", hours) + ":" +
-                                                 String.format("%02d", minutes) + ":" +
-                                                 String.format("%02d", seconds));
+                                                 String.format("%02d", minutes) );
                                          alarmIntent.putExtra("orderNum", activeOrder.getOrderId());
                                          Log.d("TEST_NUM", activeOrder.getOrderId());
 
@@ -432,13 +431,13 @@ public class Dashboard extends BaseActivity {
                                                      int updatedHours = (int) ((l / (1000 * 60 * 60)) % 24);
                                                      int updatedSeconds = (int) (l / 1000) % 60;
                                                      int updatedMinutes = (int) ((l / (1000 * 60)) % 60);
-                                                     timeRemainingTV2.setText(String.format("%02d", updatedHours) + ":" + String.format("%02d", updatedMinutes) + ":" + String.format("%02d", updatedSeconds));
+                                                     timeRemainingTV2.setText(String.format("%02d", updatedHours) + ":" + String.format("%02d", updatedMinutes));
 
                                                  }
 
                                                  @Override
                                                  public void onFinish() {
-                                                     timeRemainingTV2.setText("00:00:00");
+                                                     timeRemainingTV2.setText("00:00");
                                                      timelineLayout.setVisibility(View.GONE);
                                                      deliverdLayout.setVisibility(View.VISIBLE);
                                                      PrefManager.getInstance(Dashboard.this).write(Constants.TIMER_IS_STARTED, "");

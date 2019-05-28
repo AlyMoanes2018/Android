@@ -63,6 +63,7 @@ public class SearchPharmacyByName extends AppCompatActivity implements LocationL
     ProgressBar progressBar;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+    Customer customer;
     private LocationManager locationManager;
     Boolean mLocationPermissionGranted = false;
     Location mLastKnownLocation = new Location(NETWORK_STATS_SERVICE);
@@ -76,12 +77,20 @@ public class SearchPharmacyByName extends AppCompatActivity implements LocationL
         ButterKnife.bind(this);
         CommonTasks.setUpTranslucentStatusBar(this);
         setSupportActionBar(toolbar);
+        String custJSON = PrefManager.getInstance(this).read(Constants.SP_LOGIN_CUSTOMER_KEY);
+        customer = new Gson().fromJson(custJSON, new TypeToken<Customer>() {
+        }.getType());
         if (getCallingActivity() != null) {
             Toast.makeText(this, getResources().getString(R.string.pcyForResult), Toast.LENGTH_LONG).show();
         }
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        mLastKnownLocation.setLatitude(30.0340685);
-        mLastKnownLocation.setLongitude(31.3461807);
+        if (customer.getLatitude() != null && customer.getLongitude() != null) {
+            mLastKnownLocation.setLatitude(Double.parseDouble(customer.getLatitude()));
+            mLastKnownLocation.setLatitude(Double.parseDouble(customer.getLongitude()));
+        } else {
+            mLastKnownLocation.setLatitude(30.0340685);
+            mLastKnownLocation.setLongitude(31.3461807);
+        }
         if (ContextCompat.checkSelfPermission(this,
                 android.Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
