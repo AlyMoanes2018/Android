@@ -6,15 +6,15 @@ import retrofit2.http.Streaming;
 
 public class Governorate {
     @SerializedName("Id")
-    private int id;
+    private Integer id;
     @SerializedName("GovDescAr")
     private String name;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -70,4 +70,12 @@ public class PharmacyDistance {
     public void setTotalNoOrders(String totalNoOrders) {
         TotalNoOrders = totalNoOrders;
     }
+
+    public boolean equals(Object o){
+        if(o instanceof PharmacyDistance){
+            PharmacyDistance toCompare = (PharmacyDistance) o;
+            return this.getPharmacy().getId().equals(toCompare.getPharmacy().getId());
+        }
+        return false;
+    }
 }

@@ -4,15 +4,15 @@ import com.google.gson.annotations.SerializedName;
 
 public class City {
     @SerializedName("Id")
-    private int id;
+    private Integer id;
     @SerializedName("CityDescAr")
     private String name;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

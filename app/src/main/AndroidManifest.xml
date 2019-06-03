@@ -48,6 +48,7 @@
         <activity
             android:name=".sprints.one.views.Login"
             android:configChanges="orientation|keyboardHidden"
+            android:windowSoftInputMode="adjustPan"
             android:parentActivityName=".sprints.one.views.Splash"
             android:screenOrientation="portrait"
             android:theme="@style/UserScreensThemes">
@@ -64,6 +65,7 @@
         <activity
             android:name=".sprints.one.views.ForgetPassword"
             android:configChanges="orientation|keyboardHidden"
+            android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".sprints.two.views.Dashboard"

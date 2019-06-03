@@ -25,6 +25,7 @@ import com.android.agzakhanty.sprints.one.models.Customer;
 import com.android.agzakhanty.sprints.one.models.Pharmacy;
 import com.android.agzakhanty.sprints.one.models.api_responses.CustomerInfoResponseModel;
 import com.android.agzakhanty.sprints.one.models.api_responses.PharmacyDistance;
+import com.android.agzakhanty.sprints.two.interfaces.UiUpdaterCallback;
 import com.android.agzakhanty.sprints.two.models.api_responses.UpdatePcyStatusResponseModel;
 import com.android.agzakhanty.sprints.two.views.CirclesFull;
 import com.google.gson.Gson;
@@ -45,6 +46,7 @@ public class CircleFullPharmaciesAdapter extends ArrayAdapter<PharmacyDistance> 
     ArrayList<PharmacyDistance> pharmacies;
     Context context;
     ProgressDialog dialog;
+    UiUpdaterCallback callback;
 
     // View lookup cache
     private static class ViewHolder {
@@ -55,10 +57,11 @@ public class CircleFullPharmaciesAdapter extends ArrayAdapter<PharmacyDistance> 
         TextView toggle;
     }
 
-    public CircleFullPharmaciesAdapter(ArrayList<PharmacyDistance> pharmacies, Context context) {
+    public CircleFullPharmaciesAdapter(ArrayList<PharmacyDistance> pharmacies, Context context, UiUpdaterCallback callback) {
         super(context, R.layout.circle_full_paharmacy_list_item, pharmacies);
         this.context = context;
         this.pharmacies = pharmacies;
+        this.callback = callback;
         dialog = DialogCreator.getInstance(context);
     }
 
@@ -113,7 +116,7 @@ public class CircleFullPharmaciesAdapter extends ArrayAdapter<PharmacyDistance> 
         viewHolder.name.setText(pharmacy.getPharmacy().getName());
         viewHolder.address.setText(pharmacy.getPharmacy().getAddress());
         viewHolder.distance.setText(pharmacy.getDistanceResult());
-        if (pharmacy.getPharmacy().getActive().equalsIgnoreCase("y"))
+        if (pharmacy.getIsCircle().equalsIgnoreCase("true"))
             viewHolder.toggle.setText("غير نشطة");
         else
             viewHolder.toggle.setText("تنشيط");
@@ -136,10 +139,19 @@ public class CircleFullPharmaciesAdapter extends ArrayAdapter<PharmacyDistance> 
             @Override
             public void onResponse(Call<UpdatePcyStatusResponseModel> call, Response<UpdatePcyStatusResponseModel> response) {
                 if (response.body() != null && response.isSuccessful() && response.body().isUpdated().equalsIgnoreCase("true")) {
-                    String activeResult = response.body().isActive().equalsIgnoreCase("true") ? "Y" : "N";
-                    pharmacies.get(index).getPharmacy().setActive(activeResult);
+                    String activeResult = response.body().isActive();
+                    String allCirclePcysJSON = PrefManager.getInstance(context).read(Constants.CIRCLE_ALL_PHARMACIES_LIST);
+                    ArrayList<PharmacyDistance> allCirclePcys = new Gson().fromJson(allCirclePcysJSON, new TypeToken<ArrayList<PharmacyDistance>>() {
+                    }.getType());
+                    for (int i = 0; i < allCirclePcys.size(); i++) {
+                        if (allCirclePcys.get(i).getPharmacy().getId().equalsIgnoreCase(pharmacies.get(index).getPharmacy().getId())) {
+                            allCirclePcys.get(i).setIsCircle(activeResult);
+                            break;
+                        }
+                    }
+                    PrefManager.getInstance(context).write(Constants.CIRCLE_ALL_PHARMACIES_LIST, new Gson().toJson(allCirclePcys));
                     notifyDataSetChanged();
-                    PrefManager.getInstance(context).write(Constants.CIRCLE_ALL_PHARMACIES_LIST, new Gson().toJson(pharmacies));
+                    callback.onUiUpdateNeeded(activeResult);
                 }
                 dialog.dismiss();
             }

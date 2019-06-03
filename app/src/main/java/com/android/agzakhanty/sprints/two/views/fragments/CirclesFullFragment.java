@@ -23,6 +23,7 @@ import com.android.agzakhanty.sprints.one.models.Customer;
 import com.android.agzakhanty.sprints.one.models.Pharmacy;
 import com.android.agzakhanty.sprints.one.models.api_responses.PharmacyDistance;
 import com.android.agzakhanty.sprints.two.adapters.CircleFullPharmaciesAdapter;
+import com.android.agzakhanty.sprints.two.interfaces.UiUpdaterCallback;
 import com.android.agzakhanty.sprints.two.models.Order;
 import com.android.agzakhanty.sprints.two.views.CirclesFull;
 import com.google.gson.Gson;
@@ -36,7 +37,7 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CirclesFullFragment extends Fragment {
+public class CirclesFullFragment extends Fragment implements UiUpdaterCallback {
 
     @BindView(R.id.pharmaciesList)
     ListView pharmaciesList;
@@ -95,13 +96,13 @@ public class CirclesFullFragment extends Fragment {
         ArrayList<PharmacyDistance> activePharmacies = new ArrayList<>();
         for (int i = 0; i < copy.size(); i++) {
             //Log.d("TEST_PAGE", copy.get(i).getName() + " " + copy.get(i).getActive());
-            if (copy.get(i).getPharmacy().getActive() == null ||
-                    copy.get(i).getPharmacy().getActive().equalsIgnoreCase("y")) {
+            if (copy.get(i).getIsCircle() == null ||
+                    copy.get(i).getIsCircle().equalsIgnoreCase("true")) {
                 //Log.d("TEST_PAGE", copy.get(i).getName() + " removed");
                 activePharmacies.add(copy.get(i));
             }
         }
-        CircleFullPharmaciesAdapter adapter = new CircleFullPharmaciesAdapter(activePharmacies, getContext());
+        CircleFullPharmaciesAdapter adapter = new CircleFullPharmaciesAdapter(activePharmacies, getContext(), this);
         Log.d("TEST_PAGE4_active", new Gson().toJson(activePharmacies));
         if (activePharmacies.size() > 0) {
             pharmaciesList.setAdapter(adapter);
@@ -111,7 +112,7 @@ public class CirclesFullFragment extends Fragment {
             adapter.notifyDataSetChanged();
         } else {
             noNearby.setVisibility(View.VISIBLE);
-            progressBar.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.GONE);
             pharmaciesList.setVisibility(View.GONE);
         }
 
@@ -120,18 +121,18 @@ public class CirclesFullFragment extends Fragment {
     public void loadInactivePharmacies() {
         progressBar.setVisibility(View.GONE);
         String custJSON = PrefManager.getInstance(getContext()).read(Constants.CIRCLE_ALL_PHARMACIES_LIST);
+        Log.d("TEST_JSON", custJSON);
         ArrayList<PharmacyDistance> copy = new Gson().fromJson(custJSON, new TypeToken<ArrayList<PharmacyDistance>>() {
         }.getType());
         ArrayList<PharmacyDistance> inActivePharmacies = new ArrayList<>();
         for (int i = 0; i < copy.size(); i++) {
             //Log.d("TEST_PAGE2", copy.get(i).getName() + " " + copy.get(i).getActive());
-            if (copy.get(i).getPharmacy().getActive().equalsIgnoreCase("n") ||
-                    copy.get(i).getPharmacy().getActive().equalsIgnoreCase("p")) {
+            if (copy.get(i).getIsCircle().equalsIgnoreCase("false")) {
                 //Log.d("TEST_PAGE2", copy.get(i).getName() + " removed");
                 inActivePharmacies.add(copy.get(i));
             }
         }
-        CircleFullPharmaciesAdapter adapter = new CircleFullPharmaciesAdapter(inActivePharmacies, getContext());
+        CircleFullPharmaciesAdapter adapter = new CircleFullPharmaciesAdapter(inActivePharmacies, getContext(), this);
         Log.d("TEST_PAGE4", new Gson().toJson(inActivePharmacies));
         if (inActivePharmacies.size() > 0) {
             pharmaciesList.setAdapter(adapter);
@@ -145,4 +146,12 @@ public class CirclesFullFragment extends Fragment {
         }
     }
 
+
+    @Override
+    public void onUiUpdateNeeded(String activeResult) {
+        if (activeResult.equalsIgnoreCase("true"))
+            loadInactivePharmacies();
+        else if (activeResult.equalsIgnoreCase("false"))
+            loadActivePharmacies();
+    }
 }
