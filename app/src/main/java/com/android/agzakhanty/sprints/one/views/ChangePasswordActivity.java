@@ -42,6 +42,10 @@ public class ChangePasswordActivity extends AppCompatActivity {
     TextInputLayout newPasTI;
     @BindView(R.id.passwordET)
     TextInputEditText newPassET;
+    @BindView(R.id.passwordConfirmationWrapper)
+    TextInputLayout confirmPasTI;
+    @BindView(R.id.passwordConfirmationET)
+    TextInputEditText confirmPassET;
     @BindView(R.id.toolbar)
     Toolbar appBar;
     Customer customer;
@@ -56,10 +60,12 @@ public class ChangePasswordActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         CommonTasks.addLeftMenu(this, appBar);
         CommonTasks.setUpTranslucentStatusBar(this);
-        CommonTasks.setUpPasswordETWithCustomFont(this, currentPassET);
-        CommonTasks.setUpPasswordETWithCustomFont(this, newPassET);
+        CommonTasks.setUpPasswordETWithCustomFont(this, currentPasTI);
+        CommonTasks.setUpPasswordETWithCustomFont(this, newPasTI);
+        CommonTasks.setUpPasswordETWithCustomFont(this, confirmPasTI);
         CommonTasks.setUpTextInputLayoutErrors(currentPasTI, currentPassET);
         CommonTasks.setUpTextInputLayoutErrors(newPasTI, newPassET);
+        CommonTasks.setUpTextInputLayoutErrors(confirmPasTI, confirmPassET);
         dialog = DialogCreator.getInstance(this);
         String custJSON = PrefManager.getInstance(this).read(Constants.SP_LOGIN_CUSTOMER_KEY);
         customer = new Gson().fromJson(custJSON, new TypeToken<Customer>() {
@@ -77,6 +83,11 @@ public class ChangePasswordActivity extends AppCompatActivity {
         }
         if (!currentPassET.getText().toString().equals(customer.getPwd())){
             currentPasTI.setError("كلمة المرور غير صحيحة");
+            return false;
+        }
+        if (!confirmPassET.getText().toString().equals(newPassET.getText().toString())){
+            newPasTI.setError("كلمة المرور غير متطابقة");
+            confirmPasTI.setError("كلمة المرور غير متطابقة");
             return false;
         }
 

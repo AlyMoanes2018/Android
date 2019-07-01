@@ -91,7 +91,7 @@ public class Login extends AppCompatActivity {
         setSupportActionBar(appBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         CommonTasks.setUpTranslucentStatusBar(this);
-        CommonTasks.setUpPasswordETWithCustomFont(this, passwordET);
+        CommonTasks.setUpPasswordETWithCustomFont(this, passwordLayout);
         CommonTasks.setUpTextInputLayoutErrors(userNameLayout, userNameET);
         CommonTasks.setUpTextInputLayoutErrors(passwordLayout, passwordET);
         dialog = DialogCreator.getInstance(this);

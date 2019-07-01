@@ -17,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -91,11 +92,12 @@ public class CommonTasks {
                                           });
     }
 
-    public static void setUpPasswordETWithCustomFont(Context ctx, EditText et) {
+    public static void setUpPasswordETWithCustomFont(Context ctx, TextInputLayout ti) {
         Typeface face = Typeface.createFromAsset(ctx.getAssets(), CalligraphyConfig.get().getFontPath());
-        et.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-        et.setTypeface(face);
+        ti.setTypeface(face);
     }
+
+
 
     public static void setUpTranslucentStatusBar(Activity act) {
         act.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);

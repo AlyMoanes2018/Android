@@ -159,7 +159,7 @@
     <string name="lastMeasureValue">لا يوجد</string>
     <string name="orderStatus">حالة الطلب</string>
     <string name="remaining">متبقي</string>
-    <string name="remaining2">دقيقة</string>
+    <string name="remaining2">ساعة</string>
     <string name="preparingOrder">قيد التحضير</string>
     <string name="deliveringOrder">جاهز / في الطريق</string>
     <string name="deliveredOrder">تم التسليم</string>

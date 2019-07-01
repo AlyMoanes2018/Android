@@ -147,5 +147,10 @@
         <item name="android:windowEnterAnimation">@anim/jump_from_down</item>
         <item name="android:windowExitAnimation">@anim/jump_to_down</item>
     </style>
+
+    <style name="SpinnerAppTheme" parent="android:Widget.Spinner">
+        <item name="android:background">@android:color/white</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
     
 </resources>

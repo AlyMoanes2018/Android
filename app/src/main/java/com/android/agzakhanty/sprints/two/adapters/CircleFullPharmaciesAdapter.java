@@ -117,7 +117,7 @@ public class CircleFullPharmaciesAdapter extends ArrayAdapter<PharmacyDistance> 
         viewHolder.address.setText(pharmacy.getPharmacy().getAddress());
         viewHolder.distance.setText(pharmacy.getDistanceResult());
         if (pharmacy.getIsCircle().equalsIgnoreCase("true"))
-            viewHolder.toggle.setText("غير نشطة");
+            viewHolder.toggle.setText("تعطيل");
         else
             viewHolder.toggle.setText("تنشيط");
         //}

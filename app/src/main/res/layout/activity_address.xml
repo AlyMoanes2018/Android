@@ -93,12 +93,13 @@
                     android:layout_below="@id/userName"
                     app:errorTextAppearance="@style/error_appearance">
 
-                    <Spinner
+                    <android.support.v7.widget.AppCompatSpinner
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:prompt="@string/selectGovPrompt"
+                        app:backgroundTint="@android:color/white"
                         android:id="@+id/govSpinner">
-                    </Spinner>
+                    </android.support.v7.widget.AppCompatSpinner>
                 </android.support.design.widget.TextInputLayout>
 
             </RelativeLayout>
@@ -130,12 +131,13 @@
                     android:layout_below="@id/cityTV"
                     app:errorTextAppearance="@style/error_appearance">
 
-                    <Spinner
+                    <android.support.v7.widget.AppCompatSpinner
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:prompt="@string/selectCityPrompt"
+                        app:backgroundTint="@android:color/white"
                         android:id="@+id/citySpinner">
-                    </Spinner>
+                    </android.support.v7.widget.AppCompatSpinner>
                 </android.support.design.widget.TextInputLayout>
 
             </RelativeLayout>
@@ -162,7 +164,6 @@
                 <LinearLayout
                     android:layout_width="0px"
                     android:layout_height="0px"
-                    android:layout_below="@id/appBar"
                     android:focusable="true"
                     android:focusableInTouchMode="true" />
                 <android.support.design.widget.TextInputLayout
@@ -182,6 +183,7 @@
                        android:minLines="4"
                        android:background="@android:color/white"
                        android:textColor="@android:color/black"
+                       android:paddingStart="8dp"
                        android:scrollbars="vertical"
                        />
                 </android.support.design.widget.TextInputLayout>

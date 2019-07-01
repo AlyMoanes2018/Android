@@ -89,6 +89,8 @@
                 android:layout_marginRight="@dimen/material_drawer_vertical_padding"
                 android:fontFamily="sans-serif-medium"
                 android:lines="1"
+                android:text=""
+                android:gravity="right"
                 android:maxLines="1"
                 android:textSize="@dimen/material_drawer_account_header_text" />
 

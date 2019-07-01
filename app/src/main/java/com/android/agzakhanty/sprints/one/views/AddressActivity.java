@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -46,7 +47,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 public class AddressActivity extends AppCompatActivity {
 
     @BindView(R.id.govSpinner)
-    Spinner governeratesSpinner;
+    AppCompatSpinner governeratesSpinner;
     int selectedGovIndex = -1;
     @BindView(R.id.govWrapper)
     TextInputLayout govTI;
@@ -56,7 +57,7 @@ public class AddressActivity extends AppCompatActivity {
     TextInputLayout citiesTI;
     int selectedCityIndex = -1;
     @BindView(R.id.citySpinner)
-    Spinner citiesSpinner;
+    AppCompatSpinner citiesSpinner;
     ArrayList<String> citiesNames;
     ArrayList<Integer> citiesIds;
     @BindView(R.id.addressDetailedET)

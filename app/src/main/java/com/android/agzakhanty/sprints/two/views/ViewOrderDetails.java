@@ -227,17 +227,15 @@ public class ViewOrderDetails extends AppCompatActivity {
                     else if (order.getDeliveryType().equalsIgnoreCase("h"))
                         homeDelivery.setChecked(true);
                     if (order.getStatusId() != null) {
-                        if (!order.getStatusId().equals("6") && !order.getStatusId().equals("7")) {
-                            actionsLayout.setVisibility(View.VISIBLE);
-                            backLayout.setVisibility(View.GONE);
-                        } else if (order.getStatusId().equals("5")) {
-                            actionsLayout.setVisibility(View.VISIBLE);
-                            orderBtn.setVisibility(View.GONE);
-                            backLayout.setVisibility(View.GONE);
-                        } else {
-                            actionsLayout.setVisibility(View.INVISIBLE);
+                        Log.d("TEST_STATUS", order.getStatusId());
+                        if (order.getStatusId().equals("1") || order.getStatusId().equals("3") || order.getStatusId().equals("4") || order.getStatusId().equals("5")) {
+                            actionsLayout.setVisibility(View.GONE);
                             backLayout.setVisibility(View.VISIBLE);
+                        } else if (order.getStatusId().equals("2")) {
+                            actionsLayout.setVisibility(View.VISIBLE);
+                            backLayout.setVisibility(View.GONE);
                         }
+
                     } else {
                         actionsLayout.setVisibility(View.INVISIBLE);
                         backLayout.setVisibility(View.VISIBLE);
@@ -283,6 +281,7 @@ public class ViewOrderDetails extends AppCompatActivity {
                                     .centerCrop()
                                     .into(pharmacyLogo);
                         }
+                        pharmacyLogo.setVisibility(View.VISIBLE);
                         if (model.getPharmacy().getAllDay() != null && !model.getPharmacy().getAllDay().isEmpty()) {
                             twentyFourTV.setVisibility(View.VISIBLE);
                         }
@@ -291,7 +290,8 @@ public class ViewOrderDetails extends AppCompatActivity {
                             distanceTV.setText(model.getPharmacy().getDistance());
                             distanceTV.setVisibility(View.VISIBLE);
                         }
-                        if (model.getPharmacy().getDelivery() != null && !model.getPharmacy().getDelivery().isEmpty()) {
+                        if (model.getPharmacy().getDelivery() != null && !model.getPharmacy().getDelivery().isEmpty() &&
+                                model.getPharmacy().getDelivery().equalsIgnoreCase("y")) {
                             deliveryButton.setVisibility(View.VISIBLE);
                         }
                         if (model.getPharmacy().getChat() != null && !model.getPharmacy().getChat().isEmpty()) {
