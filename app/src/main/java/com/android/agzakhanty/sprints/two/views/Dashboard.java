@@ -408,6 +408,7 @@ public class Dashboard extends BaseActivity {
                                          timelineLayout.setVisibility(View.GONE);
                                          deliverdLayout.setVisibility(View.VISIBLE);
                                      } else {
+
                                          int hours = Integer.parseInt(activeOrder.getRemainingTimeHours());
                                          int minutes = Integer.parseInt(activeOrder.getRemainingTime());
                                          try {
@@ -415,6 +416,7 @@ public class Dashboard extends BaseActivity {
                                          } catch (Exception e) {
                                              seconds = 0;
                                          }
+                                         Log.d("TEST_TIME_WS", hours + ":" + minutes + ":" + seconds);
                                          Log.d("TEST_SECONDS", seconds + "");
                                          int timerLimitInMilliS = (hours * 60 * 60 * 1000) + (minutes * 60 * 1000) + ( seconds * 1000);
                                          Log.d("TEST_TIMER", timerLimitInMilliS + "");
@@ -554,7 +556,7 @@ public class Dashboard extends BaseActivity {
                         model.getPharmacy().setDistance(model.getDistanceResult());
                         favPharmDataTV.setText(getResources().getString(R.string.yourFavPcy) + "\n" + model.getPharmacy().getName() + "\n" +
                                 model.getPharmacy().getAddress());
-                        callFavPharmacy.setVisibility(View.VISIBLE);
+                        //callFavPharmacy.setVisibility(View.VISIBLE);
                         progressBar.setVisibility(View.GONE);
                         favPharmDataTV.setVisibility(View.VISIBLE);
                         menuRed.setVisibility(View.VISIBLE);

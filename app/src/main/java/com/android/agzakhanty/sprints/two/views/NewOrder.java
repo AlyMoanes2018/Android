@@ -214,7 +214,7 @@ public class NewOrder extends AppCompatActivity {
                                 model.getPharmacy().getAddress());
                         favouritePharmacyID = response.body().getPharmacy().getId();
                         editFavPharmacyButton.setText(getResources().getString(R.string.edit));
-                        callFavPharmacy.setVisibility(View.VISIBLE);
+                        //callFavPharmacy.setVisibility(View.VISIBLE);
                         progressBar.setVisibility(View.GONE);
                         favPharmDataTV.setVisibility(View.VISIBLE);
                         editFavPharmacyButton.setVisibility(View.VISIBLE);

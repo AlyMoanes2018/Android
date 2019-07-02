@@ -10,9 +10,13 @@ import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.IdRes;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.content.FileProvider;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.InputType;
@@ -59,6 +63,12 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 import static com.android.agzakhanty.R.string.settings;
@@ -96,7 +106,6 @@ public class CommonTasks {
         Typeface face = Typeface.createFromAsset(ctx.getAssets(), CalligraphyConfig.get().getFontPath());
         ti.setTypeface(face);
     }
-
 
 
     public static void setUpTranslucentStatusBar(Activity act) {
@@ -294,8 +303,24 @@ public class CommonTasks {
                         ((Activity) ctx).requestPermissions(new String[]{Manifest.permission.CAMERA},
                                 124);
                     } else {
-                        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                        ((Activity) ctx).startActivityForResult(cameraIntent, 510);
+                        // Create the File where the photo should go
+                        File photoFile = null;
+                        try {
+                            photoFile = createImageFile(ctx);
+                        } catch (IOException ex) {
+                            // Error occurred while creating the File
+                            Log.d("TEST_CAMERA_FILE", "Failed to load", ex);
+                        }
+                        // Continue only if the File was successfully created
+                        if (photoFile != null) {
+                            Log.d("TEST_CAMERA_FILE", "FILE CREATED");
+                            Uri photoURI = FileProvider.getUriForFile(ctx,
+                                    "com.android.agzakhanty",
+                                    photoFile);
+                            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                            ((Activity) ctx).startActivityForResult(takePictureIntent, 510);
+                        }
                     }
                 } else if (gallery.isChecked()) {
                     dialog.dismiss();
@@ -319,5 +344,21 @@ public class CommonTasks {
             view = new View(activity);
         }
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    private static File createImageFile(Context context) throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", new Locale("en")).format(new Date());
+        String imageFileName = "AGZ_PRES_" + timeStamp;
+        File storageDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        Agzakhanty.prescriptionImageResultPath = image.getAbsolutePath();
+        return image;
     }
 }

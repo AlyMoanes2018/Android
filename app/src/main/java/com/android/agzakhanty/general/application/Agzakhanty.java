@@ -34,6 +34,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 public  class  Agzakhanty extends Application {
     public static SharedPreferences preferences;
     private static Context context;
+    public static String prescriptionImageResultPath = "";
     public static LocalizationApplicationDelegate localizationDelegate;
 
     public static Context getContext() {

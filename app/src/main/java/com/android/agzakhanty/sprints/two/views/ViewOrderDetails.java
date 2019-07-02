@@ -228,10 +228,11 @@ public class ViewOrderDetails extends AppCompatActivity {
                         homeDelivery.setChecked(true);
                     if (order.getStatusId() != null) {
                         Log.d("TEST_STATUS", order.getStatusId());
-                        if (order.getStatusId().equals("1") || order.getStatusId().equals("3") || order.getStatusId().equals("4") || order.getStatusId().equals("5")) {
+                        if (order.getStatusId().equals("1")  || order.getStatusId().equals("4") || order.getStatusId().equals("5")
+                                || order.getStatusId().equals("6") || order.getStatusId().equals("7")) {
                             actionsLayout.setVisibility(View.GONE);
                             backLayout.setVisibility(View.VISIBLE);
-                        } else if (order.getStatusId().equals("2")) {
+                        } else if (order.getStatusId().equals("2") || order.getStatusId().equals("3")) {
                             actionsLayout.setVisibility(View.VISIBLE);
                             backLayout.setVisibility(View.GONE);
                         }
@@ -265,7 +266,7 @@ public class ViewOrderDetails extends AppCompatActivity {
                         model.getPharmacy().setDistance(model.getDistanceResult());
                         favPharmDataTV.setText(getResources().getString(R.string.yourFavPcy) + "\n" + model.getPharmacy().getName() + "\n" +
                                 model.getPharmacy().getAddress());
-                        callFavPharmacy.setVisibility(View.VISIBLE);
+                        //callFavPharmacy.setVisibility(View.VISIBLE);
                         progressBar.setVisibility(View.GONE);
                         favPharmDataTV.setVisibility(View.VISIBLE);
                         if (model.getPharmacy().getLogoURL() != null && !model.getPharmacy().getLogoURL().isEmpty()) {

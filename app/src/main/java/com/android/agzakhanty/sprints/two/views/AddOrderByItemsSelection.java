@@ -183,7 +183,7 @@ public class AddOrderByItemsSelection extends AppCompatActivity {
                         model.getPharmacy().setDistance(model.getDistanceResult());
                         favPharmDataTV.setText(getResources().getString(R.string.yourFavPcy) + "\n" + model.getPharmacy().getName() + "\n" +
                                 model.getPharmacy().getAddress());
-                        callFavPharmacy.setVisibility(View.VISIBLE);
+                        //callFavPharmacy.setVisibility(View.VISIBLE);
                         progressBar.setVisibility(View.GONE);
                         favPharmDataTV.setVisibility(View.VISIBLE);
                         if (model.getPharmacy().getDelivery().equalsIgnoreCase("n"))
@@ -203,6 +203,7 @@ public class AddOrderByItemsSelection extends AppCompatActivity {
                                     .centerCrop()
                                     .into(pharmacyLogo);
                         }
+                        pharmacyLogo.setVisibility(View.VISIBLE);
                         if (model.getPharmacy().getAllDay() != null && !model.getPharmacy().getAllDay().isEmpty()
                                 && model.getPharmacy().getAllDay().equalsIgnoreCase("y")) {
                             twentyFourTV.setVisibility(View.VISIBLE);

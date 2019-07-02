@@ -3,6 +3,7 @@ package com.android.agzakhanty.sprints.two.views;
 import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -10,6 +11,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -32,6 +34,7 @@ import android.widget.Toast;
 import com.android.agzakhanty.R;
 import com.android.agzakhanty.general.api.ApiClient;
 import com.android.agzakhanty.general.api.ApiInterface;
+import com.android.agzakhanty.general.application.Agzakhanty;
 import com.android.agzakhanty.general.application.CommonTasks;
 import com.android.agzakhanty.general.application.Constants;
 import com.android.agzakhanty.general.application.DialogCreator;
@@ -45,8 +48,13 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -172,7 +180,7 @@ public class AddOrderByPrescriptionPhoto extends AppCompatActivity {
                         model.getPharmacy().setDistance(model.getDistanceResult());
                         favPharmDataTV.setText(getResources().getString(R.string.yourFavPcy) + "\n" + model.getPharmacy().getName() + "\n" +
                                 model.getPharmacy().getAddress());
-                        callFavPharmacy.setVisibility(View.VISIBLE);
+                        //callFavPharmacy.setVisibility(View.VISIBLE);
                         progressBar.setVisibility(View.GONE);
                         favPharmDataTV.setVisibility(View.VISIBLE);
                         if (model.getPharmacy().getDelivery().equalsIgnoreCase("n"))
@@ -192,6 +200,7 @@ public class AddOrderByPrescriptionPhoto extends AppCompatActivity {
                                     .centerCrop()
                                     .into(pharmacyLogo);
                         }
+                        pharmacyLogo.setVisibility(View.VISIBLE);
                         if (model.getPharmacy().getAllDay() != null && !model.getPharmacy().getAllDay().isEmpty()
                                 && model.getPharmacy().getAllDay().equalsIgnoreCase("y")) {
                             twentyFourTV.setVisibility(View.VISIBLE);
@@ -264,13 +273,29 @@ public class AddOrderByPrescriptionPhoto extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 510 && resultCode == RESULT_OK) {
 
-            Bitmap photo = (Bitmap) data.getExtras().get("data");
-            imgLayout.setBackground(new BitmapDrawable(photo));
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            photo.compress(Bitmap.CompressFormat.PNG, 100, stream);
-            byte[] byteArray = stream.toByteArray();
-            imgByteArrStr = Base64.encodeToString(byteArray, Base64.DEFAULT);
-            Log.d("TEST_BYTE_CAM", imgByteArrStr + "");
+            Uri mImageUri = Uri.fromFile(new File(Agzakhanty.prescriptionImageResultPath));
+            this.getContentResolver().notifyChange(mImageUri, null);
+            ContentResolver cr = this.getContentResolver();
+            Bitmap bitmap;
+            try
+            {
+                bitmap = android.provider.MediaStore.Images.Media.getBitmap(cr, mImageUri);
+                imgLayout.setBackground(new BitmapDrawable(getResources(), bitmap));
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream);
+                byte[] byteArray = stream.toByteArray();
+                imgByteArrStr = Base64.encodeToString(byteArray, Base64.DEFAULT);
+                Log.d("TEST_BYTE_CAM", imgByteArrStr + "");
+            }
+            catch (Exception e)
+            {
+                Toast.makeText(this, "Failed to load", Toast.LENGTH_SHORT).show();
+                Log.d("TEST_CAMERA", "Failed to load", e);
+            }
+
+            //--------------------------------------------------
+
+
         } else if (requestCode == 511 && resultCode == RESULT_OK && data != null && data.getData() != null) {
             Uri uri = data.getData();
 
@@ -383,4 +408,6 @@ public class AddOrderByPrescriptionPhoto extends AppCompatActivity {
         finish();
 
     }
+
+
 }

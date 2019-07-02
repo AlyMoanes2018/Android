@@ -66,8 +66,8 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/pharmacyLogo"
-                    android:layout_width="41dp"
-                    android:layout_height="41dp"
+                    android:layout_width="85dp"
+                    android:layout_height="85dp"
                     android:layout_alignParentEnd="true"
                     android:src="@drawable/com_facebook_profile_picture_blank_square"
                     android:visibility="gone" />
@@ -81,6 +81,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="119dp"
+                android:visibility="gone"
                 android:background="@drawable/ic_phone" />
 
             <RelativeLayout
@@ -136,7 +137,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_toEndOf="@id/distanceTV"
-                    android:background="@drawable/ic_perm_phone_msg"
+                    android:background="@drawable/ic_delivery_dash"
                     android:visibility="gone" />
 
                 <ImageView

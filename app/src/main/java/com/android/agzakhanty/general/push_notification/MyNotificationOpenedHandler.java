@@ -73,6 +73,12 @@ public class MyNotificationOpenedHandler implements OneSignal.NotificationOpened
                 /*((Activity)context).overridePendingTransition(R.anim.activity_enter, R.anim.activity_leave);
                 ((Activity)context).finish();*/
             }
+        }else {
+             Intent intent = new Intent(context, Dashboard.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        context.startActivity(intent);
+        //((Activity) context).overridePendingTransition(R.anim.activity_enter, R.anim.activity_leave);
+        //((Activity) context).finish();
         }
     }
 }
