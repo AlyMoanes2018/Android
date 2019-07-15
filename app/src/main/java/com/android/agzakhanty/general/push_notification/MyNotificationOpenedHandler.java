@@ -43,6 +43,8 @@ public class MyNotificationOpenedHandler implements OneSignal.NotificationOpened
             orderId = data.optString("OrderID", "-1");
             counter = data.optString("NoCstmrRepeat", "-1");
             pcyID = data.optString("PcyId", "-1");
+
+            Log.d("TEST_NOTIFICATION", orderId + " " + counter + " " + pcyID);
         }
         //If we send notification with action buttons we need to specidy the button id's and retrieve it to
         //do the necessary operation.

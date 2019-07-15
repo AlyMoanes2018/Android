@@ -237,8 +237,9 @@ public class Dashboard extends BaseActivity {
         Intent intent = new Intent(Agzakhanty.getContext(), AddAdvertismentRate.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.putExtra(Constants.ACTIVITY_STARTED_FROM, "dash");
-        Log.d("TEST_NUM_DASH", activeOrder.getOrderId() + " E");
+        Log.d("TEST_PCY_DASH", activeOrder.getPcyId() + " E");
         intent.putExtra("orderNum", activeOrder.getOrderId());
+        intent.putExtra("PcyId", activeOrder.getPcyId());
         startActivity(intent);
         overridePendingTransition(R.anim.activity_enter, R.anim.activity_leave);
     }
@@ -387,7 +388,7 @@ public class Dashboard extends BaseActivity {
                              progressBar.setVisibility(View.GONE);
                              if (response.body() != null && response.isSuccessful()) {
                                  activeOrder = response.body();
-                                 Log.d("TEST_NUM_ORD", activeOrder.getOrderId() + " E");
+                                 Log.d("TEST_NUM_ORD", activeOrder.getPcyId() + " E");
                                  progressBar2.setVisibility(View.GONE);
                                  noActiveOrder.setVisibility(View.GONE);
                                  timelineLayout.setVisibility(View.VISIBLE);

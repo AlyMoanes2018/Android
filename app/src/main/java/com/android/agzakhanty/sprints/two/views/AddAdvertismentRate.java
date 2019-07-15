@@ -65,7 +65,7 @@ public class AddAdvertismentRate extends AppCompatActivity {
                 trnsID = orderNumber;
                 if (getIntent().getStringExtra("PcyId") != null && !getIntent().getStringExtra("PcyId").equals("-1"))
                     pcyID = getIntent().getStringExtra("PcyId");
-                else pcyID = "1007";
+                //else pcyID = "1007";
 
             } else {
                 type = Constants.RATE_TYPE_ADV;
@@ -73,6 +73,7 @@ public class AddAdvertismentRate extends AppCompatActivity {
                 pcyID = ad.getPcyId();
             }
             dialog.setMessage(getResources().getString(R.string.placingRate));
+            Log.d("TEST_RATE", type + " " + trnsID + " " + pcyID);
             callSaveAdWS(type, trnsID, pcyID);
         }
     }
