@@ -436,13 +436,22 @@ public class NewMeasurementDetails extends AppCompatActivity implements DatePick
                 dialog.dismiss();
                 if (response.body() != null && response.isSuccessful()) {
                     latestMeasure = response.body();
-                    Log.d("TEST_LATEST", new Gson().toJson(latestMeasure));
-                    value.setText(Float.parseFloat(latestMeasure.getVal1()) + "");
+                    Log.d("TEST_LATEST", latestMeasure.getVal1().split("\\.").length + "");
+                    if (latestMeasure.getVal1().split("\\.").length > 1 && latestMeasure.getVal1().split("\\.")[1].equals("0")) {
+
+                        value.setText(Integer.parseInt(latestMeasure.getVal1().split("\\.")[0]) + "");
+                    } else {
+                        value.setText(Float.parseFloat(latestMeasure.getVal1()) + "");
+                    }
                     if (latestMeasure.getVal2() != null && !latestMeasure.getVal2().equals("0.0")) {
                         value2.setEnabled(false);
                         value2.setVisibility(View.VISIBLE);
                         separator.setVisibility(View.VISIBLE);
-                        value2.setText( Float.parseFloat(latestMeasure.getVal2()) + "");
+                        if (latestMeasure.getVal2().split("\\.").length > 1 && latestMeasure.getVal2().split("\\.")[1].equals("0")) {
+                            value2.setText(Integer.parseInt(latestMeasure.getVal2().split("\\.")[0]) + "");
+                        } else {
+                            value2.setText(Float.parseFloat(latestMeasure.getVal2()) + "");
+                        }
                     } else {
                         value2.setVisibility(View.GONE);
                         separator.setVisibility(View.GONE);
@@ -481,12 +490,12 @@ public class NewMeasurementDetails extends AppCompatActivity implements DatePick
 
     @Override
     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-        measurementDate = String.format(new Locale("en"),"%02d", i2) + "/" + String.format(new Locale("en"),"%02d", (i1 + 1)) + "/" + i;
+        measurementDate = String.format(new Locale("en"), "%02d", i2) + "/" + String.format(new Locale("en"), "%02d", (i1 + 1)) + "/" + i;
         TimePickerDialog timePickerDialog = new TimePickerDialog(
                 NewMeasurementDetails.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int i, int i1) {
-                measurementTime = String.format(new Locale("en"),"%02d", i) + ":" + String.format(new Locale("en"),"%02d", i1) + ":00";
+                measurementTime = String.format(new Locale("en"), "%02d", i) + ":" + String.format(new Locale("en"), "%02d", i1) + ":00";
                 dateValue.setText(measurementDate);
                 timeValue.setText(measurementTime);
                 enterDate.setVisibility(View.GONE);
